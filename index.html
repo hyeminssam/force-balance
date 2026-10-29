@@ -1,0 +1,1007 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>힘의 평형 탐구실</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<script src="config.js"></script>
+<style>
+:root{
+  --bg:#f3f6fb; --card:#fff; --ink:#1f2a44; --sub:#5b6785; --line:#dbe2ef;
+  --pri:#4f46e5; --pri2:#eef0ff; --ok:#16a34a; --okbg:#e8f8ee; --warn:#d97706; --warnbg:#fff6e6;
+  --bad:#e11d48; --badbg:#fdecef; --red:#e5384f; --blue:#2f6fe4;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:18px;line-height:1.55;-webkit-text-size-adjust:100%}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+header{position:sticky;top:0;z-index:20;background:linear-gradient(120deg,#4f46e5,#7c3aed 60%,#db2777);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:0 2px 12px #0002}
+header h1{font-size:22px;margin:0;font-weight:800;letter-spacing:-.5px}
+header .sub{font-size:14px;opacity:.85}
+header .sp{flex:1}
+.hbtn{background:#ffffff26;border:1px solid #ffffff55;color:#fff;border-radius:12px;padding:7px 12px;font-size:15px;font-weight:700}
+.me{font-size:15px;font-weight:700;background:#ffffff26;border-radius:12px;padding:6px 12px}
+main{max-width:1180px;margin:0 auto;padding:16px 14px 30px}
+.tabs{display:flex;gap:10px;margin:4px 0 16px;flex-wrap:wrap}
+.tab{flex:1;min-width:150px;border:2px solid var(--line);background:#fff;border-radius:16px;padding:12px 14px;font-size:19px;font-weight:800;text-align:left;display:flex;align-items:center;gap:8px}
+.tab.on{border-color:var(--pri);background:var(--pri2);color:var(--pri)}
+.tab .lk{margin-left:auto;font-size:14px;font-weight:700;color:var(--sub)}
+.card{background:var(--card);border-radius:20px;box-shadow:0 2px 10px #1f2a4412;border:1px solid var(--line);padding:18px}
+.intro{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px}
+.intro .ic{font-size:40px;line-height:1}
+.intro h2{margin:0 0 4px;font-size:22px}
+.intro p{margin:0;color:var(--sub);font-size:17px}
+.howto{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.howto span{background:var(--pri2);color:var(--pri);border-radius:999px;padding:4px 12px;font-size:15px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.scene{padding:0;overflow:hidden}
+.scene .hd{display:flex;align-items:center;gap:10px;padding:14px 16px 8px}
+.scene .no{width:34px;height:34px;border-radius:50%;background:var(--pri);color:#fff;display:grid;place-items:center;font-weight:800;font-size:18px;flex:none}
+.scene .ttl{font-size:21px;font-weight:800}
+.scene .st{margin-left:auto;font-size:14px;font-weight:800;border-radius:999px;padding:3px 10px;background:#eef1f7;color:var(--sub);white-space:nowrap}
+.scene .st.done{background:var(--okbg);color:var(--ok)}
+.pic{position:relative;margin:0 14px;border-radius:16px;overflow:hidden;background:#f7f9fc;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.pic svg{display:block;width:100%;height:auto}
+.pic.arm{touch-action:none;outline:3px dashed #7c3aed;outline-offset:-3px}
+.pic .tip{position:absolute;left:8px;top:8px;background:#1f2a44d9;color:#fff;font-size:14px;font-weight:700;border-radius:10px;padding:4px 9px;pointer-events:none}
+.pad{padding:12px 16px 16px}
+.lbl{font-size:16px;font-weight:800;color:var(--sub);margin:4px 0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--line);background:#fff;border-radius:14px;padding:8px 13px;font-size:19px;font-weight:800}
+.chip.sel{border-color:var(--pri);background:var(--pri);color:#fff}
+.chip:disabled{opacity:.45}
+.dirs{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.dirs .db{width:52px;height:48px;border-radius:14px;border:2px solid var(--line);background:#fff;font-size:24px;font-weight:900}
+.dirs .db:disabled{opacity:.4}
+.dirs small{color:var(--sub);font-size:15px}
+.slots{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.slot{flex:1;min-width:130px;border:2px dashed var(--line);border-radius:14px;padding:8px 10px;font-size:18px;font-weight:800;display:flex;align-items:center;gap:6px;min-height:50px;color:#9aa5bd}
+.slot.f{border-style:solid;color:var(--ink)}
+.slot .dot{width:14px;height:14px;border-radius:50%;flex:none}
+.slot .x{margin-left:auto;border:0;background:#eef1f7;border-radius:10px;width:32px;height:32px;font-size:16px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.btn{border:0;border-radius:14px;padding:11px 18px;font-size:19px;font-weight:800;background:var(--pri);color:#fff}
+.btn.ghost{background:#eef1f7;color:var(--ink)}
+.btn.ok{background:var(--ok)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.fb{margin-top:12px;border-radius:14px;padding:11px 14px;font-size:17px;font-weight:600}
+.fb.ok{background:var(--okbg);color:#0f6b33}
+.fb.no{background:var(--warnbg);color:#8a4b00}
+.fb.bad{background:var(--badbg);color:#9f1239}
+.ex{border-top:2px solid var(--line);margin-top:14px;padding-top:12px}
+.ex h4{margin:0 0 6px;font-size:19px}
+.ex .help{font-size:15px;color:var(--sub);margin:0 0 8px}
+textarea{width:100%;border:2px solid var(--line);border-radius:14px;padding:10px 12px;font-size:18px;resize:vertical;min-height:76px;background:#fbfcff}
+textarea:focus,input:focus{outline:3px solid #c7c4ff;border-color:var(--pri)}
+.cnt{font-size:14px;color:var(--sub);margin-left:auto}
+.mine{background:#f5f3ff;border:2px solid #c4b5fd;border-radius:14px;padding:10px 12px;margin-top:6px}
+.mine .b{font-size:18px;font-weight:700}
+.mine .ai{font-size:15px;color:#4c1d95;margin-top:4px}
+.flt{display:flex;gap:6px;margin:10px 0 6px}
+.flt button{border:2px solid var(--line);background:#fff;border-radius:999px;padding:4px 12px;font-size:15px;font-weight:800}
+.flt button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.posts{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow:auto;padding-right:2px}
+.post{background:#f7f9fc;border:1px solid var(--line);border-radius:12px;padding:8px 11px;font-size:17px}
+.post .w{font-size:13px;color:var(--sub);font-weight:700}
+.post.me{background:#f5f3ff;border-color:#c4b5fd}
+.lockmsg{background:#f7f9fc;border:2px dashed var(--line);border-radius:14px;padding:12px;text-align:center;color:var(--sub);font-weight:700;font-size:16px}
+.finish{margin-top:18px}
+.finish h3{margin:0 0 8px;font-size:22px}
+.prog{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.prog span{border-radius:999px;padding:4px 12px;font-size:15px;font-weight:800;background:#eef1f7;color:var(--sub)}
+.prog span.d{background:var(--okbg);color:var(--ok)}
+.bookbox{background:linear-gradient(135deg,#fff7e6,#ffeef5);border:2px solid #fbbf24;border-radius:18px;padding:16px 18px}
+.bookbox .big{font-size:22px;font-weight:900;margin-bottom:6px}
+.bookbox ol{margin:6px 0 10px;padding-left:24px;font-size:19px;font-weight:600}
+.bookbox .q2{background:#fff;border-radius:12px;padding:8px 12px;font-size:17px;border:1px solid #fde68a}
+.closed{text-align:center;padding:50px 20px}
+.closed .i{font-size:56px}
+.closed h3{margin:6px 0;font-size:22px}
+.closed p{color:var(--sub);margin:0}
+/* quiz */
+.qwrap{max-width:760px;margin:0 auto}
+.qdots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
+.qdots button{width:38px;height:38px;border-radius:50%;border:2px solid var(--line);background:#fff;font-weight:800;font-size:16px}
+.qdots button.cur{border-color:var(--pri);color:var(--pri)}
+.qdots button.d1{background:var(--ok);border-color:var(--ok);color:#fff}
+.qdots button.d2{background:#f59e0b;border-color:#f59e0b;color:#fff}
+.qtag{display:inline-block;background:var(--pri2);color:var(--pri);border-radius:999px;padding:3px 12px;font-size:15px;font-weight:800}
+.qq{font-size:22px;font-weight:800;margin:8px 0 12px;line-height:1.45}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:12px 14px;font-size:19px;font-weight:700;text-align:left}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:#f59e0b;background:var(--warnbg)}
+.dgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.dopt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:6px;text-align:center;font-size:18px;font-weight:800}
+.dopt svg{width:100%;height:auto;display:block}
+.dopt.right{border-color:var(--ok);background:var(--okbg)}
+.dopt.wrong{border-color:#f59e0b;background:var(--warnbg)}
+.qpic{max-width:420px;margin:0 auto}
+.summary{text-align:center;padding:26px 10px}
+.summary .big{font-size:46px}
+/* overlays */
+.ov{position:fixed;inset:0;background:#0f172acc;z-index:50;display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:24px 12px}
+.modal{background:#fff;border-radius:22px;max-width:520px;width:100%;padding:22px;box-shadow:0 20px 50px #0005;margin:auto}
+.modal h2{margin:0 0 6px;font-size:24px}
+.field{margin:12px 0}
+.field label{display:block;font-weight:800;font-size:17px;margin-bottom:4px}
+.field input{width:100%;border:2px solid var(--line);border-radius:14px;padding:11px 13px;font-size:20px;background:#fbfcff}
+.nickrow{display:flex;gap:8px}
+.nickrow input{flex:1;min-width:0}
+.warnbox{background:#fff1f2;border:2px solid #fecdd3;color:#9f1239;border-radius:14px;padding:10px 12px;font-weight:700;font-size:16px}
+.err{color:var(--bad);font-weight:700;font-size:16px;min-height:22px;margin-top:6px}
+.join{max-width:520px;margin:30px auto}
+.join .logo{font-size:52px;text-align:center}
+.join h2{text-align:center;margin:0 0 4px;font-size:26px}
+.join .d{text-align:center;color:var(--sub);margin:0 0 10px}
+.tpanel{background:#fff;border-radius:22px;max-width:1150px;width:100%;padding:18px;margin:auto}
+.tpanel h2{margin:0;font-size:24px}
+.tsec{border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-top:12px}
+.tsec h3{margin:0 0 8px;font-size:19px}
+.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.sw{display:flex;align-items:center;gap:10px;border:2px solid var(--line);border-radius:14px;padding:8px 12px;font-weight:800;font-size:17px;background:#fff}
+.sw.on{border-color:var(--ok);background:var(--okbg)}
+.sw .k{margin-left:auto;border-radius:999px;padding:2px 10px;font-size:14px;background:#eef1f7}
+.sw.on .k{background:var(--ok);color:#fff}
+table.ros{width:100%;border-collapse:collapse;font-size:16px}
+table.ros th,table.ros td{border-bottom:1px solid var(--line);padding:6px 6px;text-align:center;white-space:nowrap}
+table.ros th{background:#f7f9fc;font-size:14px;color:var(--sub);position:sticky;top:0}
+table.ros td.l{text-align:left}
+.tscroll{overflow:auto;max-height:60vh}
+.y{color:var(--ok);font-weight:900}.n{color:#c3cad8}
+.on-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#22c55e;margin-right:4px}
+.mini{border:0;border-radius:10px;padding:4px 9px;font-size:14px;font-weight:800;background:#eef1f7}
+.mini.r{background:var(--badbg);color:var(--bad)}
+.mini.g{background:var(--okbg);color:var(--ok)}
+.stat{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.stat span{background:#f7f9fc;border:1px solid var(--line);border-radius:12px;padding:4px 10px;font-weight:800;font-size:15px}
+.tposts{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
+.tposts .col h4{margin:0 0 6px}
+.tpost{border:1px solid var(--line);border-radius:12px;padding:8px 10px;margin-bottom:6px;font-size:15px}
+.tpost .ai{color:#4c1d95;font-size:13px;margin-top:3px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#1f2a44;color:#fff;border-radius:14px;padding:11px 18px;font-weight:700;z-index:90;font-size:17px;max-width:90vw;text-align:center}
+footer{text-align:center;color:#8a94ab;font-size:12px;padding:16px 16px 26px;line-height:1.6}
+.spin{display:inline-block;width:18px;height:18px;border:3px solid #fff8;border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;vertical-align:-3px;margin-right:6px}
+@keyframes sp{to{transform:rotate(360deg)}}
+@keyframes pop{0%{transform:scale(.9);opacity:0}100%{transform:scale(1);opacity:1}}
+.pop{animation:pop .25s ease}
+@media(max-width:560px){
+  html,body{font-size:17px}
+  header{position:static;padding:8px 12px;gap:8px}
+  header .sub{display:none}
+  header h1{font-size:19px}
+  .tab{font-size:17px;padding:10px 12px}
+  .chip{font-size:17px;padding:7px 10px}
+  .qq{font-size:20px}
+  .scene .ttl{font-size:19px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>⚖️ 힘의 평형 탐구실</h1><div class="sub">다양한 상황에서 힘의 평형 · 교과서 178~179쪽</div></div>
+  <div class="sp"></div>
+  <div id="meBadge" class="me hidden"></div>
+  <button id="nickBtn" class="hbtn hidden">닉네임 바꾸기 신청</button>
+  <button id="tBtn" class="hbtn">🧑‍🏫 교사</button>
+</header>
+
+<main>
+  <!-- 입장 -->
+  <section id="joinView" class="join hidden">
+    <div class="card">
+      <div class="logo">⚖️</div>
+      <h2>힘의 평형 탐구실 입장</h2>
+      <p class="d">학번과 닉네임으로 들어와요</p>
+      <div class="field"><label for="jSid">학번 (5자리)</label><input id="jSid" inputmode="numeric" maxlength="5" placeholder="예: 10601" autocomplete="off"></div>
+      <div class="field"><label for="jNick">닉네임</label>
+        <div class="nickrow"><input id="jNick" maxlength="12" placeholder="예: 노래하는 기린" autocomplete="off"><button id="jRand" class="btn ghost" type="button">🎲 랜덤</button></div>
+      </div>
+      <div class="warnbox">⚠️ 닉네임에 실명(내 이름, 친구 이름)을 쓰지 마세요.<br>한 번 정한 닉네임은 바꿀 수 없고, 선생님이 승인해야만 바뀌어요. 이상한 닉네임은 선생님이 다 볼 수 있어요.</div>
+      <div id="jErr" class="err"></div>
+      <button id="jGo" class="btn" style="width:100%;font-size:21px;padding:14px">입장하기</button>
+      <button id="pubBtn" class="btn ghost hidden" style="width:100%;margin-top:10px">👀 입장하지 않고 예시 보기</button>
+    </div>
+  </section>
+
+  <!-- 학생 화면 -->
+  <section id="appView" class="hidden">
+    <div class="tabs">
+      <button class="tab on" data-tab="t1">① 힘 찾기 &amp; 예시 올리기 <span class="lk" id="lk1"></span></button>
+      <button class="tab" data-tab="t2">② 힘의 평형 퀴즈 <span class="lk" id="lk2"></span></button>
+    </div>
+
+    <div id="t1">
+      <div id="t1closed" class="card closed hidden"><div class="i">🔒</div><h3>아직 열리지 않았어요</h3><p>선생님이 열어 주시면 시작할 수 있어요.</p></div>
+      <div id="t1body">
+        <div class="card intro">
+          <div class="ic">🔍</div>
+          <div>
+            <h2>힘이 작용하는데도 왜 안 움직일까?</h2>
+            <p>네 가지 물체에 작용하는 <b>두 가지 힘</b>을 찾아 화살표로 표시해 보세요. 그다음 그림 아래에 <b>비슷한 예를 하나씩</b> 찾아 올려요.</p>
+            <div class="howto"><span>① 힘 이름 고르기</span><span>② 그림 위를 끌어서(또는 ↑↓←→) 방향 정하기</span><span>③ 두 힘 다 넣고 확인</span></div>
+          </div>
+        </div>
+        <div class="grid" id="scenes"></div>
+        <div class="card finish" id="finish"></div>
+      </div>
+    </div>
+
+    <div id="t2" class="hidden">
+      <div id="t2closed" class="card closed hidden"><div class="i">🔒</div><h3>아직 열리지 않았어요</h3><p>선생님이 열어 주시면 퀴즈를 풀 수 있어요.</p></div>
+      <div id="t2body" class="qwrap">
+        <div class="qdots" id="qdots"></div>
+        <div class="card" id="qcard"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  이 가상실험(프로그램 코드, 디자인, 캐릭터·그림, 애니메이션, 문항과 설명 글)의 저작권은 제작자 혜민쌤에게 있으며, 허락 없이 복제·수정·배포·게시하거나 상업적으로 이용하는 것을 금지합니다.<br>
+  다른 학교 학생에게 주소를 공유하지 마세요.<br>
+  <span id="cyear">© 2026 혜민쌤의 가상실험실</span>
+</footer>
+
+<!-- 로그인 없이 보기 -->
+<div id="pubOv" class="ov hidden">
+  <div class="tpanel">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><h2>👀 친구들이 찾은 힘의 평형 예시</h2><div style="flex:1"></div><button class="btn ghost" id="pubClose">닫기</button></div>
+    <p style="color:var(--sub);margin:4px 0 8px">보기만 할 수 있어요. 예시를 올리려면 입장하세요.</p>
+    <div class="flt" id="pubSit"></div>
+    <div class="flt" id="pubCls" style="flex-wrap:wrap"></div>
+    <div class="posts" id="pubList" style="max-height:none"></div>
+  </div>
+</div>
+
+<!-- 닉네임 신청 -->
+<div id="nickOv" class="ov hidden">
+  <div class="modal">
+    <h2>닉네임 바꾸기 신청</h2>
+    <p style="color:var(--sub);margin:0">선생님이 승인하면 바뀌어요.</p>
+    <div class="field"><label for="nNick">새 닉네임</label>
+      <div class="nickrow"><input id="nNick" maxlength="12" autocomplete="off"><button id="nRand" class="btn ghost" type="button">🎲</button></div></div>
+    <div class="warnbox">⚠️ 실명(내 이름, 친구 이름)은 쓰지 마세요.</div>
+    <div id="nErr" class="err"></div>
+    <div class="row"><button id="nGo" class="btn">신청하기</button><button id="nCancel" class="btn ghost">취소</button></div>
+  </div>
+</div>
+
+<!-- 교사 로그인 -->
+<div id="tLoginOv" class="ov hidden">
+  <div class="modal">
+    <h2>🧑‍🏫 교사 모드</h2>
+    <div class="field"><label for="tPw">교사 비밀번호</label><input id="tPw" type="password" autocomplete="off"></div>
+    <div id="tErr" class="err"></div>
+    <div class="row"><button id="tGo" class="btn">들어가기</button><button id="tCancel" class="btn ghost">닫기</button></div>
+  </div>
+</div>
+
+<!-- 교사 패널 -->
+<div id="tOv" class="ov hidden">
+  <div class="tpanel">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <h2>🧑‍🏫 교사 모드</h2><div style="flex:1"></div>
+      <label class="mini" style="padding:7px 10px"><input type="checkbox" id="tHide"> 학번 가리기(화면 띄울 때)</label>
+      <button class="btn ghost" id="tPreview">👁 학생 화면 미리 보기</button>
+      <button class="btn ghost" id="tClose">닫기</button>
+      <button class="btn ghost" id="tOut">로그아웃</button>
+    </div>
+    <div class="tsec"><h3>탭 열기 / 닫기 <small style="color:var(--sub);font-weight:600">(학생 화면에 5초 안에 반영)</small></h3><div class="tg" id="tSw"></div></div>
+    <div class="tsec">
+      <h3>학생 활동 확인</h3>
+      <div class="flt" id="tCls" style="flex-wrap:wrap"></div>
+      <label style="font-size:15px;font-weight:700"><input type="checkbox" id="tTodo"> 아직 다 못 한 학생만 보기</label>
+      <div class="stat" id="tStat" style="margin-top:8px"></div>
+      <div class="tscroll"><table class="ros"><thead><tr>
+        <th>학번</th><th>닉네임</th><th>①힘 표시</th><th>①예시</th><th>교과서</th><th>②퀴즈</th><th>첫 번에 정답</th><th>관리</th>
+      </tr></thead><tbody id="tRos"></tbody></table></div>
+    </div>
+    <div class="tsec" id="tReqSec"><h3>닉네임 바꾸기 신청</h3><div id="tReq"></div></div>
+    <div class="tsec"><h3>올라온 예시 <small style="color:var(--sub);font-weight:600">(위에서 고른 반)</small></h3><div class="tposts" id="tPosts"></div></div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script>
+(()=>{
+'use strict';
+const CFG = window.BAL_CONFIG || {};
+const NCLS = Number(CFG.CLASS_COUNT) || 7;
+document.getElementById('cyear').textContent = '© ' + (CFG.YEAR || new Date().getFullYear()) + ' 혜민쌤의 가상실험실';
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let toastT;
+function toast(m, ms=2600){ const t=$('toast'); t.textContent=m; t.classList.remove('hidden'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.add('hidden'),ms); }
+const store = {
+  get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
+  del(k){ try{ localStorage.removeItem(k); }catch(e){} }
+};
+
+async function rpc(fn, args){
+  const r = await fetch(String(CFG.SUPABASE_URL||'').replace(/\/+$/,'') + '/rest/v1/rpc/' + fn, {
+    method:'POST', headers:{ apikey:CFG.SUPABASE_KEY, Authorization:'Bearer '+CFG.SUPABASE_KEY, 'Content-Type':'application/json' },
+    body: JSON.stringify(args||{})
+  });
+  if(!r.ok) throw new Error('net ' + r.status);
+  return r.json();
+}
+async function gas(obj){
+  const r = await fetch(CFG.APPS_SCRIPT_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(obj) });
+  if(!r.ok) throw new Error('gas ' + r.status);
+  return r.json();
+}
+
+const ERR = {
+  badsid:'학번 5자리를 확인해 주세요. (예: 10601)',
+  nickmismatch:'이 학번은 이미 다른 닉네임으로 들어왔어요. 처음 정한 닉네임을 그대로 쓰세요. 기억이 안 나면 선생님께 말씀드려요.',
+  nicklen:'닉네임은 2~12글자로 써 주세요.',
+  nickchar:'닉네임은 한글·영어만 쓸 수 있어요. (숫자·기호 X)',
+  badnick:'쓸 수 없는 단어가 들어 있어요. 🎲 랜덤 버튼을 눌러 보세요.',
+  dupnick:'우리 반에 같은 닉네임이 있어요. 다른 닉네임을 골라 주세요.',
+  quota:'오늘은 AI 확인을 20번 다 썼어요. 내일 다시 해 봐요.',
+  busy:'오늘 학교 전체 AI 확인 횟수가 다 찼어요. 선생님께 말씀드려요.',
+  ai:'AI가 잠깐 대답을 못 했어요. 잠시 뒤 다시 눌러 주세요.',
+  arrowfirst:'먼저 위 그림에서 두 힘을 화살표로 표시해야 해요.',
+  already:'이 상황에는 이미 예시를 올렸어요.',
+  closed:'선생님이 아직 열지 않았어요.',
+  short:'조금 더 자세히 써 주세요. (5글자 이상)',
+  long:'120글자 안으로 줄여 주세요.',
+  gone:'다시 입장해 주세요.',
+  server:'잠시 문제가 생겼어요. 다시 눌러 주세요.',
+  srv:'AI 확인 설정이 아직 안 되어 있어요. 선생님께 말씀드려요.'
+};
+const errMsg = e => ERR[e] || '잠시 문제가 생겼어요. 다시 시도해 주세요.';
+
+/* ---------- 닉네임 ---------- */
+const BAD = ['엄마','아빠','어머니','아버지','어머님','아버님','마더','파더','맘마','mother','father','mom','dad','mama','papa',
+'김정은','정은','김정일','김일성','일성','윤석열','석열','이재명','재명','문재인','재인','박근혜','근혜','이명박','명박',
+'노무현','무현','전두환','두환','박정희','정희','한동훈','동훈','이준석','준석','조국','안철수','철수','홍준표','준표',
+'김건희','건희','트럼프','바이든','오바마','시진핑','진핑','푸틴','히틀러','스탈린','무솔리니','모택동','마오쩌둥',
+'trump','biden','obama','putin','hitler','kimjongun','jongun',
+'대통령','총리','국회','의원','장관','정당','민주당','국민의힘','더불어','정의당','북한','인민','공산','독재','탄핵','계엄',
+'빨갱이','좌파','우파','좌빨','수꼴','친일','일베','메갈','노무','운지','나치','김치녀','한남',
+'돼지','멧돼지','뚱뚱','찐따','병신','ㅂㅅ','시발','씨발','ㅅㅂ','ㅆㅂ','개새','새끼','존나','졸라','좆','지랄','미친','니애미','느금',
+'애미','애비','섹스','sex','fuck','shit','bitch','damn','바보','멍청','등신','장애','똥','방구'];
+const norm = s => String(s||'').toLowerCase().replace(/[^0-9a-z가-힣ㄱ-ㅎㅏ-ㅣ]/g,'');
+const cleanNick = s => String(s||'').replace(/\s+/g,' ').trim();
+function nickErr(n){
+  if(n.length<2 || n.length>12 || n.replace(/ /g,'').length<2) return 'nicklen';
+  if(!/^[가-힣a-zA-Z ]+$/.test(n)) return 'nickchar';
+  const k = norm(n); if(BAD.some(w=>k.includes(w))) return 'badnick';
+  return null;
+}
+const ADJ = ['노래하는','춤추는','용감한','반짝이는','씩씩한','슬기로운','날쌘','다정한','신나는','탐구하는','실험하는','생각하는','웃는','달리는',
+'꿈꾸는','빛나는','상냥한','튼튼한','부지런한','침착한','명랑한','똑똑한','재빠른','느긋한','행복한','관찰하는','상상하는','힘센','지혜로운','멋진','기운찬','호기심쟁이'];
+const ANI = ['기린','수달','펭귄','다람쥐','고래','돌고래','판다','여우','사슴','토끼','부엉이','고양이','강아지','햄스터','치타','사자','호랑이',
+'독수리','앵무새','해달','알파카','북극곰','거북이','미어캣','고슴도치','너구리','두루미','물개','하늘다람쥐','참새','코끼리','얼룩말','캥거루',
+'라마','꿀벌','나비','무당벌레','청개구리','오리','백조','공룡','유니콘','카멜레온','강치','올빼미','홍학'];
+function randNick(){
+  for(let i=0;i<50;i++){
+    const n = ADJ[Math.floor(Math.random()*ADJ.length)] + ' ' + ANI[Math.floor(Math.random()*ANI.length)];
+    if(!nickErr(n)) return n;
+  }
+  return '탐구하는 수달';
+}
+
+/* ---------- 그림 ---------- */
+const FORCES = ['중력','탄성력','마찰력','부력','미는 힘','바닥이 떠받치는 힘'];
+const DIRV = { up:[0,-1], down:[0,1], left:[-1,0], right:[1,0] };
+const DIRS = { up:'↑', down:'↓', left:'←', right:'→' };
+const DIRK = { up:'위쪽', down:'아래쪽', left:'왼쪽', right:'오른쪽' };
+const C1 = '#e5384f', C2 = '#2f6fe4';
+function arrow(x,y,dir,len,color,label,dash){
+  const [vx,vy] = DIRV[dir]; const ex = x+vx*len, ey = y+vy*len; const h=15, w=10;
+  const bx = ex - vx*h, by = ey - vy*h; const px = -vy, py = vx;
+  const head = `${ex},${ey} ${bx+px*w},${by+py*w} ${bx-px*w},${by-py*w}`;
+  let lx, ly, anc='middle';
+  if(dir==='up'||dir==='down'){ if(String(label||'').length>5){ lx = x; anc='middle'; ly = vy<0 ? ey - 10 : ey + 24; } else { lx = x + 16; ly = y + vy*len*0.6 + 6; anc='start'; } }
+  else { lx = x + vx*len*0.55; ly = y - 14; }
+  const d = dash ? ' stroke-dasharray="8 6"' : '';
+  return `<g class="arw" pointer-events="none">
+    <line x1="${x}" y1="${y}" x2="${bx}" y2="${by}" stroke="#fff" stroke-width="11" stroke-linecap="round"/>
+    <polygon points="${head}" fill="#fff" stroke="#fff" stroke-width="5" stroke-linejoin="round"/>
+    <line x1="${x}" y1="${y}" x2="${bx}" y2="${by}" stroke="${color}" stroke-width="6" stroke-linecap="round"${d}/>
+    <polygon points="${head}" fill="${color}"/>
+    <circle cx="${x}" cy="${y}" r="6" fill="${color}" stroke="#fff" stroke-width="2"/>
+    ${label?`<text x="${lx}" y="${ly}" text-anchor="${anc}" font-size="19" font-weight="800" fill="${color}" stroke="#fff" stroke-width="5" paint-order="stroke">${esc(label)}</text>`:''}
+  </g>`;
+}
+const HAND_R = (x,y)=>`<g><rect x="${x+40}" y="${y-4}" width="70" height="52" rx="10" fill="#6aa7e8"/><rect x="${x}" y="${y}" width="50" height="44" rx="16" fill="#f2c9a0" stroke="#d9a77a" stroke-width="2"/><path d="M${x+6} ${y+12} h22 M${x+6} ${y+22} h24 M${x+6} ${y+32} h22" stroke="#d9a77a" stroke-width="2" stroke-linecap="round"/></g>`;
+const HAND_L = (x,y)=>`<g><rect x="${x-110}" y="${y-4}" width="70" height="52" rx="10" fill="#f59e9e"/><rect x="${x-50}" y="${y}" width="50" height="44" rx="16" fill="#f2c9a0" stroke="#d9a77a" stroke-width="2"/><path d="M${x-6} ${y+12} h-22 M${x-6} ${y+22} h-24 M${x-6} ${y+32} h-22" stroke="#d9a77a" stroke-width="2" stroke-linecap="round"/></g>`;
+function zig(x,y1,y2,n,w){ let p=`M${x} ${y1}`; const st=(y2-y1)/n; for(let i=1;i<=n;i++){ p+=` L${x+(i%2?w:-w)} ${y1+st*(i-.5)}`; } p+=` L${x} ${y2}`; return p; }
+
+const SCENES = [
+ { name:'용수철저울에 매달린 컵', pt:[160,238], ans:{'탄성력':'up','중력':'down'},
+   svg:`<rect width="320" height="300" fill="#e9f5f4"/>
+    <g><rect x="128" y="2" width="64" height="38" rx="15" fill="#f2c9a0" stroke="#d9a77a" stroke-width="2"/><path d="M136 14 h46 M136 24 h48" stroke="#d9a77a" stroke-width="2"/></g>
+    <circle cx="160" cy="48" r="9" fill="none" stroke="#5b6785" stroke-width="4"/>
+    <rect x="144" y="56" width="32" height="124" rx="8" fill="#d6f1ef" stroke="#14a3a3" stroke-width="3"/>
+    <rect x="151" y="63" width="18" height="108" rx="4" fill="#fff"/>
+    <path d="${zig(160,66,146,10,6)}" fill="none" stroke="#7b8799" stroke-width="2.5"/>
+    <g stroke="#14a3a3" stroke-width="2">${[0,1,2,3,4,5,6,7,8].map(i=>`<line x1="171" y1="${72+i*11}" x2="176" y2="${72+i*11}"/>`).join('')}</g>
+    <rect x="152" y="146" width="16" height="6" fill="#e5384f"/>
+    <line x1="160" y1="180" x2="160" y2="196" stroke="#5b6785" stroke-width="4"/>
+    <path d="M160 196 q0 10 -8 10" fill="none" stroke="#5b6785" stroke-width="4" stroke-linecap="round"/>
+    <path d="M130 222 Q160 196 190 222" fill="none" stroke="#b9a77f" stroke-width="4"/>
+    <path d="M128 222 L192 222 L185 272 Q160 280 135 272 Z" fill="#f6efdf" stroke="#b9a77f" stroke-width="3"/>
+    <ellipse cx="160" cy="222" rx="32" ry="6" fill="#efe4c9" stroke="#b9a77f" stroke-width="2"/>`,
+   wrong:{ '마찰력':'컵은 무엇에 대고 미끄러지고 있지 않아요. 컵을 위로 잡아당기는 것은 무엇일까요?',
+           '부력':'컵은 물에 떠 있지 않아요. 컵을 위로 잡아당기는 것은 늘어난 용수철이에요.',
+           '바닥이 떠받치는 힘':'컵 아래에는 바닥이 없어요. 컵은 위에 매달려 있어요.',
+           '미는 힘':'손은 저울 고리만 잡고 있어요. 컵을 위로 당기는 것은 늘어난 용수철이에요.' } },
+ { name:'밀어도 움직이지 않는 상자', pt:[165,172], ans:{'미는 힘':'left','마찰력':'right'},
+   svg:`<rect width="320" height="300" fill="#f4efe8"/><rect y="232" width="320" height="68" fill="#d8cbb8"/><line x1="0" y1="232" x2="320" y2="232" stroke="#b9a891" stroke-width="3"/>
+    <rect x="92" y="112" width="146" height="120" rx="4" fill="#e7b98a" stroke="#b5844f" stroke-width="3"/>
+    <rect x="92" y="112" width="146" height="16" fill="#d9a46f"/><line x1="165" y1="112" x2="165" y2="150" stroke="#c8925c" stroke-width="10"/>
+    ${HAND_R(238,148)}`,
+   wrong:{ '중력':'중력도 작용하지만, 지금은 “밀었는데 안 움직이는” 옆 방향(←→)의 두 힘을 찾아요.',
+           '바닥이 떠받치는 힘':'바닥이 떠받치는 힘도 작용하지만, 지금은 옆 방향(←→)의 두 힘을 찾아요.',
+           '탄성력':'늘어나거나 눌린 용수철 같은 물체가 없어요.',
+           '부력':'상자는 물에 떠 있지 않아요.' } },
+ { name:'물 위에 떠 있는 배', pt:[160,168], ans:{'부력':'up','중력':'down'},
+   svg:`<defs><linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dff0ff"/><stop offset="1" stop-color="#f4faff"/></linearGradient></defs>
+    <rect width="320" height="300" fill="url(#sky3)"/>
+    <path d="M72 140 L248 140 L226 200 L96 200 Z" fill="#f7f3ea" stroke="#8a7a62" stroke-width="3"/>
+    <path d="M78 150 L242 150" stroke="#c9b99c" stroke-width="3"/><rect x="138" y="118" width="44" height="24" rx="4" fill="#eadfc8" stroke="#8a7a62" stroke-width="2"/>
+    <rect y="176" width="320" height="124" fill="#3d8fd6" opacity=".78"/>
+    <path d="M0 176 q20 -6 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" fill="none" stroke="#bfe0ff" stroke-width="3"/>
+    <path d="M20 230 q15 -5 30 0 M230 250 q15 -5 30 0 M120 270 q15 -5 30 0" fill="none" stroke="#bfe0ff" stroke-width="2"/>`,
+   wrong:{ '마찰력':'배는 멈춰서 떠 있어요. 물이 배를 위로 밀어 올리는 힘을 찾아요.',
+           '바닥이 떠받치는 힘':'배 아래는 바닥이 아니라 물이에요. 물(액체)이 물체를 위로 밀어 올리는 힘의 이름은?',
+           '탄성력':'늘어나거나 눌린 용수철 같은 물체가 없어요.',
+           '미는 힘':'배를 미는 사람이 없어요. 물이 배를 위로 밀어 올리는 힘을 찾아요.' } },
+ { name:'바닥에 놓인 책', pt:[160,168], ans:{'바닥이 떠받치는 힘':'up','중력':'down'},
+   svg:`<rect width="320" height="300" fill="#f6f1ec"/><rect y="236" width="320" height="64" fill="#cdbca8"/><line x1="0" y1="236" x2="320" y2="236" stroke="#b5a48e" stroke-width="3"/>
+    ${[['#b39ad8',236,0],['#3aa6b9',210,6],['#f2c84b',184,-4],['#57b36a',158,4],['#e0574f',132,-2]].map(([c,y,o])=>`<rect x="${74+o}" y="${y-26}" width="172" height="26" rx="4" fill="${c}" stroke="#0002" stroke-width="2"/><rect x="${230+o}" y="${y-22}" width="12" height="18" fill="#fff"/>`).join('')}`,
+   wrong:{ '마찰력':'책은 옆으로 움직이려 하지 않아요. 그래서 마찰력이 생기지 않아요.',
+           '부력':'책은 물에 떠 있지 않고 바닥 위에 놓여 있어요.',
+           '탄성력':'늘어나거나 눌린 용수철 같은 물체가 없어요.',
+           '미는 힘':'책을 미는 사람이 없어요. 바닥이 책을 어떻게 하고 있는지 생각해 봐요.' } }
+];
+const DIRHINT = {
+  '중력':'중력은 항상 지구 중심 쪽(아래쪽)으로 작용해요.',
+  '탄성력':'늘어나거나 눌린 물체는 원래 모양으로 돌아가려는 쪽으로 힘을 줘요.',
+  '마찰력':'마찰력은 물체가 움직이려는 방향과 반대쪽으로 작용해요.',
+  '미는 힘':'손이 물체를 어느 쪽으로 밀고 있는지 그림을 다시 봐요.',
+  '부력':'부력은 물체를 떠오르게 하는 쪽으로 작용해요.',
+  '바닥이 떠받치는 힘':'바닥은 물체를 받쳐서 위로 올려 주는 쪽으로 힘을 줘요.'
+};
+
+/* ---------- 상태 ---------- */
+let S = store.get('bal_sess');   // {sid, token, nick, class_no}
+let ME = null;                    // 서버 상태
+let preview = false;              // 교사 미리 보기
+let pvProg = {};
+let OPEN = {arrow:false, wall:false, quiz:false, pub:false};
+const SC = SCENES.map(()=>({ sel:null, slots:[], done:false, fb:null, flt:'class', ex:null, busy:false, text:'' }));
+let curTab = 't1';
+
+const prog = () => preview ? pvProg : ((ME && ME.progress) || {});
+const minePost = sit => preview ? null : ((ME && ME.mine) || []).find(p => p.sit === sit);
+
+/* ---------- 입장 ---------- */
+$('jRand').onclick = () => { $('jNick').value = randNick(); $('jErr').textContent=''; };
+$('jSid').addEventListener('input', e => { e.target.value = e.target.value.replace(/\D/g,'').slice(0,5); });
+$('jGo').onclick = async () => {
+  const sid = $('jSid').value.trim(), nick = cleanNick($('jNick').value);
+  $('jErr').textContent = '';
+  if(!/^10[1-9](0[1-9]|[1-3]\d|40)$/.test(sid) || Number(sid.slice(1,3)) > NCLS){ $('jErr').textContent = ERR.badsid; return; }
+  const ne = nickErr(nick); if(ne){ $('jErr').textContent = ERR[ne]; return; }
+  $('jGo').disabled = true;
+  try{
+    const r = await rpc('bal_join', { p_sid:sid, p_nick:nick });
+    if(!r.ok){ $('jErr').textContent = errMsg(r.err); return; }
+    S = { sid:r.sid, token:r.token, nick:r.nick, class_no:r.class_no }; store.set('bal_sess', S);
+    await refreshMe(true);
+  }catch(e){ $('jErr').textContent = '인터넷 연결을 확인해 주세요.'; }
+  finally{ $('jGo').disabled = false; }
+};
+
+async function refreshMe(first){
+  if(preview) return;
+  if(!S){ showJoin(); return; }
+  try{
+    const r = await rpc('bal_me', { p_sid:S.sid, p_token:S.token });
+    if(!r.ok){ if(r.err==='gone'){ store.del('bal_sess'); S=null; ME=null; showJoin(); toast('다시 입장해 주세요.'); } return; }
+    const before = JSON.stringify([ME&&ME.open, ME&&ME.mine, ME&&ME.nick, ME&&ME.nick_req]);
+    ME = r; OPEN = r.open; S.nick = r.nick; store.set('bal_sess', S);
+    const after = JSON.stringify([ME.open, ME.mine, ME.nick, ME.nick_req]);
+    showApp();
+    if(first || before !== after) renderAll();
+  }catch(e){ if(first) showApp(); }
+}
+function showJoin(){
+  $('joinView').classList.remove('hidden'); $('appView').classList.add('hidden');
+  $('meBadge').classList.add('hidden'); $('nickBtn').classList.add('hidden');
+  checkPub();
+}
+async function checkPub(){
+  try{ const o = await rpc('bal_pub_state', {}); OPEN.pub = !!(o && o.pub); $('pubBtn').classList.toggle('hidden', !OPEN.pub); }catch(e){}
+}
+function showApp(){
+  $('joinView').classList.add('hidden'); $('appView').classList.remove('hidden');
+  const b = $('meBadge'); b.classList.remove('hidden');
+  if(preview){ b.textContent = '👁 미리 보기 (기록 안 됨)'; $('nickBtn').classList.add('hidden'); return; }
+  b.textContent = `${S.class_no}반 · ${ME ? ME.nick : S.nick}` + (ME && ME.nick_req ? ` (변경 신청: ${ME.nick_req})` : '');
+  $('nickBtn').classList.remove('hidden');
+}
+
+/* ---------- 탭 ---------- */
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => { curTab = t.dataset.tab; renderTabs(); });
+function renderTabs(){
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.tab === curTab));
+  $('t1').classList.toggle('hidden', curTab !== 't1'); $('t2').classList.toggle('hidden', curTab !== 't2');
+  $('lk1').textContent = OPEN.arrow ? '' : '🔒'; $('lk2').textContent = OPEN.quiz ? '' : '🔒';
+  $('t1closed').classList.toggle('hidden', !!OPEN.arrow); $('t1body').classList.toggle('hidden', !OPEN.arrow);
+  $('t2closed').classList.toggle('hidden', !!OPEN.quiz); $('t2body').classList.toggle('hidden', !OPEN.quiz);
+}
+function renderAll(){
+  renderTabs();
+  SCENES.forEach((_,i) => { if(prog()['a'+(i+1)]) SC[i].done = true; });
+  renderScenes(); renderFinish(); renderQuiz();
+}
+
+/* ---------- ① 장면 ---------- */
+function renderScenes(){
+  const box = $('scenes');
+  if(!box.childElementCount){
+    box.innerHTML = SCENES.map((s,i)=>`<div class="card scene" id="sc${i}">
+      <div class="hd"><div class="no">${i+1}</div><div class="ttl">${s.name}</div><div class="st" id="st${i}"></div></div>
+      <div class="pic" id="pic${i}"><svg viewBox="0 0 320 300" id="svg${i}"></svg><div class="tip" id="tip${i}"></div></div>
+      <div class="pad" id="pad${i}"></div></div>`).join('');
+    SCENES.forEach((_,i)=>bindDrag(i));
+  }
+  SCENES.forEach((_,i)=>renderScene(i));
+}
+function sceneArrows(i, preview){
+  const s = SCENES[i], st = SC[i];
+  let out = '';
+  st.slots.forEach((sl,k) => { out += arrow(s.pt[0], s.pt[1], sl.dir, 88, k===0?C1:C2, sl.name); });
+  if(preview) out += arrow(s.pt[0], s.pt[1], preview.dir, 88, '#7c3aed', preview.name, true);
+  return out;
+}
+function renderScene(i){
+  const s = SCENES[i], st = SC[i], done = st.done || !!prog()['a'+(i+1)];
+  if(done && !st.slots.length){ st.slots = Object.entries(s.ans).map(([name,dir])=>({name,dir})); }
+  $('svg'+i).innerHTML = s.svg + sceneArrows(i);
+  $('st'+i).textContent = done ? '✓ 평형 찾음' : '도전 중';
+  $('st'+i).classList.toggle('done', done);
+  $('pic'+i).classList.toggle('arm', !!st.sel && !done);
+  const tip = $('tip'+i);
+  if(done){ tip.textContent = '두 힘의 크기가 같고 방향이 반대!'; }
+  else if(st.sel){ tip.textContent = `「${st.sel}」 방향으로 끌어 보세요`; }
+  else tip.textContent = '아래에서 힘을 먼저 골라요';
+  let h = '';
+  if(!done){
+    h += `<div class="lbl">① 어떤 힘일까?</div><div class="chips">${FORCES.map(f=>`<button class="chip${st.sel===f?' sel':''}" data-f="${f}" ${st.slots.length>=2&&!st.slots.some(x=>x.name===f)?'disabled':''}>${f}</button>`).join('')}</div>
+      <div class="dirs"><span class="lbl" style="margin:0">② 방향</span>${['up','down','left','right'].map(d=>`<button class="db" data-d="${d}" ${st.sel?'':'disabled'} aria-label="${DIRK[d]}">${DIRS[d]}</button>`).join('')}<small>또는 그림 위를 끌어요</small></div>`;
+  }
+  h += `<div class="slots">${[0,1].map(k=>{ const sl=st.slots[k]; return sl
+      ? `<div class="slot f"><span class="dot" style="background:${k?C2:C1}"></span>${esc(sl.name)} ${DIRS[sl.dir]}${done?'':`<button class="x" data-x="${k}" aria-label="지우기">✕</button>`}</div>`
+      : `<div class="slot">힘 ${k+1}: 비어 있음</div>`; }).join('')}</div>`;
+  if(!done) h += `<div class="row"><button class="btn" data-chk ${st.slots.length===2?'':'disabled'}>확인하기</button><button class="btn ghost" data-rs>다시 하기</button></div>`;
+  if(st.fb) h += `<div class="fb ${st.fb.ok?'ok':'no'} pop">${st.fb.html}</div>`;
+  else if(done) h += `<div class="fb ok">⚖️ <b>${Object.keys(s.ans).map(esc).join('</b>과(와) <b>')}</b>이 같은 크기로 반대 방향으로 작용해서 <b>힘의 평형</b>을 이루어요. 그래서 운동 상태가 변하지 않아요!</div>`;
+  h += `<div class="ex" id="ex${i}"></div>`;
+  const pad = $('pad'+i); pad.innerHTML = h;
+  pad.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { st.sel = st.sel===b.dataset.f ? null : b.dataset.f; st.fb=null; renderScene(i); });
+  pad.querySelectorAll('[data-d]').forEach(b => b.onclick = () => place(i, b.dataset.d));
+  pad.querySelectorAll('[data-x]').forEach(b => b.onclick = () => { st.slots.splice(Number(b.dataset.x),1); st.fb=null; renderScene(i); });
+  const ck = pad.querySelector('[data-chk]'); if(ck) ck.onclick = () => check(i);
+  const rs = pad.querySelector('[data-rs]'); if(rs) rs.onclick = () => { st.slots=[]; st.sel=null; st.fb=null; renderScene(i); };
+  renderEx(i);
+}
+function place(i, dir){
+  const st = SC[i]; if(!st.sel || st.done) return;
+  const ex = st.slots.findIndex(x=>x.name===st.sel);
+  if(ex>=0) st.slots[ex].dir = dir;
+  else if(st.slots.length < 2) st.slots.push({ name:st.sel, dir });
+  else { toast('힘은 두 개까지 넣을 수 있어요. ✕로 하나를 지워요.'); return; }
+  st.sel = null; st.fb = null; renderScene(i);
+}
+function snap(dx,dy){ return Math.abs(dx) > Math.abs(dy) ? (dx>0?'right':'left') : (dy>0?'down':'up'); }
+function bindDrag(i){
+  const pic = $('pic'+i); let start = null;
+  pic.addEventListener('pointerdown', e => {
+    const st = SC[i]; if(st.done) return;
+    if(!st.sel){ if(e.pointerType==='mouse') toast('먼저 아래에서 힘 이름을 골라요 👇'); return; }
+    start = [e.clientX, e.clientY]; try{ pic.setPointerCapture(e.pointerId); }catch(_){}
+    e.preventDefault();
+  });
+  pic.addEventListener('pointermove', e => {
+    if(!start) return; const dx=e.clientX-start[0], dy=e.clientY-start[1];
+    if(Math.hypot(dx,dy) < 12) return;
+    $('svg'+i).innerHTML = SCENES[i].svg + sceneArrows(i, { name:SC[i].sel, dir:snap(dx,dy) });
+  });
+  const end = e => {
+    if(!start) return; const dx=e.clientX-start[0], dy=e.clientY-start[1]; start=null;
+    if(Math.hypot(dx,dy) < 12){ renderScene(i); toast('조금 더 길게 끌어 주세요.'); return; }
+    place(i, snap(dx,dy));
+  };
+  pic.addEventListener('pointerup', end); pic.addEventListener('pointercancel', () => { start=null; renderScene(i); });
+}
+function check(i){
+  const s = SCENES[i], st = SC[i];
+  const names = st.slots.map(x=>x.name);
+  let msg = [];
+  if(names[0] === names[1]) msg.push('서로 다른 두 힘을 찾아요.');
+  st.slots.forEach(sl => {
+    if(!(sl.name in s.ans)) msg.push(`<b>${esc(sl.name)}</b>: ${s.wrong[sl.name] || '이 물체에는 이 힘이 작용하지 않아요.'}`);
+    else if(s.ans[sl.name] !== sl.dir) msg.push(`<b>${esc(sl.name)}</b>의 방향을 다시 생각해 봐요. ${DIRHINT[sl.name]}`);
+  });
+  if(!msg.length){
+    st.done = true; st.fb = { ok:true, html:`🎉 정답! <b>${esc(names[0])}</b>과(와) <b>${esc(names[1])}</b>이(가) 같은 크기로 반대 방향으로 작용해 <b>힘의 평형</b>을 이루어요. 그래서 물체의 운동 상태가 변하지 않아요.` };
+    saveProg('a'+(i+1), 1);
+  } else st.fb = { ok:false, html:'🤔 ' + msg.join('<br>') };
+  renderScene(i); renderFinish();
+}
+async function saveProg(key, val){
+  if(preview){ if(!(key in pvProg)) pvProg[key]=val; return; }
+  if(ME){ ME.progress = ME.progress || {}; if(!(key in ME.progress)) ME.progress[key] = val; }
+  try{ const r = await rpc('bal_progress', { p_sid:S.sid, p_token:S.token, p_key:key, p_val:val }); if(!r.ok && r.err!=='closed') toast(errMsg(r.err)); }
+  catch(e){ toast('기록 저장에 실패했어요. 인터넷을 확인해 주세요.'); }
+}
+
+/* ---------- ① 예시 ---------- */
+function renderEx(i){
+  const el = $('ex'+i), st = SC[i], sit = i+1, done = st.done || !!prog()['a'+sit];
+  if(!el) return;
+  let h = `<h4>✏️ 비슷한 예 찾아 올리기</h4>`;
+  if(!done){ el.innerHTML = h + `<div class="lockmsg">🔒 위에서 두 힘을 먼저 찾으면 열려요</div>`; return; }
+  if(!OPEN.wall){ el.innerHTML = h + `<div class="lockmsg">🔒 예시 올리기는 선생님이 열면 할 수 있어요</div>`; return; }
+  const mp = minePost(sit);
+  if(mp){
+    h += `<div class="mine"><div class="w" style="font-size:13px;color:#6d28d9;font-weight:800">내 예시 ✓</div><div class="b">${esc(mp.body)}</div>${mp.ai?`<div class="ai">🤖 ${esc(mp.ai)}</div>`:''}
+      <div class="row" style="margin-top:6px"><button class="mini r" data-del="${mp.id}">지우고 다시 쓰기</button></div></div>`;
+  } else {
+    h += `<p class="help">「${SCENES[i].name}」처럼 <b>${Object.keys(SCENES[i].ans).join('과 ')}</b>이 평형을 이루는 일상생활 예를 찾아, <b>어떤 물체가 어떤 상황인지</b> 써요. 사진 없이 글만 올려요. 이름·학번은 쓰지 마세요.</p>
+      <textarea id="ta${i}" maxlength="120" placeholder="예) ○○이 ○○에 ○○한 채 멈춰 있다.">${esc(st.text)}</textarea>
+      <div class="row" style="margin-top:6px"><button class="btn" id="up${i}" ${st.busy?'disabled':''}>${st.busy?'<span class="spin"></span>AI가 확인하는 중…':'🤖 AI 확인 받고 올리기'}</button><span class="cnt" id="cn${i}">${st.text.length}/120</span></div>`;
+    if(preview) h += `<div class="fb no">미리 보기에서는 올릴 수 없어요.</div>`;
+  }
+  if(st.ex) h += `<div class="fb ${st.ex.cls} pop">${st.ex.html}</div>`;
+  h += `<div id="wall${i}">${st.wallHtml||''}</div>`;
+  el.innerHTML = h;
+  const ta = $('ta'+i);
+  if(ta){ ta.oninput = () => { st.text = ta.value; $('cn'+i).textContent = ta.value.length + '/120'; }; }
+  const up = $('up'+i); if(up) up.onclick = () => submitEx(i);
+  const dl = el.querySelector('[data-del]'); if(dl) dl.onclick = () => delMine(i, Number(dl.dataset.del));
+  bindWall(i);
+  const key = (mp?'m':'-') + OPEN.wall + OPEN.pub;
+  if(st.wallKey !== key){ st.wallKey = key; loadWall(i); }
+}
+function bindWall(i){
+  const box = $('wall'+i); if(!box) return;
+  box.querySelectorAll('[data-fl]').forEach(b => b.onclick = () => { SC[i].flt = b.dataset.fl; loadWall(i); });
+}
+async function submitEx(i){
+  const st = SC[i], sit = i+1, text = st.text.replace(/\s+/g,' ').trim();
+  if(preview){ toast('미리 보기에서는 올릴 수 없어요.'); return; }
+  if(text.length < 5){ st.ex = { cls:'no', html:ERR.short }; renderEx(i); return; }
+  if(/\d{4,}/.test(text)){ st.ex = { cls:'no', html:'숫자(학번·전화번호 같은 것)는 빼고 상황만 써 주세요.' }; renderEx(i); return; }
+  st.busy = true; st.ex = null; renderEx(i);
+  try{
+    const r = await gas({ action:'check', sid:S.sid, token:S.token, sit, text });
+    if(!r.ok) st.ex = { cls:'bad', html:esc(errMsg(r.err)) };
+    else if(!r.pass) st.ex = { cls:'no', html:'🤖 아직 올라가지 않았어요.<br>' + esc(r.msg) + '<br><small>고쳐서 다시 눌러 보세요.</small>' };
+    else { st.ex = { cls:'ok', html:'🎉 통과! 예시가 올라갔어요. 이제 친구들 예시도 볼 수 있어요.' }; st.text=''; await refreshMe(); }
+  }catch(e){ st.ex = { cls:'bad', html:'연결에 실패했어요. 잠시 뒤 다시 눌러 주세요.' }; }
+  st.busy = false; renderEx(i); renderFinish();
+}
+async function delMine(i, id){
+  if(!confirm('내 예시를 지울까요? 지우면 다시 AI 확인을 받아 올려야 해요.')) return;
+  try{ const r = await rpc('bal_post_del', { p_sid:S.sid, p_token:S.token, p_id:id }); if(!r.ok){ toast(errMsg(r.err)); return; } SC[i].ex=null; await refreshMe(); renderEx(i); renderFinish(); }
+  catch(e){ toast('연결에 실패했어요.'); }
+}
+async function loadWall(i){
+  const box = $('wall'+i); if(!box || preview) { if(box) box.innerHTML=''; return; }
+  const st = SC[i];
+  try{
+    const r = await rpc('bal_wall', { p_sid:S.sid, p_token:S.token, p_sit:i+1, p_all: st.flt==='all' });
+    let html = '';
+    if(!r.ok) html = '';
+    else if(r.locked) html = `<div class="lockmsg" style="margin-top:10px">🔒 내 예시를 올리면 친구들 예시가 보여요</div>`;
+    else { const others = r.posts.filter(p=>!p.mine);
+    html = `<div class="flt"><button data-fl="class" class="${st.flt==='class'?'on':''}">우리 반</button><button data-fl="all" class="${st.flt==='all'?'on':''}">모든 반</button><span style="margin-left:auto;font-size:14px;color:var(--sub);font-weight:700;align-self:center">${others.length}개</span></div>
+      <div class="posts">${others.length ? others.map(p=>`<div class="post"><div class="w">${p.class_no}반 · ${esc(p.nick)}</div>${esc(p.body)}</div>`).join('') : '<div class="lockmsg">아직 친구들 예시가 없어요</div>'}</div>`; }
+    st.wallHtml = html;
+    const b2 = $('wall'+i); if(b2){ b2.innerHTML = html; bindWall(i); }
+  }catch(e){}
+}
+
+/* ---------- ① 마무리 ---------- */
+function renderFinish(){
+  const p = prog(); const el = $('finish');
+  const arrows = [1,2,3,4].filter(k=>p['a'+k]).length;
+  const posts = preview ? 0 : ((ME && ME.mine) || []).length;
+  const needPosts = OPEN.wall && !preview;
+  const ready = arrows === 4 && (!needPosts || posts >= 4);
+  let h = `<h3>📋 나의 진행 상황</h3><div class="prog">
+    ${[1,2,3,4].map(k=>`<span class="${p['a'+k]?'d':''}">${p['a'+k]?'✓':'○'} 힘 표시 ${k}</span>`).join('')}
+    ${needPosts ? [1,2,3,4].map(k=>{ const has = !preview && ((ME&&ME.mine)||[]).some(x=>x.sit===k); return `<span class="${has?'d':''}">${has?'✓':'○'} 예시 ${k}</span>`; }).join('') : ''}
+    <span class="${p.book?'d':''}">${p.book?'✓':'○'} 교과서 정리</span></div>`;
+  if(!ready){
+    h += `<div class="lockmsg">${arrows<4 ? '네 가지 상황의 힘을 모두 찾으면' : '네 가지 예시를 모두 올리면'} 다음 할 일이 열려요 💪</div>`;
+  } else {
+    h += `<div class="bookbox pop"><div class="big">📘 이제 교과서에 정리해요!</div>
+      <ol><li>교과서 <b>178쪽 해 보기 1번</b>에 디벗으로 푼 것을 <b>그대로 옮겨 적어요.</b><br><small style="font-weight:500">(네 물체에 작용하는 두 힘의 이름과 화살표, 내가 찾은 비슷한 예)</small></li>
+      <li><b>해 보기 2번</b> 문제를 풀어요.</li></ol>
+      <div class="q2">❓ <b>2.</b> 물체에 힘이 작용해도 움직이지 않는 까닭을 힘의 평형으로 설명해 보자.</div>
+      <div class="row">${p.book ? `<span class="fb ok" style="margin:0">✓ 다 적었어요! 선생님이 확인할 수 있어요.</span>` : `<button class="btn ok" id="bookBtn">✍️ 교과서에 다 적었어요</button>`}</div></div>`;
+  }
+  el.innerHTML = h;
+  const bb = $('bookBtn'); if(bb) bb.onclick = async () => { if(!confirm('교과서 178쪽 1번 옮겨 적기와 2번 풀기를 다 했나요?')) return; await saveProg('book',1); renderFinish(); };
+}
+
+/* ---------- ② 퀴즈 ---------- */
+const QSC = {
+  desk:{ pt:[160,148], svg:`<rect width="320" height="280" fill="#f4f6fb"/><rect x="34" y="172" width="252" height="16" rx="3" fill="#b07a4a"/><rect x="50" y="188" width="14" height="80" fill="#9a6a40"/><rect x="256" y="188" width="14" height="80" fill="#9a6a40"/>
+    <rect x="100" y="122" width="120" height="50" rx="22" fill="#7cc6a6" stroke="#4e9c7c" stroke-width="3"/><path d="M110 134 H210" stroke="#3f7f63" stroke-width="3" stroke-dasharray="4 3"/><circle cx="214" cy="134" r="5" fill="#ffd166"/>` },
+  duck:{ pt:[160,158], svg:`<rect width="320" height="280" fill="#e6f3ff"/><ellipse cx="155" cy="160" rx="62" ry="32" fill="#ffd43b" stroke="#e0a800" stroke-width="3"/><circle cx="200" cy="118" r="26" fill="#ffd43b" stroke="#e0a800" stroke-width="3"/><circle cx="208" cy="112" r="4" fill="#333"/><path d="M222 120 l22 4 -22 8 z" fill="#ff8c1a"/><path d="M118 152 q20 -18 40 0" fill="none" stroke="#e0a800" stroke-width="3"/>
+    <rect y="170" width="320" height="110" fill="#3d8fd6" opacity=".72"/><path d="M0 170 q20 -6 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" fill="none" stroke="#bfe0ff" stroke-width="3"/>` },
+  hang:{ pt:[160,186], svg:`<rect width="320" height="280" fill="#f4f6fb"/><rect x="60" y="0" width="200" height="18" fill="#8a94ab"/><g stroke="#6b7489" stroke-width="2">${[0,1,2,3,4,5,6,7,8,9].map(k=>`<line x1="${66+k*20}" y1="18" x2="${76+k*20}" y2="2"/>`).join('')}</g>
+    <path d="${zig(160,18,140,12,14)}" fill="none" stroke="#5b6785" stroke-width="4"/><path d="M160 140 v10" stroke="#5b6785" stroke-width="4"/><rect x="122" y="150" width="76" height="72" rx="8" fill="#9aa5b8" stroke="#6b7489" stroke-width="3"/><text x="160" y="195" text-anchor="middle" font-size="20" font-weight="800" fill="#fff">추</text>` },
+  fridge:{ pt:[175,150], svg:`<rect width="320" height="280" fill="#f4efe8"/><rect y="240" width="320" height="40" fill="#d8cbb8"/><rect x="118" y="44" width="116" height="196" rx="8" fill="#eef3f9" stroke="#9aa7b8" stroke-width="3"/><line x1="118" y1="116" x2="234" y2="116" stroke="#9aa7b8" stroke-width="3"/><rect x="214" y="70" width="8" height="30" rx="3" fill="#9aa7b8"/><rect x="214" y="130" width="8" height="44" rx="3" fill="#9aa7b8"/>
+    ${HAND_L(118,128)}` },
+  bungee:{ pt:[200,196], svg:`<defs><linearGradient id="skyb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe8ff"/><stop offset="1" stop-color="#f1f8ff"/></linearGradient></defs><rect width="320" height="280" fill="url(#skyb)"/>
+    <rect x="20" y="14" width="260" height="16" fill="#f5b700" stroke="#c99400" stroke-width="2"/><path d="M20 30 L280 14" stroke="#c99400" stroke-width="2"/>
+    <path d="M200 30 L200 140" stroke="#334155" stroke-width="5"/>
+    <g stroke="#334155" stroke-width="7" stroke-linecap="round" fill="none"><path d="M194 140 L196 178 M206 140 L204 178"/><path d="M200 178 L200 222"/><path d="M200 196 L182 216 M200 196 L218 216"/></g><circle cx="200" cy="236" r="13" fill="#f2c9a0" stroke="#334155" stroke-width="3"/>` },
+  balloon:{ pt:[160,142], svg:`<rect width="320" height="280" fill="#dff0ff"/><ellipse cx="60" cy="60" rx="34" ry="14" fill="#fff"/><ellipse cx="262" cy="200" rx="34" ry="14" fill="#fff"/>
+    <ellipse cx="160" cy="100" rx="72" ry="82" fill="#ff6b6b"/><path d="M160 18 C120 60 120 140 148 178 L172 178 C200 140 200 60 160 18 Z" fill="#ffd166"/><path d="M160 18 C150 60 150 140 156 178 L164 178 C170 140 170 60 160 18 Z" fill="#4dabf7"/>
+    <path d="M140 180 L144 214 M180 180 L176 214" stroke="#7a5a3a" stroke-width="2"/><rect x="140" y="212" width="40" height="30" rx="4" fill="#a87b4f" stroke="#7a5a3a" stroke-width="2"/>` },
+  ball:{ pt:[160,132], svg:`<rect width="320" height="280" fill="#f4f6fb"/><rect y="250" width="320" height="30" fill="#cdbca8"/><rect x="118" y="242" width="84" height="10" rx="3" fill="#6b7489"/>
+    <path d="${zig(160,242,172,10,26)}" fill="none" stroke="#5b6785" stroke-width="4"/><rect x="118" y="164" width="84" height="10" rx="3" fill="#6b7489"/><circle cx="160" cy="132" r="32" fill="#ff922b" stroke="#d9480f" stroke-width="3"/><path d="M130 124 q30 18 60 0" fill="none" stroke="#d9480f" stroke-width="2"/>` },
+  rock:{ pt:[150,166], svg:`<rect width="320" height="280" fill="#eef6ea"/><path d="M0 232 Q160 222 320 236 L320 280 L0 280 Z" fill="#a3b18a"/>
+    <path d="M70 230 C50 170 80 100 150 92 C220 86 250 150 232 230 Z" fill="#9aa0a6" stroke="#6b7177" stroke-width="3"/><path d="M110 140 q20 -10 40 4 M170 180 q18 -6 30 6" fill="none" stroke="#7d848a" stroke-width="3"/>
+    ${HAND_R(232,148)}` }
+};
+const DIAG = (arrs) => `<svg viewBox="0 0 200 110"><rect x="70" y="30" width="60" height="50" rx="6" fill="#e9ecf5" stroke="#8a94ab" stroke-width="2"/>${arrs.map(a=>{
+  const [x,y,dir,len,c]=a; const [vx,vy]=DIRV[dir]; const ex=x+vx*len, ey=y+vy*len, bx=ex-vx*10, by=ey-vy*10, px=-vy, py=vx;
+  return `<line x1="${x}" y1="${y}" x2="${bx}" y2="${by}" stroke="${c}" stroke-width="5"/><polygon points="${ex},${ey} ${bx+px*7},${by+py*7} ${bx-px*7},${by-py*7}" fill="${c}"/>`;}).join('')}</svg>`;
+const QUIZ = [
+ { t:'draw', sc:'desk', given:{name:'중력',dir:'down'}, ans:{name:'바닥이 떠받치는 힘',dir:'up'},
+   q:'책상 위에 필통이 가만히 놓여 있어요. 필통에 작용하는 중력과 평형을 이루는 힘을 찾아 화살표로 표시하세요.',
+   hint:{ '마찰력':'필통은 옆으로 움직이려 하지 않아서 마찰력이 생기지 않아요.', '부력':'필통은 물에 떠 있지 않아요.' },
+   ex:'책상(바닥)이 필통을 위로 떠받치는 힘이 중력과 크기가 같고 방향이 반대라서 평형을 이루어요.' },
+ { t:'draw', sc:'duck', given:{name:'중력',dir:'down'}, ans:{name:'부력',dir:'up'},
+   q:'오리 장난감이 물 위에 가만히 떠 있어요. 중력과 평형을 이루는 힘을 찾아 화살표로 표시하세요.',
+   hint:{ '바닥이 떠받치는 힘':'오리 아래는 바닥이 아니라 물이에요.' },
+   ex:'물이 오리를 위로 밀어 올리는 부력이 중력과 평형을 이루어 물 위에 떠서 멈춰 있어요.' },
+ { t:'mc', q:'힘의 평형을 이루는 물체에 작용하는 알짜힘(합력)은 얼마일까요?',
+   opts:['0','두 힘을 더한 값','두 힘 중 더 큰 힘과 같다','물체의 무게와 같다'], a:0,
+   ex:'크기가 같은 두 힘이 반대 방향으로 작용하면 서로 상쇄되어 알짜힘이 0이 돼요. 그래서 운동 상태가 변하지 않아요.' },
+ { t:'draw', sc:'hang', given:{name:'중력',dir:'down'}, ans:{name:'탄성력',dir:'up'},
+   q:'천장의 용수철에 추가 매달려 멈춰 있어요. 중력과 평형을 이루는 힘을 찾아 화살표로 표시하세요.',
+   hint:{ '미는 힘':'추를 미는 사람이 없어요. 늘어난 용수철이 추를 어떻게 하고 있을까요?' },
+   ex:'늘어난 용수철이 원래 길이로 돌아가려고 추를 위로 당기는 탄성력이 중력과 평형을 이루어요.' },
+ { t:'draw', sc:'fridge', given:{name:'미는 힘',dir:'right'}, ans:{name:'마찰력',dir:'left'},
+   q:'냉장고를 오른쪽으로 밀었는데 움직이지 않아요. 미는 힘과 평형을 이루는 힘을 찾아 화살표로 표시하세요.',
+   hint:{ '중력':'중력도 작용하지만, 미는 힘(옆 방향)과 평형을 이루는 힘을 찾아요.', '바닥이 떠받치는 힘':'바닥이 떠받치는 힘은 중력과 평형을 이뤄요. 미는 힘과 평형을 이루는 힘은?' },
+   ex:'바닥과 냉장고 사이의 마찰력이 미는 힘과 반대 방향(왼쪽)으로 같은 크기만큼 작용해서 평형을 이루어요.' },
+ { t:'dg', q:'두 힘이 평형을 이루는 것을 고르세요.',
+   opts:[ DIAG([[100,55,'left',60,C1],[100,55,'right',60,C2]]), DIAG([[100,55,'left',35,C1],[100,55,'right',75,C2]]),
+          DIAG([[100,45,'right',60,C1],[100,65,'right',60,C2]]), DIAG([[100,36,'left',60,C1],[100,74,'right',60,C2]]) ], a:0,
+   ex:'두 힘이 <b>일직선상</b>에서 <b>크기가 같고</b> <b>방향이 반대</b>일 때 힘의 평형을 이뤄요. 크기가 다르거나, 방향이 같거나, 한 직선 위에 있지 않으면 평형이 아니에요.' },
+ { t:'draw', sc:'bungee', given:{name:'탄성력',dir:'up'}, ans:{name:'중력',dir:'down'},
+   q:'번지 점프를 한 사람이 줄에 매달려 멈춰 있어요. 줄의 탄성력과 평형을 이루는 힘을 찾아 화살표로 표시하세요.',
+   hint:{ '부력':'공기의 부력은 아주 작아서 생각하지 않아도 돼요.' },
+   ex:'번지 점프 줄의 탄성력(위쪽)과 사람에게 작용하는 중력(아래쪽)이 평형을 이루어 멈춰 있어요.' },
+ { t:'draw', sc:'balloon', given:{name:'부력',dir:'up'}, ans:{name:'중력',dir:'down'},
+   q:'열기구가 하늘에 떠서 멈춰 있어요. 부력과 평형을 이루는 힘을 찾아 화살표로 표시하세요.',
+   hint:{},
+   ex:'공기가 열기구를 위로 밀어 올리는 부력과 열기구에 작용하는 중력이 평형을 이루어 떠서 멈춰 있어요.' },
+ { t:'mc', q:'정지한 자동차를 밀어도 움직이지 않는 까닭으로 옳은 것은?',
+   opts:['자동차에는 아무 힘도 작용하지 않기 때문에','미는 힘과 마찰력이 크기가 같고 방향이 반대라서 평형을 이루기 때문에','미는 힘이 마찰력보다 크기 때문에','자동차에는 중력이 작용하지 않기 때문에'], a:1,
+   ex:'자동차를 미는 힘과 마찰력이 반대 방향으로 같은 크기만큼 작용해 평형을 이루기 때문이에요.' },
+ { t:'draw', sc:'ball', given:{name:'중력',dir:'down'}, ans:{name:'탄성력',dir:'up'},
+   q:'눌린 용수철 위에 공이 올려진 채 멈춰 있어요. 공에 작용하는 중력과 평형을 이루는 힘을 찾아 화살표로 표시하세요.',
+   hint:{ '바닥이 떠받치는 힘':'공 바로 아래는 바닥이 아니라 눌린 용수철이에요.' },
+   ex:'눌린 용수철이 원래 길이로 돌아가려고 공을 위로 미는 탄성력이 중력과 평형을 이루어요. 탄성력은 당기기도, 밀기도 해요!' },
+ { t:'draw', sc:'rock', given:{name:'미는 힘',dir:'left'}, ans:{name:'마찰력',dir:'right'},
+   q:'흔들바위를 왼쪽으로 힘껏 밀었는데 움직이지 않아요. 미는 힘과 평형을 이루는 힘을 찾아 화살표로 표시하세요.',
+   hint:{ '중력':'중력은 아래쪽 힘이에요. 옆으로 미는 힘과 평형을 이루는 힘을 찾아요.' },
+   ex:'바위와 땅 사이의 마찰력이 미는 힘과 반대 방향(오른쪽)으로 같은 크기만큼 작용해 평형을 이루어요.' },
+ { t:'mc', q:'모래 위에 놓인 고무보트와, 물 위에 떠 있는 고무보트가 있어요. 각각 중력과 평형을 이루는 힘을 바르게 짝지은 것은?',
+   opts:['모래 위: 바닥이 떠받치는 힘 / 물 위: 부력','모래 위: 부력 / 물 위: 바닥이 떠받치는 힘','모래 위: 마찰력 / 물 위: 부력','모래 위: 탄성력 / 물 위: 마찰력'], a:0,
+   ex:'같은 고무보트라도 모래 위에서는 바닥이 떠받치는 힘이, 물 위에서는 부력이 중력과 평형을 이루어요. (교과서 179쪽 그림)' }
+];
+const QS = QUIZ.map(()=>({ sel:null, put:null, tried:false, wrongOpt:[], fb:null, solved:false }));
+let qi = 0;
+function qDone(k){ return prog()['q'+(k+1)]; }
+function renderQuiz(){
+  if(!OPEN.quiz) return;
+  QUIZ.forEach((_,k)=>{ if(qDone(k)) QS[k].solved = true; });
+  $('qdots').innerHTML = QUIZ.map((_,k)=>{ const d=qDone(k); return `<button class="${k===qi?'cur ':''}${d===1?'d1':d===2?'d2':''}" data-q="${k}" aria-label="${k+1}번">${k+1}</button>`; }).join('');
+  $('qdots').querySelectorAll('[data-q]').forEach(b => b.onclick = () => { qi = Number(b.dataset.q); renderQuiz(); });
+  const all = QUIZ.every((_,k)=>qDone(k));
+  const card = $('qcard');
+  if(qi >= QUIZ.length){
+    const first = QUIZ.filter((_,k)=>qDone(k)===1).length;
+    card.innerHTML = `<div class="summary pop"><div class="big">🏆</div><h2 style="margin:6px 0">${all?'퀴즈 완료!':'아직 안 푼 문제가 있어요'}</h2>
+      <p style="font-size:19px">${QUIZ.length}문제 중 <b>${QUIZ.filter((_,k)=>qDone(k)).length}문제</b>를 풀었고, 첫 번에 맞힌 문제는 <b>${first}개</b>예요.</p>
+      <p style="color:var(--sub)">초록 번호 = 첫 번에 정답, 주황 번호 = 다시 풀어서 정답</p>
+      <button class="btn ghost" id="qBack">처음 문제부터 다시 보기</button></div>`;
+    $('qBack').onclick = () => { qi = 0; renderQuiz(); };
+    return;
+  }
+  const Q = QUIZ[qi], st = QS[qi];
+  let h = `<span class="qtag">${qi+1} / ${QUIZ.length}</span><div class="qq">${Q.q}</div>`;
+  if(Q.t === 'draw'){
+    const s = QSC[Q.sc];
+    let arrs = arrow(s.pt[0], s.pt[1], Q.given.dir, 82, C2, Q.given.name);
+    const put = st.solved ? Q.ans : st.put;
+    if(put) arrs += arrow(s.pt[0], s.pt[1], put.dir, 82, C1, put.name);
+    h += `<div class="pic qpic${st.sel&&!st.solved?' arm':''}" id="qpic"><svg viewBox="0 0 320 280" id="qsvg">${s.svg}${arrs}</svg><div class="tip">${st.solved?'평형!':st.sel?`「${esc(st.sel)}」 방향으로 끌어 보세요`:'힘을 먼저 골라요'}</div></div>`;
+    if(!st.solved){
+      h += `<div class="lbl" style="margin-top:12px">① 어떤 힘일까?</div><div class="chips">${FORCES.map(f=>`<button class="chip${st.sel===f?' sel':''}" data-f="${f}">${f}</button>`).join('')}</div>
+        <div class="dirs"><span class="lbl" style="margin:0">② 방향</span>${['up','down','left','right'].map(d=>`<button class="db" data-d="${d}" ${st.sel?'':'disabled'} aria-label="${DIRK[d]}">${DIRS[d]}</button>`).join('')}<small>또는 그림 위를 끌어요</small></div>
+        <div class="slots"><div class="slot ${st.put?'f':''}">${st.put?`<span class="dot" style="background:${C1}"></span>${esc(st.put.name)} ${DIRS[st.put.dir]}`:'내가 찾은 힘: 비어 있음'}</div></div>
+        <div class="row"><button class="btn" id="qChk" ${st.put?'':'disabled'}>확인하기</button></div>`;
+    }
+  } else if(Q.t === 'mc'){
+    h += `<div class="opts">${Q.opts.map((o,k)=>`<button class="opt ${st.solved&&k===Q.a?'right':''} ${st.wrongOpt.includes(k)?'wrong':''}" data-o="${k}" ${st.solved?'disabled':''}>${'①②③④'[k]} ${esc(o)}</button>`).join('')}</div>`;
+  } else {
+    h += `<div class="dgrid">${Q.opts.map((o,k)=>`<button class="dopt ${st.solved&&k===Q.a?'right':''} ${st.wrongOpt.includes(k)?'wrong':''}" data-o="${k}" ${st.solved?'disabled':''}>${o}${'①②③④'[k]}</button>`).join('')}</div>`;
+  }
+  if(st.solved) h += `<div class="fb ok pop">${st.fb && st.fb.ok ? st.fb.html + '<br>' : ''}💡 ${Q.ex}</div>`;
+  else if(st.fb) h += `<div class="fb no pop">${st.fb.html}</div>`;
+  h += `<div class="row" style="justify-content:space-between"><button class="btn ghost" id="qPrev" ${qi===0?'disabled':''}>◀ 이전</button><button class="btn ${st.solved?'':'ghost'}" id="qNext">${qi===QUIZ.length-1?'결과 보기':'다음 ▶'}</button></div>`;
+  card.innerHTML = h;
+  card.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { st.sel = st.sel===b.dataset.f?null:b.dataset.f; st.fb=null; renderQuiz(); });
+  card.querySelectorAll('[data-d]').forEach(b => b.onclick = () => { if(st.sel){ st.put={name:st.sel,dir:b.dataset.d}; st.sel=null; st.fb=null; renderQuiz(); } });
+  card.querySelectorAll('[data-o]').forEach(b => b.onclick = () => answerOpt(Number(b.dataset.o)));
+  const ck = $('qChk'); if(ck) ck.onclick = checkDraw;
+  $('qPrev').onclick = () => { qi = Math.max(0, qi-1); renderQuiz(); };
+  $('qNext').onclick = () => { qi = qi+1; renderQuiz(); };
+  const qp = $('qpic'); if(qp && !st.solved) bindQDrag(qp);
+}
+function bindQDrag(pic){
+  let start=null; const st = QS[qi], Q = QUIZ[qi], s = QSC[Q.sc];
+  pic.addEventListener('pointerdown', e => { if(!st.sel){ if(e.pointerType==='mouse') toast('먼저 아래에서 힘 이름을 골라요 👇'); return; } start=[e.clientX,e.clientY]; try{pic.setPointerCapture(e.pointerId);}catch(_){} e.preventDefault(); });
+  pic.addEventListener('pointermove', e => { if(!start) return; const dx=e.clientX-start[0], dy=e.clientY-start[1]; if(Math.hypot(dx,dy)<12) return;
+    $('qsvg').innerHTML = s.svg + arrow(s.pt[0],s.pt[1],Q.given.dir,82,C2,Q.given.name) + arrow(s.pt[0],s.pt[1],snap(dx,dy),82,'#7c3aed',st.sel,true); });
+  pic.addEventListener('pointerup', e => { if(!start) return; const dx=e.clientX-start[0], dy=e.clientY-start[1]; start=null;
+    if(Math.hypot(dx,dy)<12){ renderQuiz(); toast('조금 더 길게 끌어 주세요.'); return; }
+    st.put = { name:st.sel, dir:snap(dx,dy) }; st.sel=null; st.fb=null; renderQuiz(); });
+  pic.addEventListener('pointercancel', () => { start=null; renderQuiz(); });
+}
+function solve(k){
+  const st = QS[k]; st.solved = true;
+  saveProg('q'+(k+1), st.tried ? 2 : 1);
+}
+function checkDraw(){
+  const Q = QUIZ[qi], st = QS[qi], p = st.put; if(!p) return;
+  if(p.name === Q.ans.name && p.dir === Q.ans.dir){ st.fb = { ok:true, html:'🎉 정답!' }; solve(qi); }
+  else{
+    st.tried = true;
+    if(p.name === Q.given.name) st.fb = { html:`🤔 「${esc(Q.given.name)}」은(는) 이미 그려져 있어요. 이 힘과 평형을 이루는 <b>다른 힘</b>을 찾아요.` };
+    else if(p.name !== Q.ans.name) st.fb = { html:'🤔 ' + (Q.hint[p.name] || `「${esc(p.name)}」은(는) 여기서 「${esc(Q.given.name)}」과 평형을 이루는 힘이 아니에요. 물체 주변을 다시 살펴봐요.`) };
+    else st.fb = { html:`🤔 힘의 이름은 맞았어요! 방향을 다시 생각해 봐요. 평형을 이루려면 「${esc(Q.given.name)}」과 <b>반대 방향</b>이어야 해요.` };
+  }
+  renderQuiz();
+}
+function answerOpt(k){
+  const Q = QUIZ[qi], st = QS[qi]; if(st.solved) return;
+  if(k === Q.a){ st.fb = { ok:true, html:'🎉 정답!' }; solve(qi); }
+  else { st.tried = true; if(!st.wrongOpt.includes(k)) st.wrongOpt.push(k); st.fb = { html:'🤔 다시 생각해 봐요.' }; }
+  renderQuiz();
+}
+
+/* ---------- 닉네임 신청 ---------- */
+$('nickBtn').onclick = () => { $('nNick').value=''; $('nErr').textContent=''; $('nickOv').classList.remove('hidden'); };
+$('nCancel').onclick = () => $('nickOv').classList.add('hidden');
+$('nRand').onclick = () => { $('nNick').value = randNick(); };
+$('nGo').onclick = async () => {
+  const n = cleanNick($('nNick').value); const e = nickErr(n); if(e){ $('nErr').textContent = ERR[e]; return; }
+  try{ const r = await rpc('bal_nick_req', { p_sid:S.sid, p_token:S.token, p_nick:n }); if(!r.ok){ $('nErr').textContent = errMsg(r.err); return; }
+    $('nickOv').classList.add('hidden'); toast('신청했어요. 선생님이 승인하면 바뀌어요.'); refreshMe(); }
+  catch(_){ $('nErr').textContent = '연결에 실패했어요.'; }
+};
+
+/* ---------- 로그인 없이 보기 ---------- */
+let pubSit = 1, pubCls = 0;
+$('pubBtn').onclick = () => { $('pubOv').classList.remove('hidden'); loadPub(); };
+$('pubClose').onclick = () => $('pubOv').classList.add('hidden');
+async function loadPub(){
+  $('pubSit').innerHTML = SCENES.map((s,i)=>`<button data-s="${i+1}" class="${pubSit===i+1?'on':''}">${i+1}. ${s.name}</button>`).join('');
+  $('pubSit').style.flexWrap = 'wrap';
+  $('pubCls').innerHTML = `<button data-c="0" class="${pubCls===0?'on':''}">모든 반</button>` + Array.from({length:NCLS},(_,k)=>`<button data-c="${k+1}" class="${pubCls===k+1?'on':''}">${k+1}반</button>`).join('');
+  $('pubSit').querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{ pubSit=Number(b.dataset.s); loadPub(); });
+  $('pubCls').querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{ pubCls=Number(b.dataset.c); loadPub(); });
+  try{
+    const r = await rpc('bal_pub_wall', { p_sit:pubSit, p_class:pubCls });
+    if(!r.ok){ $('pubList').innerHTML = '<div class="lockmsg">지금은 볼 수 없어요. (선생님이 닫았어요)</div>'; return; }
+    $('pubList').innerHTML = r.posts.length ? r.posts.map(p=>`<div class="post"><div class="w">${p.class_no}반 · ${esc(p.nick)}</div>${esc(p.body)}</div>`).join('') : '<div class="lockmsg">아직 예시가 없어요</div>';
+  }catch(_){ $('pubList').innerHTML = '<div class="lockmsg">연결에 실패했어요.</div>'; }
+}
+
+/* ---------- 교사 모드 ---------- */
+let T = null; try{ T = sessionStorage.getItem('bal_t'); }catch(_){}
+let tCls = S ? S.class_no : 0, tData = null, tTimer = null;
+$('tBtn').onclick = () => { if(T) openT(); else { $('tPw').value=''; $('tErr').textContent=''; $('tLoginOv').classList.remove('hidden'); setTimeout(()=>$('tPw').focus(),50); } };
+$('tCancel').onclick = () => $('tLoginOv').classList.add('hidden');
+$('tPw').addEventListener('keydown', e => { if(e.key==='Enter') $('tGo').click(); });
+$('tGo').onclick = async () => {
+  try{
+    const r = await rpc('bal_t_login', { p_pw:$('tPw').value });
+    if(!r.ok){ $('tErr').textContent = r.err==='locked' ? `여러 번 틀려서 잠겼어요. ${Math.ceil(r.wait/60)}분 뒤에 다시 해 주세요.` : '비밀번호가 맞지 않아요.'; return; }
+    T = r.token; try{ sessionStorage.setItem('bal_t', T); }catch(_){}
+    $('tLoginOv').classList.add('hidden'); openT();
+  }catch(_){ $('tErr').textContent = '연결에 실패했어요.'; }
+};
+$('tClose').onclick = () => { $('tOv').classList.add('hidden'); clearInterval(tTimer); };
+$('tOut').onclick = async () => { try{ await rpc('bal_t_logout',{p_tok:T}); }catch(_){} T=null; try{sessionStorage.removeItem('bal_t');}catch(_){} $('tOv').classList.add('hidden'); clearInterval(tTimer); };
+$('tHide').onchange = renderT; $('tTodo').onchange = renderT;
+$('tPreview').onclick = () => {
+  preview = true; pvProg = {}; SC.forEach(s=>{ s.slots=[]; s.done=false; s.fb=null; s.sel=null; s.ex=null; });
+  QS.forEach(s=>{ s.solved=false; s.put=null; s.sel=null; s.fb=null; s.tried=false; s.wrongOpt=[]; });
+  OPEN = Object.assign({}, OPEN, { arrow:true, quiz:true, wall:true });
+  $('tOv').classList.add('hidden'); clearInterval(tTimer); showApp(); renderAll();
+  toast('미리 보기예요. 기록되지 않아요. 새로고침하면 끝나요.', 4000);
+};
+function openT(){ $('tOv').classList.remove('hidden'); loadT(); clearInterval(tTimer); tTimer = setInterval(loadT, 8000); }
+async function loadT(){
+  try{
+    const [a,b] = await Promise.all([ rpc('bal_t_state',{p_tok:T}), rpc('bal_t_posts',{p_tok:T,p_class:tCls}) ]);
+    if(!a.ok){ T=null; try{sessionStorage.removeItem('bal_t');}catch(_){} $('tOv').classList.add('hidden'); clearInterval(tTimer); toast('다시 로그인해 주세요.'); return; }
+    tData = { st:a, posts:b.ok?b.posts:[] }; renderT();
+  }catch(_){}
+}
+async function tSet(k,v){ try{ const r = await rpc('bal_t_set',{p_tok:T,p_key:k,p_val:v}); if(r.ok){ tData.st.open = r.open; renderT(); } }catch(_){ toast('연결에 실패했어요.'); } }
+function renderT(){
+  if(!tData) return;
+  const o = tData.st.open, hide = $('tHide').checked;
+  const SW = [['arrow','① 힘 찾기 (화살표)'],['wall','① 예시 올리기 (AI 확인)'],['quiz','② 힘의 평형 퀴즈'],['pub','👀 로그인 없이 예시 보기']];
+  $('tSw').innerHTML = SW.map(([k,l])=>`<button class="sw ${o[k]?'on':''}" data-k="${k}">${l}<span class="k">${o[k]?'열림':'닫힘'}</span></button>`).join('');
+  $('tSw').querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>tSet(b.dataset.k, !o[b.dataset.k]));
+  $('tCls').innerHTML = `<button data-c="0" class="${tCls===0?'on':''}">전체</button>` + Array.from({length:NCLS},(_,k)=>`<button data-c="${k+1}" class="${tCls===k+1?'on':''}">${k+1}반</button>`).join('');
+  $('tCls').querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{ tCls=Number(b.dataset.c); loadT(); });
+  let list = tData.st.students.filter(s => !tCls || s.class_no === tCls);
+  const isDone = s => { const p=s.progress||{}; return [1,2,3,4].every(k=>p['a'+k]) && s.posts.length>=4 && p.book && QUIZ.every((_,k)=>p['q'+(k+1)]); };
+  const cnt = f => list.filter(f).length;
+  $('tStat').innerHTML = `<span>입장 ${list.length}명</span><span>힘 표시 4개 ${cnt(s=>[1,2,3,4].every(k=>(s.progress||{})['a'+k]))}명</span><span>예시 4개 ${cnt(s=>s.posts.length>=4)}명</span><span>교과서 정리 ${cnt(s=>(s.progress||{}).book)}명</span><span>퀴즈 완료 ${cnt(s=>QUIZ.every((_,k)=>(s.progress||{})['q'+(k+1)]))}명</span><span>모두 완료 ${cnt(isDone)}명</span>`;
+  if($('tTodo').checked) list = list.filter(s=>!isDone(s));
+  const mark = (v,t) => v ? `<span class="y" title="${t||''}">●</span>` : '<span class="n">○</span>';
+  $('tRos').innerHTML = list.length ? list.map(s=>{ const p=s.progress||{};
+    const qn = QUIZ.filter((_,k)=>p['q'+(k+1)]).length, q1 = QUIZ.filter((_,k)=>p['q'+(k+1)]===1).length;
+    return `<tr><td>${hide ? s.class_no+'반' : esc(s.sid)}</td><td class="l">${s.online?'<span class="on-dot" title="접속 중"></span>':''}${esc(s.nick)}${s.nick_req?` <small style="color:var(--warn)">→ ${esc(s.nick_req)}?</small>`:''}</td>
+      <td>${[1,2,3,4].map(k=>mark(p['a'+k], p['a'+k+'_t'])).join('')}</td>
+      <td>${[1,2,3,4].map(k=>mark(s.posts.includes(k))).join('')}</td>
+      <td>${p.book?`<span class="y" title="${esc(p.book_t||'')}">✓</span>`:'<span class="n">–</span>'}</td>
+      <td>${qn===QUIZ.length?'<b class="y">완료</b>':qn+'/'+QUIZ.length}</td><td>${qn?q1+'/'+qn:'–'}</td>
+      <td>${hide?'':`<button class="mini" data-rn="${esc(s.sid)}">이름 바꾸기</button> <button class="mini r" data-ds="${esc(s.sid)}">삭제</button>`}</td></tr>`; }).join('')
+    : `<tr><td colspan="8" style="color:var(--sub);padding:18px">아직 입장한 학생이 없어요</td></tr>`;
+  $('tRos').querySelectorAll('[data-rn]').forEach(b=>b.onclick=async()=>{
+    const n = prompt('새 닉네임 (실명 X)', randNick()); if(n===null) return;
+    const r = await rpc('bal_t_rename',{p_tok:T,p_sid:b.dataset.rn,p_nick:cleanNick(n)}); if(!r.ok) toast(errMsg(r.err)); loadT(); });
+  $('tRos').querySelectorAll('[data-ds]').forEach(b=>b.onclick=async()=>{
+    if(!confirm(`${b.dataset.ds} 학생 기록과 올린 예시를 모두 지울까요? (학번을 잘못 입력한 경우 등)`)) return;
+    await rpc('bal_t_del_student',{p_tok:T,p_sid:b.dataset.ds}); loadT(); });
+  const reqs = tData.st.students.filter(s=>s.nick_req);
+  $('tReq').innerHTML = reqs.length ? reqs.map(s=>`<div class="row" style="margin:4px 0"><b>${hide?s.class_no+'반':esc(s.sid)}</b> ${esc(s.nick)} → <b>${esc(s.nick_req)}</b>
+    <button class="mini g" data-ok="${esc(s.sid)}">승인</button><button class="mini r" data-no="${esc(s.sid)}">거절</button></div>`).join('') : '<span style="color:var(--sub)">신청이 없어요</span>';
+  $('tReq').querySelectorAll('[data-ok],[data-no]').forEach(b=>b.onclick=async()=>{
+    const ok = !!b.dataset.ok; const r = await rpc('bal_t_nick',{p_tok:T,p_sid:b.dataset.ok||b.dataset.no,p_ok:ok}); if(!r.ok) toast(errMsg(r.err)); loadT(); });
+  $('tPosts').innerHTML = SCENES.map((sc,i)=>{ const ps = tData.posts.filter(p=>p.sit===i+1);
+    return `<div class="col"><h4>${i+1}. ${sc.name} (${ps.length})</h4>${ps.map(p=>`<div class="tpost"><div style="font-size:13px;color:var(--sub);font-weight:700">${hide?p.class_no+'반':esc(p.sid)} · ${esc(p.nick)} · ${esc(p.t)}</div>${esc(p.body)}${p.ai_comment?`<div class="ai">🤖 ${esc(p.ai_comment)}</div>`:''}${hide?'':`<div style="text-align:right"><button class="mini r" data-dp="${p.id}">삭제</button></div>`}</div>`).join('') || '<div style="color:var(--sub);font-size:15px">없음</div>'}</div>`; }).join('');
+  $('tPosts').querySelectorAll('[data-dp]').forEach(b=>b.onclick=async()=>{ if(!confirm('이 예시를 지울까요? 학생은 다시 올릴 수 있어요.')) return; await rpc('bal_t_del_post',{p_tok:T,p_id:Number(b.dataset.dp)}); loadT(); });
+}
+
+/* ---------- 시작 ---------- */
+if(!CFG.SUPABASE_URL || /여기에/.test(CFG.SUPABASE_URL)){
+  document.querySelector('main').insertAdjacentHTML('afterbegin','<div class="card fb bad">config.js에 Supabase 주소와 키를 먼저 넣어 주세요.</div>');
+}
+if(S) refreshMe(true); else showJoin();
+setInterval(() => { if(document.visibilityState === 'visible'){ if(S && !preview) refreshMe(); else if(!S) checkPub(); } }, 5000);
+setInterval(() => { if(document.visibilityState === 'visible' && S && !preview && curTab==='t1' && OPEN.arrow){ SCENES.forEach((_,i)=>{ if($('wall'+i)) loadWall(i); }); } }, 20000);
+})();
+</script>
+</body>
+</html>
