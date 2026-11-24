@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
 <title>힘의 평형 탐구실</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <script src="config.js"></script>
@@ -10,119 +11,117 @@
 :root{
   --bg:#f3f6fb; --card:#fff; --ink:#1f2a44; --sub:#5b6785; --line:#dbe2ef;
   --pri:#4f46e5; --pri2:#eef0ff; --ok:#16a34a; --okbg:#e8f8ee; --warn:#d97706; --warnbg:#fff6e6;
-  --bad:#e11d48; --badbg:#fdecef; --red:#e5384f; --blue:#2f6fe4;
+  --bad:#e11d48; --badbg:#fdecef;
 }
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:18px;line-height:1.55;-webkit-text-size-adjust:100%}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:18px;line-height:1.55;-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:anywhere}
 button,input,textarea,select{font:inherit;color:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
-header{position:sticky;top:0;z-index:20;background:linear-gradient(120deg,#4f46e5,#7c3aed 60%,#db2777);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:0 2px 12px #0002}
+header{background:linear-gradient(120deg,#4f46e5,#7c3aed 60%,#db2777);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;box-shadow:0 2px 12px #0002}
 header h1{font-size:22px;margin:0;font-weight:800;letter-spacing:-.5px}
 header .sub{font-size:14px;opacity:.85}
 header .sp{flex:1}
 .hbtn{background:#ffffff26;border:1px solid #ffffff55;color:#fff;border-radius:12px;padding:7px 12px;font-size:15px;font-weight:700}
 .me{font-size:15px;font-weight:700;background:#ffffff26;border-radius:12px;padding:6px 12px}
-main{max-width:1180px;margin:0 auto;padding:16px 14px 30px}
-.tabs{display:flex;gap:10px;margin:4px 0 16px;flex-wrap:wrap}
-.tab{flex:1;min-width:150px;border:2px solid var(--line);background:#fff;border-radius:16px;padding:12px 14px;font-size:19px;font-weight:800;text-align:left;display:flex;align-items:center;gap:8px}
+main{max-width:1180px;margin:0 auto;padding:14px 14px 26px}
+.tabs{display:flex;gap:8px;margin:2px 0 12px}
+.tab{flex:1;min-width:0;border:2px solid var(--line);background:#fff;border-radius:16px;padding:11px 12px;font-size:18px;font-weight:800;text-align:center}
 .tab.on{border-color:var(--pri);background:var(--pri2);color:var(--pri)}
-.tab .lk{margin-left:auto;font-size:14px;font-weight:700;color:var(--sub)}
-.card{background:var(--card);border-radius:20px;box-shadow:0 2px 10px #1f2a4412;border:1px solid var(--line);padding:18px}
-.intro{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px}
-.intro .ic{font-size:40px;line-height:1}
-.intro h2{margin:0 0 4px;font-size:22px}
-.intro p{margin:0;color:var(--sub);font-size:17px}
-.howto{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.howto span{background:var(--pri2);color:var(--pri);border-radius:999px;padding:4px 12px;font-size:15px;font-weight:700}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-@media(max-width:860px){.grid{grid-template-columns:1fr}}
-.scene{padding:0;overflow:hidden}
-.scene .hd{display:flex;align-items:center;gap:10px;padding:14px 16px 8px}
-.scene .no{width:34px;height:34px;border-radius:50%;background:var(--pri);color:#fff;display:grid;place-items:center;font-weight:800;font-size:18px;flex:none}
-.scene .ttl{font-size:21px;font-weight:800}
-.scene .st{margin-left:auto;font-size:14px;font-weight:800;border-radius:999px;padding:3px 10px;background:#eef1f7;color:var(--sub);white-space:nowrap}
-.scene .st.done{background:var(--okbg);color:var(--ok)}
-.pic{position:relative;margin:0 14px;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--line);touch-action:pan-y;user-select:none;-webkit-user-select:none}
-.pic svg{display:block;width:100%;height:auto}
-.pic.arm{touch-action:none;outline:3px dashed #7c3aed;outline-offset:-3px}
-.pic .tip{position:absolute;left:8px;top:8px;background:#1f2a44d9;color:#fff;font-size:14px;font-weight:700;border-radius:10px;padding:4px 9px;pointer-events:none}
-.pad{padding:12px 16px 16px}
-.lbl{font-size:16px;font-weight:800;color:var(--sub);margin:4px 0 6px}
+.card{background:var(--card);border-radius:20px;box-shadow:0 2px 10px #1f2a4412;border:1px solid var(--line);padding:16px}
+/* 넘기기 */
+.stepbar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.navb{width:58px;height:58px;flex:none;border-radius:50%;border:0;background:var(--pri);color:#fff;font-size:26px;font-weight:900;box-shadow:0 3px 10px #4f46e544}
+.navb:disabled{opacity:.25;box-shadow:none}
+.sdots{flex:1;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.sdot{min-width:54px;height:48px;border-radius:24px;border:2px solid var(--line);background:#fff;font-weight:900;font-size:18px;padding:0 12px}
+.sdot.cur{border-color:var(--pri);color:var(--pri);box-shadow:0 0 0 3px #c7c4ff}
+.sdot.d{background:var(--ok);border-color:var(--ok);color:#fff}
+.sdot.d.cur{box-shadow:0 0 0 3px #86efac}
+.shd{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.num{width:38px;height:38px;border-radius:50%;background:var(--pri);color:#fff;display:grid;place-items:center;font-weight:900;font-size:20px;flex:none}
+.ttl{font-size:23px;font-weight:900;letter-spacing:-.3px}
+.st{margin-left:auto;font-size:15px;font-weight:800;border-radius:999px;padding:4px 12px;background:#eef1f7;color:var(--sub);white-space:nowrap}
+.st.done{background:var(--okbg);color:var(--ok)}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+@media(max-width:820px){.stage{grid-template-columns:1fr}}
+.pic{position:relative;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--line);touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.pic svg{display:block;width:100%;height:auto;max-height:62vh}
+.pic.arm{outline:3px dashed #7c3aed;outline-offset:-3px}
+.pic .tip{position:absolute;left:8px;top:8px;background:#1f2a44d9;color:#fff;font-size:15px;font-weight:700;border-radius:10px;padding:4px 10px;pointer-events:none}
+.lbl{font-size:17px;font-weight:800;color:var(--sub);margin:2px 0 6px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:2px solid var(--line);background:#fff;border-radius:14px;padding:8px 13px;font-size:19px;font-weight:800}
+.chip{border:2px solid var(--line);background:#fff;border-radius:14px;padding:9px 14px;font-size:20px;font-weight:800}
 .chip.sel{border-color:var(--pri);background:var(--pri);color:#fff}
-.chip:disabled{opacity:.45}
-.dirs{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
-.dirs .db{width:52px;height:48px;border-radius:14px;border:2px solid var(--line);background:#fff;font-size:24px;font-weight:900}
-.dirs .db:disabled{opacity:.4}
-.dirs small{color:var(--sub);font-size:15px}
+.chip:disabled{opacity:.4}
+.dirwrap{display:flex;gap:14px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.dpad{display:grid;grid-template-columns:repeat(3,64px);grid-template-rows:repeat(3,56px);gap:6px}
+.db{border-radius:14px;border:2px solid var(--line);background:#fff;font-size:28px;font-weight:900;color:var(--pri)}
+.db:disabled{opacity:.35;color:var(--sub)}
+.mhint{color:var(--sub);font-size:14px}
 .slots{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.slot{flex:1;min-width:130px;border:2px dashed var(--line);border-radius:14px;padding:8px 10px;font-size:18px;font-weight:800;display:flex;align-items:center;gap:6px;min-height:50px;color:#9aa5bd}
+.slot{flex:1;min-width:140px;border:2px dashed var(--line);border-radius:14px;padding:8px 10px;font-size:19px;font-weight:800;display:flex;align-items:center;gap:6px;min-height:52px;color:#9aa5bd}
 .slot.f{border-style:solid;color:var(--ink)}
 .slot .dot{width:14px;height:14px;border-radius:50%;flex:none}
-.slot .x{margin-left:auto;border:0;background:#eef1f7;border-radius:10px;width:32px;height:32px;font-size:16px}
+.slot .x{margin-left:auto;border:0;background:#eef1f7;border-radius:10px;width:34px;height:34px;font-size:16px}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
 .btn{border:0;border-radius:14px;padding:11px 18px;font-size:19px;font-weight:800;background:var(--pri);color:#fff}
+.btn.big{font-size:21px;padding:14px 22px}
 .btn.ghost{background:#eef1f7;color:var(--ink)}
 .btn.ok{background:var(--ok)}
 .btn:disabled{opacity:.45;cursor:not-allowed}
-.fb{margin-top:12px;border-radius:14px;padding:11px 14px;font-size:17px;font-weight:600}
+.fb{margin-top:12px;border-radius:14px;padding:11px 14px;font-size:18px;font-weight:600}
 .fb.ok{background:var(--okbg);color:#0f6b33}
 .fb.no{background:var(--warnbg);color:#8a4b00}
 .fb.bad{background:var(--badbg);color:#9f1239}
-.ex{border-top:2px solid var(--line);margin-top:14px;padding-top:12px}
-.ex h4{margin:0 0 6px;font-size:19px}
-.ex .help{font-size:15px;color:var(--sub);margin:0 0 8px}
-textarea{width:100%;border:2px solid var(--line);border-radius:14px;padding:10px 12px;font-size:18px;resize:vertical;min-height:76px;background:#fbfcff}
+.help{font-size:17px;color:var(--sub);margin:0 0 8px}
+textarea{width:100%;border:2px solid var(--line);border-radius:14px;padding:11px 13px;font-size:20px;resize:vertical;min-height:96px;background:#fbfcff}
 textarea:focus,input:focus{outline:3px solid #c7c4ff;border-color:var(--pri)}
-.cnt{font-size:14px;color:var(--sub);margin-left:auto}
-.mine{background:#f5f3ff;border:2px solid #c4b5fd;border-radius:14px;padding:10px 12px;margin-top:6px}
-.mine .b{font-size:18px;font-weight:700}
-.mine .ai{font-size:15px;color:#4c1d95;margin-top:4px}
-.flt{display:flex;gap:6px;margin:10px 0 6px}
-.flt button{border:2px solid var(--line);background:#fff;border-radius:999px;padding:4px 12px;font-size:15px;font-weight:800}
+.cnt{font-size:15px;color:var(--sub);margin-left:auto}
+.pair{display:inline-flex;gap:6px;flex-wrap:wrap;margin:2px 0 10px}
+.pair span{border-radius:999px;padding:3px 12px;font-weight:800;font-size:16px}
+.mine{background:#f5f3ff;border:2px solid #c4b5fd;border-radius:14px;padding:12px 14px}
+.mine .b{font-size:20px;font-weight:700}
+.flt{display:flex;gap:6px;margin:10px 0 6px;flex-wrap:wrap;align-items:center}
+.flt button{border:2px solid var(--line);background:#fff;border-radius:999px;padding:5px 13px;font-size:16px;font-weight:800}
 .flt button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.posts{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow:auto;padding-right:2px}
-.post{background:#f7f9fc;border:1px solid var(--line);border-radius:12px;padding:8px 11px;font-size:17px}
-.post .w{font-size:13px;color:var(--sub);font-weight:700}
-.post.me{background:#f5f3ff;border-color:#c4b5fd}
-.lockmsg{background:#f7f9fc;border:2px dashed var(--line);border-radius:14px;padding:12px;text-align:center;color:var(--sub);font-weight:700;font-size:16px}
-.finish{margin-top:18px}
-.finish h3{margin:0 0 8px;font-size:22px}
+.posts{display:flex;flex-direction:column;gap:7px;max-height:44vh;overflow:auto;padding-right:2px}
+.post{background:#f7f9fc;border:1px solid var(--line);border-radius:12px;padding:9px 12px;font-size:18px}
+.post .w{font-size:14px;color:var(--sub);font-weight:700}
+.lockmsg{background:#f7f9fc;border:2px dashed var(--line);border-radius:14px;padding:14px;text-align:center;color:var(--sub);font-weight:700;font-size:17px}
+.bookbox{background:linear-gradient(135deg,#fff7e6,#ffeef5);border:2px solid #fbbf24;border-radius:18px;padding:18px 20px}
+.bookbox .big{font-size:24px;font-weight:900;margin-bottom:6px}
+.bookbox ol{margin:6px 0 10px;padding-left:26px;font-size:20px;font-weight:600}
+.bookbox .q2{background:#fff;border-radius:12px;padding:9px 13px;font-size:18px;border:1px solid #fde68a}
 .prog{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
 .prog span{border-radius:999px;padding:4px 12px;font-size:15px;font-weight:800;background:#eef1f7;color:var(--sub)}
 .prog span.d{background:var(--okbg);color:var(--ok)}
-.bookbox{background:linear-gradient(135deg,#fff7e6,#ffeef5);border:2px solid #fbbf24;border-radius:18px;padding:16px 18px}
-.bookbox .big{font-size:22px;font-weight:900;margin-bottom:6px}
-.bookbox ol{margin:6px 0 10px;padding-left:24px;font-size:19px;font-weight:600}
-.bookbox .q2{background:#fff;border-radius:12px;padding:8px 12px;font-size:17px;border:1px solid #fde68a}
 .closed{text-align:center;padding:50px 20px}
 .closed .i{font-size:56px}
-.closed h3{margin:6px 0;font-size:22px}
+.closed h3{margin:6px 0;font-size:23px}
 .closed p{color:var(--sub);margin:0}
-/* quiz */
-.qwrap{max-width:760px;margin:0 auto}
+/* 퀴즈 */
+.qwrap{max-width:820px;margin:0 auto}
 .qdots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
-.qdots button{width:38px;height:38px;border-radius:50%;border:2px solid var(--line);background:#fff;font-weight:800;font-size:16px}
+.qdots button{width:40px;height:40px;border-radius:50%;border:2px solid var(--line);background:#fff;font-weight:800;font-size:16px}
 .qdots button.cur{border-color:var(--pri);color:var(--pri)}
 .qdots button.d1{background:var(--ok);border-color:var(--ok);color:#fff}
 .qdots button.d2{background:#f59e0b;border-color:#f59e0b;color:#fff}
 .qtag{display:inline-block;background:var(--pri2);color:var(--pri);border-radius:999px;padding:3px 12px;font-size:15px;font-weight:800}
 .qq{font-size:22px;font-weight:800;margin:8px 0 12px;line-height:1.45}
 .opts{display:flex;flex-direction:column;gap:8px}
-.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:12px 14px;font-size:19px;font-weight:700;text-align:left}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:12px 14px;font-size:20px;font-weight:700;text-align:left}
 .opt.right{border-color:var(--ok);background:var(--okbg)}
 .opt.wrong{border-color:#f59e0b;background:var(--warnbg)}
 .dgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.dopt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:6px;text-align:center;font-size:18px;font-weight:800}
+.dopt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:6px;text-align:center;font-size:19px;font-weight:800}
 .dopt svg{width:100%;height:auto;display:block}
 .dopt.right{border-color:var(--ok);background:var(--okbg)}
 .dopt.wrong{border-color:#f59e0b;background:var(--warnbg)}
-.qpic{max-width:420px;margin:0 auto}
+.qpic{max-width:440px;margin:0 auto}
 .summary{text-align:center;padding:26px 10px}
 .summary .big{font-size:46px}
-/* overlays */
+/* 입장·창 */
 .ov{position:fixed;inset:0;background:#0f172acc;z-index:50;display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:24px 12px}
 .modal{background:#fff;border-radius:22px;max-width:520px;width:100%;padding:22px;box-shadow:0 20px 50px #0005;margin:auto}
 .modal h2{margin:0 0 6px;font-size:24px}
@@ -133,50 +132,73 @@ textarea:focus,input:focus{outline:3px solid #c7c4ff;border-color:var(--pri)}
 .nickrow input{flex:1;min-width:0}
 .warnbox{background:#fff1f2;border:2px solid #fecdd3;color:#9f1239;border-radius:14px;padding:10px 12px;font-weight:700;font-size:16px}
 .err{color:var(--bad);font-weight:700;font-size:16px;min-height:22px;margin-top:6px}
-.join{max-width:520px;margin:30px auto}
+.join{max-width:520px;margin:24px auto}
 .join .logo{font-size:52px;text-align:center}
 .join h2{text-align:center;margin:0 0 4px;font-size:26px}
 .join .d{text-align:center;color:var(--sub);margin:0 0 10px}
-.tpanel{background:#fff;border-radius:22px;max-width:1150px;width:100%;padding:18px;margin:auto}
-.tpanel h2{margin:0;font-size:24px}
-.tsec{border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-top:12px}
-.tsec h3{margin:0 0 8px;font-size:19px}
-.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
-.sw{display:flex;align-items:center;gap:10px;border:2px solid var(--line);border-radius:14px;padding:8px 12px;font-weight:800;font-size:17px;background:#fff}
+.wide{background:#fff;border-radius:22px;max-width:1150px;width:100%;padding:18px;margin:auto}
+/* 교사 */
+.tbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.tbar h2{margin:0;font-size:25px}
+.chk{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:16px;background:#eef1f7;border-radius:12px;padding:9px 12px}
+.chk input{width:20px;height:20px}
+.tsec{margin-bottom:12px}
+.tsec h3{margin:0 0 8px;font-size:20px}
+.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
+.sw{display:flex;align-items:center;gap:10px;border:2px solid var(--line);border-radius:14px;padding:10px 12px;font-weight:800;font-size:17px;background:#fff;text-align:left}
 .sw.on{border-color:var(--ok);background:var(--okbg)}
-.sw .k{margin-left:auto;border-radius:999px;padding:2px 10px;font-size:14px;background:#eef1f7}
+.sw .k{margin-left:auto;border-radius:999px;padding:2px 10px;font-size:14px;background:#eef1f7;white-space:nowrap}
 .sw.on .k{background:var(--ok);color:#fff}
+.ttabs{display:flex;gap:8px;margin:4px 0 10px;flex-wrap:wrap}
+.ttabs button{border:2px solid var(--line);background:#fff;border-radius:14px;padding:10px 16px;font-size:18px;font-weight:800}
+.ttabs button.on{border-color:var(--pri);background:var(--pri);color:#fff}
+.badge{display:inline-block;background:var(--bad);color:#fff;border-radius:999px;padding:0 8px;font-size:14px;margin-left:4px}
 table.ros{width:100%;border-collapse:collapse;font-size:16px}
-table.ros th,table.ros td{border-bottom:1px solid var(--line);padding:6px 6px;text-align:center;white-space:nowrap}
+table.ros th,table.ros td{border-bottom:1px solid var(--line);padding:7px 6px;text-align:center;white-space:nowrap}
 table.ros th{background:#f7f9fc;font-size:14px;color:var(--sub);position:sticky;top:0}
 table.ros td.l{text-align:left}
-.tscroll{overflow:auto;max-height:60vh}
+.tscroll{overflow:auto;max-height:64vh}
 .y{color:var(--ok);font-weight:900}.n{color:#c3cad8}
 .on-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#22c55e;margin-right:4px}
-.mini{border:0;border-radius:10px;padding:4px 9px;font-size:14px;font-weight:800;background:#eef1f7}
+.mini{border:0;border-radius:10px;padding:5px 10px;font-size:14px;font-weight:800;background:#eef1f7}
 .mini.r{background:var(--badbg);color:var(--bad)}
 .mini.g{background:var(--okbg);color:var(--ok)}
-.stat{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.stat{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
 .stat span{background:#f7f9fc;border:1px solid var(--line);border-radius:12px;padding:4px 10px;font-weight:800;font-size:15px}
-.tposts{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
-.tposts .col h4{margin:0 0 6px}
-.tpost{border:1px solid var(--line);border-radius:12px;padding:8px 10px;margin-bottom:6px;font-size:15px}
-.tpost .ai{color:#4c1d95;font-size:13px;margin-top:3px}
+.grp{margin-top:14px}
+.grp .gh{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.grp .gh img{width:74px;height:70px;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+.grp .gh b{font-size:20px}
+.grp .gh small{display:block;color:var(--sub);font-size:15px;font-weight:700}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+.tpost{border:1px solid var(--line);border-radius:12px;padding:9px 11px;font-size:17px;background:#fff}
+.tpost .w{font-size:13px;color:var(--sub);font-weight:700}
+/* 수업용 전체 화면 */
+.show{position:fixed;inset:0;z-index:80;background:linear-gradient(135deg,#1e1b4b,#3b2f8f);color:#fff;display:flex;flex-direction:column;padding:16px 22px}
+.show .top{display:flex;align-items:center;gap:14px}
+.show .top img{height:96px;width:104px;object-fit:cover;border-radius:16px;background:#fff}
+.show .top h2{margin:0;font-size:34px;letter-spacing:-.5px}
+.show .top .s2{font-size:20px;opacity:.85;font-weight:700}
+.show .navb{background:#ffffff26;box-shadow:none;width:64px;height:64px;font-size:30px}
+.show .flt button{background:#ffffff1a;color:#fff;border-color:#ffffff40;font-size:18px}
+.show .flt button.on{background:#fff;color:#1e1b4b;border-color:#fff}
+.show .cards{flex:1;overflow:auto;columns:3 320px;column-gap:16px;margin-top:10px;padding-bottom:20px}
+.show .c{break-inside:avoid;background:#fff;color:#1f2a44;border-radius:18px;padding:14px 18px;margin-bottom:16px;font-size:27px;font-weight:700;line-height:1.4}
+.show .c .w{font-size:17px;color:#6d28d9;font-weight:800;margin-bottom:2px}
+.show .empty{font-size:26px;opacity:.7;text-align:center;margin-top:60px}
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#1f2a44;color:#fff;border-radius:14px;padding:11px 18px;font-weight:700;z-index:90;font-size:17px;max-width:90vw;text-align:center}
 footer{text-align:center;color:#8a94ab;font-size:12px;padding:16px 16px 26px;line-height:1.6}
-.spin{display:inline-block;width:18px;height:18px;border:3px solid #fff8;border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;vertical-align:-3px;margin-right:6px}
-@keyframes sp{to{transform:rotate(360deg)}}
-@keyframes pop{0%{transform:scale(.9);opacity:0}100%{transform:scale(1);opacity:1}}
-.pop{animation:pop .25s ease}
+@keyframes pop{0%{transform:scale(.95);opacity:0}100%{transform:scale(1);opacity:1}}
+.pop{animation:pop .22s ease}
 @media(max-width:560px){
   html,body{font-size:17px}
-  header{position:static;padding:8px 12px;gap:8px}
-  header .sub{display:none}
   header h1{font-size:19px}
-  .tab{font-size:17px;padding:10px 12px}
-  .chip{font-size:17px;padding:7px 10px}
-  .qq{font-size:20px}
-  .scene .ttl{font-size:19px}
+  header .sub{display:none}
+  .tab{font-size:16px;padding:9px 6px}
+  .chip{font-size:18px;padding:8px 11px}
+  .ttl{font-size:20px}
+  .navb{width:50px;height:50px;font-size:22px}
+  .sdot{min-width:44px;height:42px}
 }
 </style>
 </head>
@@ -210,32 +232,50 @@ footer{text-align:center;color:#8a94ab;font-size:12px;padding:16px 16px 26px;lin
   <!-- 학생 화면 -->
   <section id="appView" class="hidden">
     <div class="tabs">
-      <button class="tab on" data-tab="t1">① 힘 찾기 &amp; 예시 올리기 <span class="lk" id="lk1"></span></button>
-      <button class="tab" data-tab="t2">② 힘의 평형 퀴즈 <span class="lk" id="lk2"></span></button>
+      <button class="tab on" data-tab="t1">① 힘 찾기 <span id="lk1"></span></button>
+      <button class="tab" data-tab="t2">② 예시 올리기 <span id="lk2"></span></button>
+      <button class="tab" data-tab="t3">③ 평형 퀴즈 <span id="lk3"></span></button>
     </div>
-
-    <div id="t1">
-      <div id="t1closed" class="card closed hidden"><div class="i">🔒</div><h3>아직 열리지 않았어요</h3><p>선생님이 열어 주시면 시작할 수 있어요.</p></div>
-      <div id="t1body">
-        <div class="card intro">
-          <div class="ic">🔍</div>
-          <div>
-            <h2>힘이 작용하는데도 왜 안 움직일까?</h2>
-            <p>네 가지 물체에 작용하는 <b>두 가지 힘</b>을 찾아 화살표로 표시해 보세요. 그다음 그림 아래에 <b>비슷한 예를 하나씩</b> 찾아 올려요.</p>
-            <div class="howto"><span>① 힘 이름 고르기</span><span>② 그림 위를 끌어서(또는 ↑↓←→) 방향 정하기</span><span>③ 두 힘 다 넣고 확인</span></div>
-          </div>
-        </div>
-        <div class="grid" id="scenes"></div>
-        <div class="card finish" id="finish"></div>
-      </div>
-    </div>
-
-    <div id="t2" class="hidden">
-      <div id="t2closed" class="card closed hidden"><div class="i">🔒</div><h3>아직 열리지 않았어요</h3><p>선생님이 열어 주시면 퀴즈를 풀 수 있어요.</p></div>
-      <div id="t2body" class="qwrap">
+    <div id="t1"></div>
+    <div id="t2" class="hidden"></div>
+    <div id="t3" class="hidden">
+      <div id="t3closed" class="card closed hidden"><div class="i">🔒</div><h3>아직 열리지 않았어요</h3><p>선생님이 열어 주시면 퀴즈를 풀 수 있어요.</p></div>
+      <div id="t3body" class="qwrap">
         <div class="qdots" id="qdots"></div>
         <div class="card" id="qcard"></div>
       </div>
+    </div>
+  </section>
+
+  <!-- 교사 모드 -->
+  <section id="teacherView" class="hidden">
+    <div class="card tbar">
+      <h2>🧑‍🏫 교사 모드</h2><div style="flex:1"></div>
+      <label class="chk"><input type="checkbox" id="tHide"> 학번 가리기</label>
+      <button class="btn ghost" id="tPreview">👁 학생 화면 미리 보기</button>
+      <button class="btn ghost" id="tOut">로그아웃</button>
+    </div>
+    <div class="card tsec"><h3>탭 열기 / 닫기 <small style="color:var(--sub);font-weight:600;font-size:15px">(학생 화면에 5초 안에 반영)</small></h3><div class="tg" id="tSw"></div></div>
+    <div class="card">
+      <div class="ttabs" id="tTabs">
+        <button data-ts="ros" class="on">📋 학생 활동 확인</button>
+        <button data-ts="ex">🗂 예시 모아 보기</button>
+        <button data-ts="nick">✏️ 닉네임 신청<span id="tReqN"></span></button>
+      </div>
+      <div class="flt" id="tCls"></div>
+      <div id="tsRos">
+        <label style="font-size:16px;font-weight:700"><input type="checkbox" id="tTodo"> 아직 다 못 한 학생만 보기</label>
+        <div class="stat" id="tStat"></div>
+        <div class="tscroll"><table class="ros"><thead><tr>
+          <th>학번</th><th>닉네임</th><th>① 힘 찾기</th><th>② 예시</th><th>교과서</th><th>③ 퀴즈</th><th>첫 번에 정답</th><th>관리</th>
+        </tr></thead><tbody id="tRos"></tbody></table></div>
+      </div>
+      <div id="tsEx" class="hidden">
+        <div class="flt" id="tSit"></div>
+        <div class="row" style="margin-top:4px"><button class="btn" id="tShow">🖥 수업용 전체 화면으로 보기</button><span style="color:var(--sub);font-size:15px">학번은 가려지고 반·닉네임만 크게 보여요</span></div>
+        <div id="tEx"></div>
+      </div>
+      <div id="tsNick" class="hidden"><div id="tReq"></div></div>
     </div>
   </section>
 </main>
@@ -248,11 +288,11 @@ footer{text-align:center;color:#8a94ab;font-size:12px;padding:16px 16px 26px;lin
 
 <!-- 로그인 없이 보기 -->
 <div id="pubOv" class="ov hidden">
-  <div class="tpanel">
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><h2>👀 친구들이 찾은 힘의 평형 예시</h2><div style="flex:1"></div><button class="btn ghost" id="pubClose">닫기</button></div>
+  <div class="wide">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><h2 style="margin:0">👀 친구들이 찾은 힘의 평형 예시</h2><div style="flex:1"></div><button class="btn ghost" id="pubClose">닫기</button></div>
     <p style="color:var(--sub);margin:4px 0 8px">보기만 할 수 있어요. 예시를 올리려면 입장하세요.</p>
     <div class="flt" id="pubSit"></div>
-    <div class="flt" id="pubCls" style="flex-wrap:wrap"></div>
+    <div class="flt" id="pubCls"></div>
     <div class="posts" id="pubList" style="max-height:none"></div>
   </div>
 </div>
@@ -280,29 +320,29 @@ footer{text-align:center;color:#8a94ab;font-size:12px;padding:16px 16px 26px;lin
   </div>
 </div>
 
-<!-- 교사 패널 -->
-<div id="tOv" class="ov hidden">
-  <div class="tpanel">
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-      <h2>🧑‍🏫 교사 모드</h2><div style="flex:1"></div>
-      <label class="mini" style="padding:7px 10px"><input type="checkbox" id="tHide"> 학번 가리기(화면 띄울 때)</label>
-      <button class="btn ghost" id="tPreview">👁 학생 화면 미리 보기</button>
-      <button class="btn ghost" id="tClose">닫기</button>
-      <button class="btn ghost" id="tOut">로그아웃</button>
-    </div>
-    <div class="tsec"><h3>탭 열기 / 닫기 <small style="color:var(--sub);font-weight:600">(학생 화면에 5초 안에 반영)</small></h3><div class="tg" id="tSw"></div></div>
-    <div class="tsec">
-      <h3>학생 활동 확인</h3>
-      <div class="flt" id="tCls" style="flex-wrap:wrap"></div>
-      <label style="font-size:15px;font-weight:700"><input type="checkbox" id="tTodo"> 아직 다 못 한 학생만 보기</label>
-      <div class="stat" id="tStat" style="margin-top:8px"></div>
-      <div class="tscroll"><table class="ros"><thead><tr>
-        <th>학번</th><th>닉네임</th><th>①힘 표시</th><th>①예시</th><th>교과서</th><th>②퀴즈</th><th>첫 번에 정답</th><th>관리</th>
-      </tr></thead><tbody id="tRos"></tbody></table></div>
-    </div>
-    <div class="tsec" id="tReqSec"><h3>닉네임 바꾸기 신청</h3><div id="tReq"></div></div>
-    <div class="tsec"><h3>올라온 예시 <small style="color:var(--sub);font-weight:600">(위에서 고른 반)</small></h3><div class="tposts" id="tPosts"></div></div>
+<!-- 교사: 닉네임 바꾸기 -->
+<div id="rnOv" class="ov hidden">
+  <div class="modal">
+    <h2>닉네임 바꾸기</h2>
+    <p style="color:var(--sub);margin:0" id="rnWho"></p>
+    <div class="field"><label for="rnNick">새 닉네임</label>
+      <div class="nickrow"><input id="rnNick" maxlength="12" autocomplete="off"><button id="rnRand" class="btn ghost" type="button">🎲 랜덤</button></div></div>
+    <div id="rnErr" class="err"></div>
+    <div class="row"><button id="rnGo" class="btn">바꾸기</button><button id="rnCancel" class="btn ghost">취소</button></div>
   </div>
+</div>
+
+<!-- 수업용 전체 화면 -->
+<div id="showOv" class="show hidden">
+  <div class="top">
+    <button class="navb" id="shPrev" aria-label="이전 상황">◀</button>
+    <img id="shImg" alt="">
+    <div style="flex:1;min-width:0"><h2 id="shTitle"></h2><div class="s2" id="shSub"></div></div>
+    <button class="navb" id="shNext" aria-label="다음 상황">▶</button>
+    <button class="btn ghost" id="shClose" style="margin-left:8px">✕ 닫기</button>
+  </div>
+  <div class="flt" id="shCls"></div>
+  <div class="cards" id="shCards"></div>
 </div>
 
 <div id="toast" class="toast hidden"></div>
@@ -331,11 +371,7 @@ async function rpc(fn, args){
   if(!r.ok) throw new Error('net ' + r.status);
   return r.json();
 }
-async function gas(obj){
-  const r = await fetch(CFG.APPS_SCRIPT_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(obj) });
-  if(!r.ok) throw new Error('gas ' + r.status);
-  return r.json();
-}
+
 
 const ERR = {
   badsid:'학번 5자리를 확인해 주세요. (예: 10601)',
@@ -344,17 +380,16 @@ const ERR = {
   nickchar:'닉네임은 한글·영어만 쓸 수 있어요. (숫자·기호 X)',
   badnick:'쓸 수 없는 단어가 들어 있어요. 🎲 랜덤 버튼을 눌러 보세요.',
   dupnick:'우리 반에 같은 닉네임이 있어요. 다른 닉네임을 골라 주세요.',
-  quota:'오늘은 AI 확인을 20번 다 썼어요. 내일 다시 해 봐요.',
-  busy:'오늘 학교 전체 AI 확인 횟수가 다 찼어요. 선생님께 말씀드려요.',
-  ai:'AI가 잠깐 대답을 못 했어요. 잠시 뒤 다시 눌러 주세요.',
-  arrowfirst:'먼저 위 그림에서 두 힘을 화살표로 표시해야 해요.',
+  arrowfirst:'먼저 ① 힘 찾기에서 이 상황의 두 힘을 찾아야 해요.',
   already:'이 상황에는 이미 예시를 올렸어요.',
   closed:'선생님이 아직 열지 않았어요.',
   short:'조금 더 자세히 써 주세요. (5글자 이상)',
   long:'120글자 안으로 줄여 주세요.',
   gone:'다시 입장해 주세요.',
   server:'잠시 문제가 생겼어요. 다시 눌러 주세요.',
-  srv:'AI 확인 설정이 아직 안 되어 있어요. 선생님께 말씀드려요.'
+  digits:'숫자(학번·전화번호 같은 것)는 빼고, 어떤 물체가 어떤 상황인지만 써 주세요.',
+  badtext:'쓰면 안 되는 말이 들어 있어요. 고쳐서 다시 올려 주세요.',
+  badsit:'다시 시도해 주세요.'
 };
 const errMsg = e => ERR[e] || '잠시 문제가 생겼어요. 다시 시도해 주세요.';
 
@@ -378,9 +413,9 @@ function nickErr(n){
 }
 const ADJ = ['노래하는','춤추는','용감한','반짝이는','씩씩한','슬기로운','날쌘','다정한','신나는','탐구하는','실험하는','생각하는','웃는','달리는',
 '꿈꾸는','빛나는','상냥한','튼튼한','부지런한','침착한','명랑한','똑똑한','재빠른','느긋한','행복한','관찰하는','상상하는','힘센','지혜로운','멋진','기운찬','호기심쟁이'];
-const ANI = ['기린','수달','펭귄','다람쥐','고래','돌고래','판다','여우','사슴','토끼','부엉이','고양이','강아지','햄스터','치타','사자','호랑이',
+const ANI = ['기린','수달','펭귄','다람쥐','고래','돌고래','판다','여우','사슴','토끼','고양이','강아지','햄스터','치타','사자','호랑이',
 '독수리','앵무새','해달','알파카','북극곰','거북이','미어캣','고슴도치','너구리','두루미','물개','하늘다람쥐','참새','코끼리','얼룩말','캥거루',
-'라마','꿀벌','나비','무당벌레','청개구리','오리','백조','공룡','유니콘','카멜레온','강치','올빼미','홍학'];
+'라마','꿀벌','나비','무당벌레','청개구리','오리','백조','공룡','유니콘','카멜레온','강치','홍학'];
 function randNick(){
   for(let i=0;i<50;i++){
     const n = ADJ[Math.floor(Math.random()*ADJ.length)] + ' ' + ANI[Math.floor(Math.random()*ANI.length)];
@@ -388,6 +423,7 @@ function randNick(){
   }
   return '탐구하는 수달';
 }
+
 
 /* ---------- 그림 ---------- */
 const FORCES = ['중력','탄성력','마찰력','부력','미는 힘','바닥이 떠받치는 힘'];
@@ -458,17 +494,23 @@ const DIRHINT = {
   '바닥이 떠받치는 힘':'바닥은 물체를 받쳐서 위로 올려 주는 쪽으로 힘을 줘요.'
 };
 
-/* ---------- 상태 ---------- */
-let S = store.get('bal_sess');   // {sid, token, nick, class_no}
-let ME = null;                    // 서버 상태
-let preview = false;              // 교사 미리 보기
-let pvProg = {};
-let OPEN = {arrow:false, wall:false, quiz:false, pub:false};
-const SC = SCENES.map(()=>({ sel:null, slots:[], done:false, fb:null, flt:'class', ex:null, busy:false, text:'' }));
-let curTab = 't1';
 
+
+/* ---------- 상태 ---------- */
+let S = store.get('bal_sess');
+let ME = null, preview = false, pvProg = {}, inTeacher = false;
+let OPEN = {arrow:false, wall:false, quiz:false, pub:false};
+const SC = SCENES.map(()=>({ sel:null, slots:[], done:false, fb:null }));
+const EX = SCENES.map(()=>({ text:'', msg:null, busy:false, flt:'class', wall:'' }));
+let curTab = 't1', aIdx = 0, eIdx = 0;
 const prog = () => preview ? pvProg : ((ME && ME.progress) || {});
 const minePost = sit => preview ? null : ((ME && ME.mine) || []).find(p => p.sit === sit);
+const aDone = k => !!prog()['a'+(k+1)] || SC[k].done;
+const pairHtml = s => `<span class="pair">${Object.entries(s.ans).map(([n,d],k)=>`<span style="background:${k?'#e8f0ff':'#ffe9ec'};color:${k?C2:C1}">${esc(n)} ${DIRS[d]}</span>`).join('')}</span>`;
+function dpad(on){
+  return `<div class="dpad">${['','up','','left','','right','','down',''].map(d => d ? `<button class="db" data-d="${d}" ${on?'':'disabled'} aria-label="${DIRK[d]}">${DIRS[d]}</button>` : '<span></span>').join('')}</div>`;
+}
+function snap(dx,dy){ return Math.abs(dx) > Math.abs(dy) ? (dx>0?'right':'left') : (dy>0?'down':'up'); }
 
 /* ---------- 입장 ---------- */
 $('jRand').onclick = () => { $('jNick').value = randNick(); $('jErr').textContent=''; };
@@ -489,7 +531,7 @@ $('jGo').onclick = async () => {
 };
 
 async function refreshMe(first){
-  if(preview) return;
+  if(preview || inTeacher) return;
   if(!S){ showJoin(); return; }
   try{
     const r = await rpc('bal_me', { p_sid:S.sid, p_token:S.token });
@@ -499,10 +541,10 @@ async function refreshMe(first){
     const after = JSON.stringify([ME.open, ME.mine, ME.nick, ME.nick_req]);
     showApp();
     if(first || before !== after) renderAll();
-  }catch(e){ if(first) showApp(); }
+  }catch(e){ if(first){ showApp(); renderAll(); } }
 }
 function showJoin(){
-  $('joinView').classList.remove('hidden'); $('appView').classList.add('hidden');
+  $('joinView').classList.remove('hidden'); $('appView').classList.add('hidden'); $('teacherView').classList.add('hidden');
   $('meBadge').classList.add('hidden'); $('nickBtn').classList.add('hidden');
   checkPub();
 }
@@ -510,111 +552,109 @@ async function checkPub(){
   try{ const o = await rpc('bal_pub_state', {}); OPEN.pub = !!(o && o.pub); $('pubBtn').classList.toggle('hidden', !OPEN.pub); }catch(e){}
 }
 function showApp(){
-  $('joinView').classList.add('hidden'); $('appView').classList.remove('hidden');
+  $('joinView').classList.add('hidden'); $('teacherView').classList.add('hidden'); $('appView').classList.remove('hidden');
   const b = $('meBadge'); b.classList.remove('hidden');
-  if(preview){ b.textContent = '👁 미리 보기 (기록 안 됨)'; $('nickBtn').classList.add('hidden'); return; }
+  if(preview){ b.textContent = '👁 미리 보기 (기록 안 됨)'; $('nickBtn').classList.add('hidden'); $('tBtn').textContent = '🧑‍🏫 교사 모드로'; return; }
+  $('tBtn').textContent = '🧑‍🏫 교사';
   b.textContent = `${S.class_no}반 · ${ME ? ME.nick : S.nick}` + (ME && ME.nick_req ? ` (변경 신청: ${ME.nick_req})` : '');
   $('nickBtn').classList.remove('hidden');
 }
 
 /* ---------- 탭 ---------- */
-document.querySelectorAll('.tab').forEach(t => t.onclick = () => { curTab = t.dataset.tab; renderTabs(); });
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => { curTab = t.dataset.tab; renderTabs(); if(curTab==='t1') renderA(); else if(curTab==='t2'){ renderE(); loadWall(eIdx); } else renderQuiz(); window.scrollTo(0,0); });
 function renderTabs(){
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.tab === curTab));
-  $('t1').classList.toggle('hidden', curTab !== 't1'); $('t2').classList.toggle('hidden', curTab !== 't2');
-  $('lk1').textContent = OPEN.arrow ? '' : '🔒'; $('lk2').textContent = OPEN.quiz ? '' : '🔒';
-  $('t1closed').classList.toggle('hidden', !!OPEN.arrow); $('t1body').classList.toggle('hidden', !OPEN.arrow);
-  $('t2closed').classList.toggle('hidden', !!OPEN.quiz); $('t2body').classList.toggle('hidden', !OPEN.quiz);
+  ['t1','t2','t3'].forEach(t => $(t).classList.toggle('hidden', curTab !== t));
+  $('lk1').textContent = OPEN.arrow ? '' : '🔒'; $('lk2').textContent = OPEN.wall ? '' : '🔒'; $('lk3').textContent = OPEN.quiz ? '' : '🔒';
+  $('t3closed').classList.toggle('hidden', !!OPEN.quiz); $('t3body').classList.toggle('hidden', !OPEN.quiz);
 }
 function renderAll(){
-  renderTabs();
-  SCENES.forEach((_,i) => { if(prog()['a'+(i+1)]) SC[i].done = true; });
-  renderScenes(); renderFinish(); renderQuiz();
+  renderTabs(); renderA(); renderE(); renderQuiz();
+}
+function closedCard(msg){ return `<div class="card closed"><div class="i">🔒</div><h3>아직 열리지 않았어요</h3><p>${msg}</p></div>`; }
+function stepBar(prefix, n, cur, isDone, labels){
+  return `<div class="stepbar"><button class="navb" data-nav="${prefix}-1" ${cur===0?'disabled':''} aria-label="이전">◀</button>
+    <div class="sdots">${Array.from({length:n},(_,k)=>`<button class="sdot ${k===cur?'cur':''} ${isDone(k)?'d':''}" data-go="${prefix}${k}">${isDone(k)?'✓ ':''}${labels?labels[k]:k+1}</button>`).join('')}</div>
+    <button class="navb" data-nav="${prefix}+1" ${cur===n-1?'disabled':''} aria-label="다음">▶</button></div>`;
+}
+function bindStep(root, prefix, n, get, set){
+  root.querySelectorAll(`[data-nav^="${prefix}"]`).forEach(b => b.onclick = () => { const v = get() + (b.dataset.nav.endsWith('+1')?1:-1); if(v>=0 && v<n){ set(v); } });
+  root.querySelectorAll(`[data-go^="${prefix}"]`).forEach(b => b.onclick = () => set(Number(b.dataset.go.slice(prefix.length))));
 }
 
-/* ---------- ① 장면 ---------- */
-function renderScenes(){
-  const box = $('scenes');
-  if(!box.childElementCount){
-    box.innerHTML = SCENES.map((s,i)=>`<div class="card scene" id="sc${i}">
-      <div class="hd"><div class="no">${i+1}</div><div class="ttl">${s.name}</div><div class="st" id="st${i}"></div></div>
-      <div class="pic" id="pic${i}"><svg viewBox="0 0 320 300" id="svg${i}"></svg><div class="tip" id="tip${i}"></div></div>
-      <div class="pad" id="pad${i}"></div></div>`).join('');
-    SCENES.forEach((_,i)=>bindDrag(i));
-  }
-  SCENES.forEach((_,i)=>renderScene(i));
-}
-function sceneArrows(i, preview){
-  const s = SCENES[i], st = SC[i];
-  let out = '';
+/* ---------- ① 힘 찾기 (한 상황씩) ---------- */
+function sceneArrows(i, ghost){
+  const s = SCENES[i], st = SC[i]; let out = '';
   st.slots.forEach((sl,k) => { out += arrow(s.pt[0], s.pt[1], sl.dir, s.len||88, k===0?C1:C2, sl.name); });
-  if(preview) out += arrow(s.pt[0], s.pt[1], preview.dir, s.len||88, '#7c3aed', preview.name, true);
+  if(ghost) out += arrow(s.pt[0], s.pt[1], ghost.dir, s.len||88, '#7c3aed', ghost.name, true);
   return out;
 }
-function renderScene(i){
-  const s = SCENES[i], st = SC[i], done = st.done || !!prog()['a'+(i+1)];
-  if(done && !st.slots.length){ st.slots = Object.entries(s.ans).map(([name,dir])=>({name,dir})); }
-  $('svg'+i).innerHTML = s.svg + sceneArrows(i);
-  $('st'+i).textContent = done ? '✓ 평형 찾음' : '도전 중';
-  $('st'+i).classList.toggle('done', done);
-  $('pic'+i).classList.toggle('arm', !!st.sel && !done);
-  const tip = $('tip'+i);
-  if(done){ tip.textContent = '두 힘의 크기가 같고 방향이 반대!'; }
-  else if(st.sel){ tip.textContent = `「${st.sel}」 방향으로 끌어 보세요`; }
-  else tip.textContent = '아래에서 힘을 먼저 골라요';
-  let h = '';
+function renderA(){
+  const box = $('t1');
+  if(!OPEN.arrow){ box.innerHTML = closedCard('선생님이 열어 주시면 시작할 수 있어요.'); return; }
+  const i = aIdx, s = SCENES[i], st = SC[i], done = aDone(i);
+  if(done){ st.done = true; if(!st.slots.length) st.slots = Object.entries(s.ans).map(([name,dir])=>({name,dir})); }
+  const all = SCENES.every((_,k)=>aDone(k));
+  let h = stepBar('a', 4, i, aDone);
+  h += `<div class="card"><div class="shd"><div class="num">${i+1}</div><div class="ttl">${s.name}</div><div class="st ${done?'done':''}">${done?'✓ 평형 찾음':'도전 중'}</div></div>
+    <div class="stage"><div><div class="pic ${st.sel&&!done?'arm':''}" id="apic"><svg viewBox="0 0 320 300" id="asvg">${s.svg}${sceneArrows(i)}</svg>
+      <div class="tip">${done?'두 힘의 크기가 같고 방향이 반대!':st.sel?`「${esc(st.sel)}」의 방향을 골라요`:'오른쪽에서 힘을 골라요'}</div></div></div><div>`;
   if(!done){
-    h += `<div class="lbl">① 어떤 힘일까?</div><div class="chips">${FORCES.map(f=>`<button class="chip${st.sel===f?' sel':''}" data-f="${f}" ${st.slots.length>=2&&!st.slots.some(x=>x.name===f)?'disabled':''}>${f}</button>`).join('')}</div>
-      <div class="dirs"><span class="lbl" style="margin:0">② 방향</span>${['up','down','left','right'].map(d=>`<button class="db" data-d="${d}" ${st.sel?'':'disabled'} aria-label="${DIRK[d]}">${DIRS[d]}</button>`).join('')}<small>또는 그림 위를 끌어요</small></div>`;
+    h += `<div class="lbl">① 어떤 힘일까? (두 개 고르기)</div><div class="chips">${FORCES.map(f=>`<button class="chip${st.sel===f?' sel':''}" data-f="${f}" ${st.slots.length>=2&&!st.slots.some(x=>x.name===f)?'disabled':''}>${f}</button>`).join('')}</div>
+      <div class="dirwrap"><div><div class="lbl">② 방향</div>${dpad(!!st.sel)}</div><span class="mhint">컴퓨터에서는 그림 위를<br>끌어도 돼요</span></div>`;
   }
   h += `<div class="slots">${[0,1].map(k=>{ const sl=st.slots[k]; return sl
       ? `<div class="slot f"><span class="dot" style="background:${k?C2:C1}"></span>${esc(sl.name)} ${DIRS[sl.dir]}${done?'':`<button class="x" data-x="${k}" aria-label="지우기">✕</button>`}</div>`
       : `<div class="slot">힘 ${k+1}: 비어 있음</div>`; }).join('')}</div>`;
-  if(!done) h += `<div class="row"><button class="btn" data-chk ${st.slots.length===2?'':'disabled'}>확인하기</button><button class="btn ghost" data-rs>다시 하기</button></div>`;
+  if(!done) h += `<div class="row"><button class="btn big" data-chk ${st.slots.length===2?'':'disabled'}>확인하기</button><button class="btn ghost" data-rs>다시 하기</button></div>`;
   if(st.fb) h += `<div class="fb ${st.fb.ok?'ok':'no'} pop">${st.fb.html}</div>`;
   else if(done) h += `<div class="fb ok">⚖️ <b>${Object.keys(s.ans).map(esc).join('</b>과(와) <b>')}</b>이 같은 크기로 반대 방향으로 작용해서 <b>힘의 평형</b>을 이루어요. 그래서 운동 상태가 변하지 않아요!</div>`;
-  h += `<div class="ex" id="ex${i}"></div>`;
-  const pad = $('pad'+i); pad.innerHTML = h;
-  pad.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { st.sel = st.sel===b.dataset.f ? null : b.dataset.f; st.fb=null; renderScene(i); });
-  pad.querySelectorAll('[data-d]').forEach(b => b.onclick = () => place(i, b.dataset.d));
-  pad.querySelectorAll('[data-x]').forEach(b => b.onclick = () => { st.slots.splice(Number(b.dataset.x),1); st.fb=null; renderScene(i); });
-  const ck = pad.querySelector('[data-chk]'); if(ck) ck.onclick = () => check(i);
-  const rs = pad.querySelector('[data-rs]'); if(rs) rs.onclick = () => { st.slots=[]; st.sel=null; st.fb=null; renderScene(i); };
-  renderEx(i);
+  if(done){
+    if(all) h += `<div class="fb ok pop">🎉 네 가지 상황을 모두 찾았어요!<br>${OPEN.wall?'<button class="btn big ok" id="toEx" style="margin-top:8px">② 예시 올리기로 ▶</button>':'선생님이 ② 예시 올리기를 열면 다음 활동을 해요.'}</div>`;
+    else { const nx = [1,2,3].map(d=>(i+d)%4).find(k=>!aDone(k)); h += `<div class="row"><button class="btn big" id="aGo">${nx+1}번 상황으로 ▶</button></div>`; }
+  }
+  h += `</div></div></div>`;
+  box.innerHTML = h;
+  bindStep(box, 'a', 4, ()=>aIdx, v=>{ aIdx=v; renderA(); });
+  box.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { st.sel = st.sel===b.dataset.f ? null : b.dataset.f; st.fb=null; renderA(); });
+  box.querySelectorAll('[data-d]').forEach(b => b.onclick = () => place(b.dataset.d));
+  box.querySelectorAll('[data-x]').forEach(b => b.onclick = () => { st.slots.splice(Number(b.dataset.x),1); st.fb=null; renderA(); });
+  const ck = box.querySelector('[data-chk]'); if(ck) ck.onclick = check;
+  const rs = box.querySelector('[data-rs]'); if(rs) rs.onclick = () => { st.slots=[]; st.sel=null; st.fb=null; renderA(); };
+  const go = $('aGo'); if(go) go.onclick = () => { aIdx = [1,2,3].map(d=>(i+d)%4).find(k=>!aDone(k)); renderA(); };
+  const te = $('toEx'); if(te) te.onclick = () => { curTab='t2'; eIdx=0; renderTabs(); renderE(); loadWall(0); window.scrollTo(0,0); };
+  if(!done) bindDrag();
 }
-function place(i, dir){
-  const st = SC[i]; if(!st.sel || st.done) return;
+function place(dir){
+  const st = SC[aIdx]; if(!st.sel || st.done) return;
   const ex = st.slots.findIndex(x=>x.name===st.sel);
   if(ex>=0) st.slots[ex].dir = dir;
   else if(st.slots.length < 2) st.slots.push({ name:st.sel, dir });
   else { toast('힘은 두 개까지 넣을 수 있어요. ✕로 하나를 지워요.'); return; }
-  st.sel = null; st.fb = null; renderScene(i);
+  st.sel = null; st.fb = null; renderA();
 }
-function snap(dx,dy){ return Math.abs(dx) > Math.abs(dy) ? (dx>0?'right':'left') : (dy>0?'down':'up'); }
-function bindDrag(i){
-  const pic = $('pic'+i); let start = null;
+function bindDrag(){   // 마우스로만 끌기 (디벗에서는 그림을 끌면 화면이 스크롤돼요)
+  const pic = $('apic'); if(!pic) return; let start = null; const i = aIdx;
   pic.addEventListener('pointerdown', e => {
-    const st = SC[i]; if(st.done) return;
-    if(!st.sel){ if(e.pointerType==='mouse') toast('먼저 아래에서 힘 이름을 골라요 👇'); return; }
+    if(e.pointerType !== 'mouse') return;
+    if(!SC[i].sel){ toast('먼저 오른쪽에서 힘 이름을 골라요'); return; }
     start = [e.clientX, e.clientY]; try{ pic.setPointerCapture(e.pointerId); }catch(_){}
     e.preventDefault();
   });
   pic.addEventListener('pointermove', e => {
     if(!start) return; const dx=e.clientX-start[0], dy=e.clientY-start[1];
     if(Math.hypot(dx,dy) < 12) return;
-    $('svg'+i).innerHTML = SCENES[i].svg + sceneArrows(i, { name:SC[i].sel, dir:snap(dx,dy) });
+    $('asvg').innerHTML = SCENES[i].svg + sceneArrows(i, { name:SC[i].sel, dir:snap(dx,dy) });
   });
-  const end = e => {
+  pic.addEventListener('pointerup', e => {
     if(!start) return; const dx=e.clientX-start[0], dy=e.clientY-start[1]; start=null;
-    if(Math.hypot(dx,dy) < 12){ renderScene(i); toast('조금 더 길게 끌어 주세요.'); return; }
-    place(i, snap(dx,dy));
-  };
-  pic.addEventListener('pointerup', end); pic.addEventListener('pointercancel', () => { start=null; renderScene(i); });
+    if(Math.hypot(dx,dy) < 12){ renderA(); return; }
+    place(snap(dx,dy));
+  });
 }
-function check(i){
-  const s = SCENES[i], st = SC[i];
-  const names = st.slots.map(x=>x.name);
-  let msg = [];
+function check(){
+  const i = aIdx, s = SCENES[i], st = SC[i];
+  const names = st.slots.map(x=>x.name); const msg = [];
   if(names[0] === names[1]) msg.push('서로 다른 두 힘을 찾아요.');
   st.slots.forEach(sl => {
     if(!(sl.name in s.ans)) msg.push(`<b>${esc(sl.name)}</b>: ${s.wrong[sl.name] || '이 물체에는 이 힘이 작용하지 않아요.'}`);
@@ -624,7 +664,7 @@ function check(i){
     st.done = true; st.fb = { ok:true, html:`🎉 정답! <b>${esc(names[0])}</b>과(와) <b>${esc(names[1])}</b>이(가) 같은 크기로 반대 방향으로 작용해 <b>힘의 평형</b>을 이루어요. 그래서 물체의 운동 상태가 변하지 않아요.` };
     saveProg('a'+(i+1), 1);
   } else st.fb = { ok:false, html:'🤔 ' + msg.join('<br>') };
-  renderScene(i); renderFinish();
+  renderA();
 }
 async function saveProg(key, val){
   if(preview){ if(!(key in pvProg)) pvProg[key]=val; return; }
@@ -633,98 +673,115 @@ async function saveProg(key, val){
   catch(e){ toast('기록 저장에 실패했어요. 인터넷을 확인해 주세요.'); }
 }
 
-/* ---------- ① 예시 ---------- */
-function renderEx(i){
-  const el = $('ex'+i), st = SC[i], sit = i+1, done = st.done || !!prog()['a'+sit];
-  if(!el) return;
-  let h = `<h4>✏️ 비슷한 예 찾아 올리기</h4>`;
-  if(!done){ el.innerHTML = h + `<div class="lockmsg">🔒 위에서 두 힘을 먼저 찾으면 열려요</div>`; return; }
-  if(!OPEN.wall){ el.innerHTML = h + `<div class="lockmsg">🔒 예시 올리기는 선생님이 열면 할 수 있어요</div>`; return; }
-  const mp = minePost(sit);
-  if(mp){
-    h += `<div class="mine"><div class="w" style="font-size:13px;color:#6d28d9;font-weight:800">내 예시 ✓</div><div class="b">${esc(mp.body)}</div>${mp.ai?`<div class="ai">🤖 ${esc(mp.ai)}</div>`:''}
-      <div class="row" style="margin-top:6px"><button class="mini r" data-del="${mp.id}">지우고 다시 쓰기</button></div></div>`;
-  } else {
-    h += `<p class="help">「${SCENES[i].name}」처럼 <b>${Object.keys(SCENES[i].ans).join('과 ')}</b>이 평형을 이루는 일상생활 예를 찾아, <b>어떤 물체가 어떤 상황인지</b> 써요. 사진 없이 글만 올려요. 이름·학번은 쓰지 마세요.</p>
-      <textarea id="ta${i}" maxlength="120" placeholder="예) ○○이 ○○에 ○○한 채 멈춰 있다.">${esc(st.text)}</textarea>
-      <div class="row" style="margin-top:6px"><button class="btn" id="up${i}" ${st.busy?'disabled':''}>${st.busy?'<span class="spin"></span>AI가 확인하는 중…':'🤖 AI 확인 받고 올리기'}</button><span class="cnt" id="cn${i}">${st.text.length}/120</span></div>`;
-    if(preview) h += `<div class="fb no">미리 보기에서는 올릴 수 없어요.</div>`;
+/* ---------- ② 예시 올리기 (한 상황씩 + 마지막에 교과서 정리) ---------- */
+const hasPost = k => !!minePost(k+1);
+function renderE(){
+  const box = $('t2');
+  if(!OPEN.wall){ box.innerHTML = closedCard('① 힘 찾기를 다 하고 선생님이 열어 주시면 예시를 올려요.'); return; }
+  const ta0 = document.activeElement && document.activeElement.id === 'eta';
+  const labels = ['1','2','3','4','📘 정리'];
+  const isD = k => k<4 ? (preview ? aDone(k) : hasPost(k)) : !!prog().book;
+  let h = stepBar('e', 5, eIdx, isD, labels);
+  if(eIdx === 4) h += bookPage();
+  else {
+    const i = eIdx, s = SCENES[i], e = EX[i], sit = i+1;
+    h += `<div class="card"><div class="shd"><div class="num">${sit}</div><div class="ttl">${s.name}</div>${hasPost(i)?'<div class="st done">✓ 예시 올림</div>':''}</div>`;
+    if(!aDone(i)){
+      h += `<div class="lockmsg">🔒 ① 힘 찾기에서 「${s.name}」의 두 힘을 먼저 찾아요<br><button class="btn" id="goA" style="margin-top:10px">① 힘 찾기 ${sit}번으로</button></div></div>`;
+    } else {
+      SC[i].done = true; SC[i].slots = Object.entries(s.ans).map(([name,dir])=>({name,dir}));
+      h += `<div class="stage"><div><div class="pic"><svg viewBox="0 0 320 300">${s.svg}${sceneArrows(i)}</svg></div>
+          <div style="margin-top:8px">${pairHtml(s)} <b>이 평형</b></div></div><div>`;
+      const mp = minePost(sit);
+      h += `<div class="lbl" style="font-size:19px;color:var(--ink)">✏️ 비슷한 예 찾아 올리기</div>`;
+      if(mp){
+        h += `<div class="mine"><div style="font-size:14px;color:#6d28d9;font-weight:800">내 예시 ✓</div><div class="b">${esc(mp.body)}</div>
+          <div class="row" style="margin-top:8px"><button class="mini r" data-del="${mp.id}">지우고 다시 쓰기</button></div></div>`;
+        if(sit < 4) h += `<div class="row"><button class="btn" id="eNext">다음 상황 ▶</button></div>`;
+        else h += `<div class="row"><button class="btn ok" id="eNext">📘 교과서 정리로 ▶</button></div>`;
+      } else {
+        h += `<p class="help">「${s.name}」처럼 <b>${Object.keys(s.ans).join('과 ')}</b>이 평형을 이루는 일상생활 예를 찾아, <b>어떤 물체가 어떤 상황에서 멈춰 있는지</b> 써요. 이름·학번은 쓰지 마세요.</p>
+          <textarea id="eta" maxlength="120" placeholder="예) ○○이 ○○에 ○○한 채 멈춰 있다.">${esc(e.text)}</textarea>
+          <div class="row" style="margin-top:6px"><button class="btn big" id="eUp" ${e.busy||preview?'disabled':''}>📮 올리기</button><span class="cnt" id="eCnt">${e.text.length}/120</span></div>`;
+        if(preview) h += `<div class="fb no">미리 보기에서는 올릴 수 없어요.</div>`;
+      }
+      if(e.msg) h += `<div class="fb ${e.msg.cls} pop">${e.msg.html}</div>`;
+      h += `<div class="lbl" style="margin-top:16px;font-size:19px;color:var(--ink)">👀 친구들이 찾은 예시</div><div id="wallBox">${e.wall || '<div class="lockmsg">불러오는 중…</div>'}</div>`;
+      h += `</div></div></div>`;
+    }
   }
-  if(st.ex) h += `<div class="fb ${st.ex.cls} pop">${st.ex.html}</div>`;
-  h += `<div id="wall${i}">${st.wallHtml||''}</div>`;
-  el.innerHTML = h;
-  const ta = $('ta'+i);
-  if(ta){ ta.oninput = () => { st.text = ta.value; $('cn'+i).textContent = ta.value.length + '/120'; }; }
-  const up = $('up'+i); if(up) up.onclick = () => submitEx(i);
-  const dl = el.querySelector('[data-del]'); if(dl) dl.onclick = () => delMine(i, Number(dl.dataset.del));
-  bindWall(i);
-  const key = (mp?'m':'-') + OPEN.wall + OPEN.pub;
-  if(st.wallKey !== key){ st.wallKey = key; loadWall(i); }
+  box.innerHTML = h;
+  bindStep(box, 'e', 5, ()=>eIdx, v=>{ eIdx=v; EX.forEach(x=>x.msg=null); renderE(); loadWall(v); });
+  const goA = $('goA'); if(goA) goA.onclick = () => { aIdx = eIdx; curTab='t1'; renderTabs(); renderA(); window.scrollTo(0,0); };
+  const ta = $('eta');
+  if(ta){ const e = EX[eIdx]; ta.oninput = () => { e.text = ta.value; $('eCnt').textContent = ta.value.length + '/120'; }; if(ta0){ ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); } }
+  const up = $('eUp'); if(up) up.onclick = submitEx;
+  const dl = box.querySelector('[data-del]'); if(dl) dl.onclick = () => delMine(Number(dl.dataset.del));
+  const nx = $('eNext'); if(nx) nx.onclick = () => { eIdx = eIdx+1; EX.forEach(x=>x.msg=null); renderE(); loadWall(eIdx); window.scrollTo(0,0); };
+  const bb = $('bookBtn'); if(bb) bb.onclick = async () => { if(!confirm('교과서 178쪽 1번 옮겨 적기와 2번 풀기를 다 했나요?')) return; await saveProg('book',1); renderE(); };
+  box.querySelectorAll('[data-jump]').forEach(b => b.onclick = () => { const [t,k] = b.dataset.jump.split(':'); if(t==='a'){ aIdx=Number(k); curTab='t1'; renderTabs(); renderA(); } else { eIdx=Number(k); renderE(); loadWall(eIdx); } window.scrollTo(0,0); });
+  bindWall();
 }
-function bindWall(i){
-  const box = $('wall'+i); if(!box) return;
-  box.querySelectorAll('[data-fl]').forEach(b => b.onclick = () => { SC[i].flt = b.dataset.fl; loadWall(i); });
-}
-async function submitEx(i){
-  const st = SC[i], sit = i+1, text = st.text.replace(/\s+/g,' ').trim();
-  if(preview){ toast('미리 보기에서는 올릴 수 없어요.'); return; }
-  if(text.length < 5){ st.ex = { cls:'no', html:ERR.short }; renderEx(i); return; }
-  if(/\d{4,}/.test(text)){ st.ex = { cls:'no', html:'숫자(학번·전화번호 같은 것)는 빼고 상황만 써 주세요.' }; renderEx(i); return; }
-  st.busy = true; st.ex = null; renderEx(i);
-  try{
-    const r = await gas({ action:'check', sid:S.sid, token:S.token, sit, text });
-    if(!r.ok) st.ex = { cls:'bad', html:esc(errMsg(r.err)) };
-    else if(!r.pass) st.ex = { cls:'no', html:'🤖 아직 올라가지 않았어요.<br>' + esc(r.msg) + '<br><small>고쳐서 다시 눌러 보세요.</small>' };
-    else { st.ex = { cls:'ok', html:'🎉 통과! 예시가 올라갔어요. 이제 친구들 예시도 볼 수 있어요.' }; st.text=''; await refreshMe(); }
-  }catch(e){ st.ex = { cls:'bad', html:'연결에 실패했어요. 잠시 뒤 다시 눌러 주세요.' }; }
-  st.busy = false; renderEx(i); renderFinish();
-}
-async function delMine(i, id){
-  if(!confirm('내 예시를 지울까요? 지우면 다시 AI 확인을 받아 올려야 해요.')) return;
-  try{ const r = await rpc('bal_post_del', { p_sid:S.sid, p_token:S.token, p_id:id }); if(!r.ok){ toast(errMsg(r.err)); return; } SC[i].ex=null; await refreshMe(); renderEx(i); renderFinish(); }
-  catch(e){ toast('연결에 실패했어요.'); }
-}
-async function loadWall(i){
-  const box = $('wall'+i); if(!box || preview) { if(box) box.innerHTML=''; return; }
-  const st = SC[i];
-  try{
-    const r = await rpc('bal_wall', { p_sid:S.sid, p_token:S.token, p_sit:i+1, p_all: st.flt==='all' });
-    let html = '';
-    if(!r.ok) html = '';
-    else if(r.locked) html = `<div class="lockmsg" style="margin-top:10px">🔒 내 예시를 올리면 친구들 예시가 보여요</div>`;
-    else { const others = r.posts.filter(p=>!p.mine);
-    html = `<div class="flt"><button data-fl="class" class="${st.flt==='class'?'on':''}">우리 반</button><button data-fl="all" class="${st.flt==='all'?'on':''}">모든 반</button><span style="margin-left:auto;font-size:14px;color:var(--sub);font-weight:700;align-self:center">${others.length}개</span></div>
-      <div class="posts">${others.length ? others.map(p=>`<div class="post"><div class="w">${p.class_no}반 · ${esc(p.nick)}</div>${esc(p.body)}</div>`).join('') : '<div class="lockmsg">아직 친구들 예시가 없어요</div>'}</div>`; }
-    st.wallHtml = html;
-    const b2 = $('wall'+i); if(b2){ b2.innerHTML = html; bindWall(i); }
-  }catch(e){}
-}
-
-/* ---------- ① 마무리 ---------- */
-function renderFinish(){
-  const p = prog(); const el = $('finish');
-  const arrows = [1,2,3,4].filter(k=>p['a'+k]).length;
-  const posts = preview ? 0 : ((ME && ME.mine) || []).length;
-  const needPosts = OPEN.wall && !preview;
-  const ready = arrows === 4 && (!needPosts || posts >= 4);
-  let h = `<h3>📋 나의 진행 상황</h3><div class="prog">
-    ${[1,2,3,4].map(k=>`<span class="${p['a'+k]?'d':''}">${p['a'+k]?'✓':'○'} 힘 표시 ${k}</span>`).join('')}
-    ${needPosts ? [1,2,3,4].map(k=>{ const has = !preview && ((ME&&ME.mine)||[]).some(x=>x.sit===k); return `<span class="${has?'d':''}">${has?'✓':'○'} 예시 ${k}</span>`; }).join('') : ''}
+function bookPage(){
+  const p = prog();
+  const arrows = [0,1,2,3].filter(aDone), posts = [0,1,2,3].filter(k => preview || hasPost(k));
+  const ready = arrows.length === 4 && posts.length === 4;
+  let h = `<div class="card"><div class="shd"><div class="num">📘</div><div class="ttl">교과서에 정리하기</div></div>
+    <div class="prog">${[0,1,2,3].map(k=>`<span class="${aDone(k)?'d':''}">${aDone(k)?'✓':'○'} 힘 찾기 ${k+1}</span>`).join('')}
+    ${[0,1,2,3].map(k=>`<span class="${(preview||hasPost(k))?'d':''}">${(preview||hasPost(k))?'✓':'○'} 예시 ${k+1}</span>`).join('')}
     <span class="${p.book?'d':''}">${p.book?'✓':'○'} 교과서 정리</span></div>`;
   if(!ready){
-    h += `<div class="lockmsg">${arrows<4 ? '네 가지 상황의 힘을 모두 찾으면' : '네 가지 예시를 모두 올리면'} 다음 할 일이 열려요 💪</div>`;
+    h += `<div class="lockmsg">아직 남은 활동이 있어요 💪<div class="row" style="justify-content:center">${[0,1,2,3].filter(k=>!aDone(k)).map(k=>`<button class="btn ghost" data-jump="a:${k}">① 힘 찾기 ${k+1}번</button>`).join('')}${[0,1,2,3].filter(k=>aDone(k)&&!(preview||hasPost(k))).map(k=>`<button class="btn ghost" data-jump="e:${k}">② 예시 ${k+1}번</button>`).join('')}</div></div>`;
   } else {
-    h += `<div class="bookbox pop"><div class="big">📘 이제 교과서에 정리해요!</div>
+    h += `<div class="bookbox"><div class="big">📘 이제 교과서에 정리해요!</div>
       <ol><li>교과서 <b>178쪽 해 보기 1번</b>에 디벗으로 푼 것을 <b>그대로 옮겨 적어요.</b><br><small style="font-weight:500">(네 물체에 작용하는 두 힘의 이름과 화살표, 내가 찾은 비슷한 예)</small></li>
       <li><b>해 보기 2번</b> 문제를 풀어요.</li></ol>
       <div class="q2">❓ <b>2.</b> 물체에 힘이 작용해도 움직이지 않는 까닭을 힘의 평형으로 설명해 보자.</div>
-      <div class="row">${p.book ? `<span class="fb ok" style="margin:0">✓ 다 적었어요! 선생님이 확인할 수 있어요.</span>` : `<button class="btn ok" id="bookBtn">✍️ 교과서에 다 적었어요</button>`}</div></div>`;
+      <div class="row">${p.book ? `<span class="fb ok" style="margin:0">✓ 다 적었어요! 선생님이 확인할 수 있어요.</span>` : `<button class="btn big ok" id="bookBtn">✍️ 교과서에 다 적었어요</button>`}</div></div>`;
   }
-  el.innerHTML = h;
-  const bb = $('bookBtn'); if(bb) bb.onclick = async () => { if(!confirm('교과서 178쪽 1번 옮겨 적기와 2번 풀기를 다 했나요?')) return; await saveProg('book',1); renderFinish(); };
+  return h + `</div>`;
+}
+async function submitEx(){
+  const i = eIdx, e = EX[i], sit = i+1, text = e.text.replace(/\s+/g,' ').trim();
+  if(preview){ toast('미리 보기에서는 올릴 수 없어요.'); return; }
+  if(text.length < 5){ e.msg = { cls:'no', html:ERR.short }; renderE(); return; }
+  if(/\d{4,}/.test(text)){ e.msg = { cls:'no', html:ERR.digits }; renderE(); return; }
+  e.busy = true; renderE();
+  try{
+    const r = await rpc('bal_post', { p_sid:S.sid, p_token:S.token, p_sit:sit, p_body:text });
+    if(!r.ok) e.msg = { cls:'bad', html:esc(errMsg(r.err)) };
+    else { e.msg = { cls:'ok', html:'🎉 올라갔어요! 이제 친구들 예시도 볼 수 있어요.' }; e.text=''; e.wall=''; await refreshMe(); }
+  }catch(err){ e.msg = { cls:'bad', html:'연결에 실패했어요. 잠시 뒤 다시 눌러 주세요.' }; }
+  e.busy = false; renderE(); loadWall(i);
+}
+async function delMine(id){
+  if(!confirm('내 예시를 지울까요? 지우고 다시 쓸 수 있어요.')) return;
+  try{ const r = await rpc('bal_post_del', { p_sid:S.sid, p_token:S.token, p_id:id }); if(!r.ok){ toast(errMsg(r.err)); return; } EX[eIdx].msg=null; EX[eIdx].wall=''; await refreshMe(); renderE(); loadWall(eIdx); }
+  catch(e){ toast('연결에 실패했어요.'); }
+}
+function bindWall(){
+  const box = $('wallBox'); if(!box) return;
+  box.querySelectorAll('[data-fl]').forEach(b => b.onclick = () => { EX[eIdx].flt = b.dataset.fl; loadWall(eIdx); });
+}
+async function loadWall(i){
+  if(i > 3 || !OPEN.wall) return;
+  const e = EX[i];
+  if(preview){ e.wall = '<div class="lockmsg">미리 보기에서는 친구 예시가 보이지 않아요</div>'; const b=$('wallBox'); if(b && eIdx===i) b.innerHTML = e.wall; return; }
+  if(!S) return;
+  try{
+    const r = await rpc('bal_wall', { p_sid:S.sid, p_token:S.token, p_sit:i+1, p_all: e.flt==='all' });
+    if(!r.ok) return;
+    let html;
+    if(r.locked) html = `<div class="lockmsg">🔒 내 예시를 올리면 친구들 예시가 보여요</div>`;
+    else { const others = r.posts.filter(p=>!p.mine);
+      html = `<div class="flt"><button data-fl="class" class="${e.flt==='class'?'on':''}">우리 반</button><button data-fl="all" class="${e.flt==='all'?'on':''}">모든 반</button><span style="margin-left:auto;font-size:15px;color:var(--sub);font-weight:700">${others.length}개</span></div>
+        <div class="posts">${others.length ? others.map(p=>`<div class="post"><div class="w">${p.class_no}반 · ${esc(p.nick)}</div>${esc(p.body)}</div>`).join('') : '<div class="lockmsg">아직 친구들 예시가 없어요</div>'}</div>`; }
+    e.wall = html;
+    const b = $('wallBox'); if(b && eIdx === i && curTab === 't2'){ b.innerHTML = html; bindWall(); }
+  }catch(_){}
 }
 
-/* ---------- ② 퀴즈 ---------- */
+/* ---------- ③ 퀴즈 ---------- */
 const QSC = {
   desk:{ pt:[160,148], svg:`<rect width="320" height="280" fill="#f4f6fb"/><rect x="34" y="172" width="252" height="16" rx="3" fill="#b07a4a"/><rect x="50" y="188" width="14" height="80" fill="#9a6a40"/><rect x="256" y="188" width="14" height="80" fill="#9a6a40"/>
     <rect x="100" y="122" width="120" height="50" rx="22" fill="#7cc6a6" stroke="#4e9c7c" stroke-width="3"/><path d="M110 134 H210" stroke="#3f7f63" stroke-width="3" stroke-dasharray="4 3"/><circle cx="214" cy="134" r="5" fill="#ffd166"/>` },
@@ -823,10 +880,10 @@ function renderQuiz(){
     let arrs = arrow(s.pt[0], s.pt[1], Q.given.dir, 82, C2, Q.given.name);
     const put = st.solved ? Q.ans : st.put;
     if(put) arrs += arrow(s.pt[0], s.pt[1], put.dir, 82, C1, put.name);
-    h += `<div class="pic qpic${st.sel&&!st.solved?' arm':''}" id="qpic"><svg viewBox="0 0 320 280" id="qsvg">${s.svg}${arrs}</svg><div class="tip">${st.solved?'평형!':st.sel?`「${esc(st.sel)}」 방향으로 끌어 보세요`:'힘을 먼저 골라요'}</div></div>`;
+    h += `<div class="pic qpic${st.sel&&!st.solved?' arm':''}" id="qpic"><svg viewBox="0 0 320 280" id="qsvg">${s.svg}${arrs}</svg><div class="tip">${st.solved?'평형!':st.sel?`「${esc(st.sel)}」의 방향을 골라요`:'아래에서 힘을 먼저 골라요'}</div></div>`;
     if(!st.solved){
       h += `<div class="lbl" style="margin-top:12px">① 어떤 힘일까?</div><div class="chips">${FORCES.map(f=>`<button class="chip${st.sel===f?' sel':''}" data-f="${f}">${f}</button>`).join('')}</div>
-        <div class="dirs"><span class="lbl" style="margin:0">② 방향</span>${['up','down','left','right'].map(d=>`<button class="db" data-d="${d}" ${st.sel?'':'disabled'} aria-label="${DIRK[d]}">${DIRS[d]}</button>`).join('')}<small>또는 그림 위를 끌어요</small></div>
+        <div class="dirwrap"><div><div class="lbl">② 방향</div>${dpad(!!st.sel)}</div><span class="mhint">컴퓨터에서는 그림 위를<br>끌어도 돼요</span></div>
         <div class="slots"><div class="slot ${st.put?'f':''}">${st.put?`<span class="dot" style="background:${C1}"></span>${esc(st.put.name)} ${DIRS[st.put.dir]}`:'내가 찾은 힘: 비어 있음'}</div></div>
         <div class="row"><button class="btn" id="qChk" ${st.put?'':'disabled'}>확인하기</button></div>`;
     }
@@ -849,7 +906,7 @@ function renderQuiz(){
 }
 function bindQDrag(pic){
   let start=null; const st = QS[qi], Q = QUIZ[qi], s = QSC[Q.sc];
-  pic.addEventListener('pointerdown', e => { if(!st.sel){ if(e.pointerType==='mouse') toast('먼저 아래에서 힘 이름을 골라요 👇'); return; } start=[e.clientX,e.clientY]; try{pic.setPointerCapture(e.pointerId);}catch(_){} e.preventDefault(); });
+  pic.addEventListener('pointerdown', e => { if(e.pointerType!=='mouse') return; if(!st.sel){ if(e.pointerType==='mouse') toast('먼저 아래에서 힘 이름을 골라요 👇'); return; } start=[e.clientX,e.clientY]; try{pic.setPointerCapture(e.pointerId);}catch(_){} e.preventDefault(); });
   pic.addEventListener('pointermove', e => { if(!start) return; const dx=e.clientX-start[0], dy=e.clientY-start[1]; if(Math.hypot(dx,dy)<12) return;
     $('qsvg').innerHTML = s.svg + arrow(s.pt[0],s.pt[1],Q.given.dir,82,C2,Q.given.name) + arrow(s.pt[0],s.pt[1],snap(dx,dy),82,'#7c3aed',st.sel,true); });
   pic.addEventListener('pointerup', e => { if(!start) return; const dx=e.clientX-start[0], dy=e.clientY-start[1]; start=null;
@@ -879,6 +936,7 @@ function answerOpt(k){
   renderQuiz();
 }
 
+
 /* ---------- 닉네임 신청 ---------- */
 $('nickBtn').onclick = () => { $('nNick').value=''; $('nErr').textContent=''; $('nickOv').classList.remove('hidden'); };
 $('nCancel').onclick = () => $('nickOv').classList.add('hidden');
@@ -907,10 +965,16 @@ async function loadPub(){
   }catch(_){ $('pubList').innerHTML = '<div class="lockmsg">연결에 실패했어요.</div>'; }
 }
 
-/* ---------- 교사 모드 ---------- */
+
+
+/* ---------- 교사 모드 (사이트 화면) ---------- */
 let T = null; try{ T = sessionStorage.getItem('bal_t'); }catch(_){}
-let tCls = S ? S.class_no : 0, tData = null, tTimer = null;
-$('tBtn').onclick = () => { if(T) openT(); else { $('tPw').value=''; $('tErr').textContent=''; $('tLoginOv').classList.remove('hidden'); setTimeout(()=>$('tPw').focus(),50); } };
+let tCls = 0, tSub = 'ros', tSit = 0, tData = null, tTimer = null;
+try{ $('tHide').checked = sessionStorage.getItem('bal_hide') === '1'; }catch(_){}
+$('tBtn').onclick = () => {
+  if(inTeacher){ exitT(); return; }
+  if(T) openT(); else { $('tPw').value=''; $('tErr').textContent=''; $('tLoginOv').classList.remove('hidden'); setTimeout(()=>$('tPw').focus(),50); }
+};
 $('tCancel').onclick = () => $('tLoginOv').classList.add('hidden');
 $('tPw').addEventListener('keydown', e => { if(e.key==='Enter') $('tGo').click(); });
 $('tGo').onclick = async () => {
@@ -921,62 +985,133 @@ $('tGo').onclick = async () => {
     $('tLoginOv').classList.add('hidden'); openT();
   }catch(_){ $('tErr').textContent = '연결에 실패했어요.'; }
 };
-$('tClose').onclick = () => { $('tOv').classList.add('hidden'); clearInterval(tTimer); };
-$('tOut').onclick = async () => { try{ await rpc('bal_t_logout',{p_tok:T}); }catch(_){} T=null; try{sessionStorage.removeItem('bal_t');}catch(_){} $('tOv').classList.add('hidden'); clearInterval(tTimer); };
-$('tHide').onchange = renderT; $('tTodo').onchange = renderT;
-$('tPreview').onclick = () => {
-  preview = true; pvProg = {}; SC.forEach(s=>{ s.slots=[]; s.done=false; s.fb=null; s.sel=null; s.ex=null; });
+function resetLocal(){
+  SC.forEach(s=>{ s.slots=[]; s.done=false; s.fb=null; s.sel=null; });
+  EX.forEach(x=>{ x.text=''; x.msg=null; x.wall=''; });
   QS.forEach(s=>{ s.solved=false; s.put=null; s.sel=null; s.fb=null; s.tried=false; s.wrongOpt=[]; });
+  aIdx = 0; eIdx = 0; qi = 0;
+}
+function openT(){
+  if(preview){ preview = false; pvProg = {}; resetLocal(); }
+  inTeacher = true;
+  $('joinView').classList.add('hidden'); $('appView').classList.add('hidden'); $('teacherView').classList.remove('hidden');
+  $('meBadge').classList.add('hidden'); $('nickBtn').classList.add('hidden');
+  $('tBtn').textContent = '👩‍🎓 학생 화면으로';
+  window.scrollTo(0,0); loadT(); clearInterval(tTimer); tTimer = setInterval(() => { if(document.visibilityState==='visible' && $('showOv').classList.contains('hidden')) loadT(); }, 8000);
+}
+function exitT(){
+  inTeacher = false; clearInterval(tTimer);
+  $('teacherView').classList.add('hidden'); $('tBtn').textContent = '🧑‍🏫 교사';
+  if(S){ showApp(); refreshMe(true); } else showJoin();
+}
+$('tOut').onclick = async () => { try{ await rpc('bal_t_logout',{p_tok:T}); }catch(_){} T=null; try{sessionStorage.removeItem('bal_t');}catch(_){} exitT(); };
+$('tHide').onchange = () => { try{ sessionStorage.setItem('bal_hide', $('tHide').checked?'1':'0'); }catch(_){} renderT(); };
+$('tTodo').onchange = renderT;
+$('tPreview').onclick = () => {
+  inTeacher = false; clearInterval(tTimer); preview = true; pvProg = {}; resetLocal();
   OPEN = Object.assign({}, OPEN, { arrow:true, quiz:true, wall:true });
-  $('tOv').classList.add('hidden'); clearInterval(tTimer); showApp(); renderAll();
-  toast('미리 보기예요. 기록되지 않아요. 새로고침하면 끝나요.', 4000);
+  showApp(); curTab='t1'; renderAll(); window.scrollTo(0,0);
+  toast('미리 보기예요. 기록되지 않아요. 위 「교사 모드로」를 누르면 돌아가요.', 4000);
 };
-function openT(){ $('tOv').classList.remove('hidden'); loadT(); clearInterval(tTimer); tTimer = setInterval(loadT, 8000); }
+$('tTabs').querySelectorAll('[data-ts]').forEach(b => b.onclick = () => { tSub = b.dataset.ts; renderT(); });
 async function loadT(){
   try{
-    const [a,b] = await Promise.all([ rpc('bal_t_state',{p_tok:T}), rpc('bal_t_posts',{p_tok:T,p_class:tCls}) ]);
-    if(!a.ok){ T=null; try{sessionStorage.removeItem('bal_t');}catch(_){} $('tOv').classList.add('hidden'); clearInterval(tTimer); toast('다시 로그인해 주세요.'); return; }
+    const [a,b] = await Promise.all([ rpc('bal_t_state',{p_tok:T}), rpc('bal_t_posts',{p_tok:T,p_class:0}) ]);
+    if(!a.ok){ T=null; try{sessionStorage.removeItem('bal_t');}catch(_){} exitT(); toast('다시 로그인해 주세요.'); return; }
     tData = { st:a, posts:b.ok?b.posts:[] }; renderT();
   }catch(_){}
 }
 async function tSet(k,v){ try{ const r = await rpc('bal_t_set',{p_tok:T,p_key:k,p_val:v}); if(r.ok){ tData.st.open = r.open; renderT(); } }catch(_){ toast('연결에 실패했어요.'); } }
+const QN = () => QUIZ.length;
 function renderT(){
   if(!tData) return;
   const o = tData.st.open, hide = $('tHide').checked;
-  const SW = [['arrow','① 힘 찾기 (화살표)'],['wall','① 예시 올리기 (AI 확인)'],['quiz','② 힘의 평형 퀴즈'],['pub','👀 로그인 없이 예시 보기']];
+  const SW = [['arrow','① 힘 찾기'],['wall','② 예시 올리기'],['quiz','③ 평형 퀴즈'],['pub','👀 로그인 없이 예시 보기']];
   $('tSw').innerHTML = SW.map(([k,l])=>`<button class="sw ${o[k]?'on':''}" data-k="${k}">${l}<span class="k">${o[k]?'열림':'닫힘'}</span></button>`).join('');
   $('tSw').querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>tSet(b.dataset.k, !o[b.dataset.k]));
-  $('tCls').innerHTML = `<button data-c="0" class="${tCls===0?'on':''}">전체</button>` + Array.from({length:NCLS},(_,k)=>`<button data-c="${k+1}" class="${tCls===k+1?'on':''}">${k+1}반</button>`).join('');
-  $('tCls').querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{ tCls=Number(b.dataset.c); loadT(); });
-  let list = tData.st.students.filter(s => !tCls || s.class_no === tCls);
-  const isDone = s => { const p=s.progress||{}; return [1,2,3,4].every(k=>p['a'+k]) && s.posts.length>=4 && p.book && QUIZ.every((_,k)=>p['q'+(k+1)]); };
-  const cnt = f => list.filter(f).length;
-  $('tStat').innerHTML = `<span>입장 ${list.length}명</span><span>힘 표시 4개 ${cnt(s=>[1,2,3,4].every(k=>(s.progress||{})['a'+k]))}명</span><span>예시 4개 ${cnt(s=>s.posts.length>=4)}명</span><span>교과서 정리 ${cnt(s=>(s.progress||{}).book)}명</span><span>퀴즈 완료 ${cnt(s=>QUIZ.every((_,k)=>(s.progress||{})['q'+(k+1)]))}명</span><span>모두 완료 ${cnt(isDone)}명</span>`;
-  if($('tTodo').checked) list = list.filter(s=>!isDone(s));
-  const mark = (v,t) => v ? `<span class="y" title="${t||''}">●</span>` : '<span class="n">○</span>';
-  $('tRos').innerHTML = list.length ? list.map(s=>{ const p=s.progress||{};
-    const qn = QUIZ.filter((_,k)=>p['q'+(k+1)]).length, q1 = QUIZ.filter((_,k)=>p['q'+(k+1)]===1).length;
-    return `<tr><td>${hide ? s.class_no+'반' : esc(s.sid)}</td><td class="l">${s.online?'<span class="on-dot" title="접속 중"></span>':''}${esc(s.nick)}${s.nick_req?` <small style="color:var(--warn)">→ ${esc(s.nick_req)}?</small>`:''}</td>
-      <td>${[1,2,3,4].map(k=>mark(p['a'+k], p['a'+k+'_t'])).join('')}</td>
-      <td>${[1,2,3,4].map(k=>mark(s.posts.includes(k))).join('')}</td>
-      <td>${p.book?`<span class="y" title="${esc(p.book_t||'')}">✓</span>`:'<span class="n">–</span>'}</td>
-      <td>${qn===QUIZ.length?'<b class="y">완료</b>':qn+'/'+QUIZ.length}</td><td>${qn?q1+'/'+qn:'–'}</td>
-      <td>${hide?'':`<button class="mini" data-rn="${esc(s.sid)}">이름 바꾸기</button> <button class="mini r" data-ds="${esc(s.sid)}">삭제</button>`}</td></tr>`; }).join('')
-    : `<tr><td colspan="8" style="color:var(--sub);padding:18px">아직 입장한 학생이 없어요</td></tr>`;
-  $('tRos').querySelectorAll('[data-rn]').forEach(b=>b.onclick=async()=>{
-    const n = prompt('새 닉네임 (실명 X)', randNick()); if(n===null) return;
-    const r = await rpc('bal_t_rename',{p_tok:T,p_sid:b.dataset.rn,p_nick:cleanNick(n)}); if(!r.ok) toast(errMsg(r.err)); loadT(); });
-  $('tRos').querySelectorAll('[data-ds]').forEach(b=>b.onclick=async()=>{
-    if(!confirm(`${b.dataset.ds} 학생 기록과 올린 예시를 모두 지울까요? (학번을 잘못 입력한 경우 등)`)) return;
-    await rpc('bal_t_del_student',{p_tok:T,p_sid:b.dataset.ds}); loadT(); });
   const reqs = tData.st.students.filter(s=>s.nick_req);
-  $('tReq').innerHTML = reqs.length ? reqs.map(s=>`<div class="row" style="margin:4px 0"><b>${hide?s.class_no+'반':esc(s.sid)}</b> ${esc(s.nick)} → <b>${esc(s.nick_req)}</b>
-    <button class="mini g" data-ok="${esc(s.sid)}">승인</button><button class="mini r" data-no="${esc(s.sid)}">거절</button></div>`).join('') : '<span style="color:var(--sub)">신청이 없어요</span>';
-  $('tReq').querySelectorAll('[data-ok],[data-no]').forEach(b=>b.onclick=async()=>{
-    const ok = !!b.dataset.ok; const r = await rpc('bal_t_nick',{p_tok:T,p_sid:b.dataset.ok||b.dataset.no,p_ok:ok}); if(!r.ok) toast(errMsg(r.err)); loadT(); });
-  $('tPosts').innerHTML = SCENES.map((sc,i)=>{ const ps = tData.posts.filter(p=>p.sit===i+1);
-    return `<div class="col"><h4>${i+1}. ${sc.name} (${ps.length})</h4>${ps.map(p=>`<div class="tpost"><div style="font-size:13px;color:var(--sub);font-weight:700">${hide?p.class_no+'반':esc(p.sid)} · ${esc(p.nick)} · ${esc(p.t)}</div>${esc(p.body)}${p.ai_comment?`<div class="ai">🤖 ${esc(p.ai_comment)}</div>`:''}${hide?'':`<div style="text-align:right"><button class="mini r" data-dp="${p.id}">삭제</button></div>`}</div>`).join('') || '<div style="color:var(--sub);font-size:15px">없음</div>'}</div>`; }).join('');
-  $('tPosts').querySelectorAll('[data-dp]').forEach(b=>b.onclick=async()=>{ if(!confirm('이 예시를 지울까요? 학생은 다시 올릴 수 있어요.')) return; await rpc('bal_t_del_post',{p_tok:T,p_id:Number(b.dataset.dp)}); loadT(); });
+  $('tReqN').innerHTML = reqs.length ? `<span class="badge">${reqs.length}</span>` : '';
+  $('tTabs').querySelectorAll('[data-ts]').forEach(b=>b.classList.toggle('on', b.dataset.ts===tSub));
+  $('tsRos').classList.toggle('hidden', tSub!=='ros'); $('tsEx').classList.toggle('hidden', tSub!=='ex'); $('tsNick').classList.toggle('hidden', tSub!=='nick');
+  $('tCls').classList.toggle('hidden', tSub==='nick');
+  $('tCls').innerHTML = `<button data-c="0" class="${tCls===0?'on':''}">전체</button>` + Array.from({length:NCLS},(_,k)=>`<button data-c="${k+1}" class="${tCls===k+1?'on':''}">${k+1}반</button>`).join('');
+  $('tCls').querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{ tCls=Number(b.dataset.c); renderT(); });
+  const who = s => hide ? `${s.class_no}반` : esc(s.sid);
+  if(tSub === 'ros'){
+    let list = tData.st.students.filter(s => !tCls || s.class_no === tCls);
+    const isDone = s => { const p=s.progress||{}; return [1,2,3,4].every(k=>p['a'+k]) && s.posts.length>=4 && p.book && QUIZ.every((_,k)=>p['q'+(k+1)]); };
+    const cnt = f => list.filter(f).length;
+    $('tStat').innerHTML = `<span>입장 ${list.length}명</span><span>① 힘 찾기 4개 ${cnt(s=>[1,2,3,4].every(k=>(s.progress||{})['a'+k]))}명</span><span>② 예시 4개 ${cnt(s=>s.posts.length>=4)}명</span><span>교과서 정리 ${cnt(s=>(s.progress||{}).book)}명</span><span>③ 퀴즈 완료 ${cnt(s=>QUIZ.every((_,k)=>(s.progress||{})['q'+(k+1)]))}명</span><span>모두 완료 ${cnt(isDone)}명</span>`;
+    if($('tTodo').checked) list = list.filter(s=>!isDone(s));
+    const mark = (v,t) => v ? `<span class="y" title="${esc(t||'')}">●</span>` : '<span class="n">○</span>';
+    $('tRos').innerHTML = list.length ? list.map(s=>{ const p=s.progress||{};
+      const qn = QUIZ.filter((_,k)=>p['q'+(k+1)]).length, q1 = QUIZ.filter((_,k)=>p['q'+(k+1)]===1).length;
+      return `<tr><td>${who(s)}</td><td class="l">${s.online?'<span class="on-dot" title="접속 중"></span>':''}${esc(s.nick)}${s.nick_req?` <small style="color:var(--warn)">→ ${esc(s.nick_req)}?</small>`:''}</td>
+        <td>${[1,2,3,4].map(k=>mark(p['a'+k], p['a'+k+'_t'])).join('')}</td>
+        <td>${[1,2,3,4].map(k=>mark(s.posts.includes(k))).join('')}</td>
+        <td>${p.book?`<span class="y" title="${esc(p.book_t||'')}">✓</span>`:'<span class="n">–</span>'}</td>
+        <td>${qn===QN()?'<b class="y">완료</b>':qn+'/'+QN()}</td><td>${qn?q1+'/'+qn:'–'}</td>
+        <td>${hide?'':`<button class="mini" data-rn="${esc(s.sid)}">닉네임 바꾸기</button> <button class="mini r" data-ds="${esc(s.sid)}">삭제</button>`}</td></tr>`; }).join('')
+      : `<tr><td colspan="8" style="color:var(--sub);padding:18px">아직 입장한 학생이 없어요</td></tr>`;
+    $('tRos').querySelectorAll('[data-rn]').forEach(b=>b.onclick=()=>openRename(b.dataset.rn));
+    $('tRos').querySelectorAll('[data-ds]').forEach(b=>b.onclick=async()=>{
+      if(!confirm(`${b.dataset.ds} 학생 기록과 올린 예시를 모두 지울까요? (학번을 잘못 입력한 경우 등)`)) return;
+      await rpc('bal_t_del_student',{p_tok:T,p_sid:b.dataset.ds}); loadT(); });
+  }
+  if(tSub === 'ex'){
+    $('tSit').innerHTML = `<button data-s="0" class="${tSit===0?'on':''}">모든 상황</button>` + SCENES.map((s,i)=>`<button data-s="${i+1}" class="${tSit===i+1?'on':''}">${i+1}. ${s.name}</button>`).join('');
+    $('tSit').querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{ tSit=Number(b.dataset.s); renderT(); });
+    const posts = tData.posts.filter(p => !tCls || p.class_no === tCls);
+    $('tEx').innerHTML = SCENES.map((s,i)=>{ if(tSit && tSit!==i+1) return '';
+      const ps = posts.filter(p=>p.sit===i+1);
+      return `<div class="grp"><div class="gh"><img src="${PHOTO[i]}" alt=""><div><b>${i+1}. ${s.name} (${ps.length}개)</b><small>${Object.keys(s.ans).join('과 ')}이 평형</small></div></div>
+        <div class="tcards">${ps.map(p=>`<div class="tpost"><div class="w">${hide?p.class_no+'반':esc(p.sid)} · ${esc(p.nick)} · ${esc(p.t)}</div>${esc(p.body)}${hide?'':`<div style="text-align:right"><button class="mini r" data-dp="${p.id}">삭제</button></div>`}</div>`).join('') || '<div style="color:var(--sub)">아직 없어요</div>'}</div></div>`; }).join('');
+    $('tEx').querySelectorAll('[data-dp]').forEach(b=>b.onclick=async()=>{ if(!confirm('이 예시를 지울까요? 학생은 다시 올릴 수 있어요.')) return; await rpc('bal_t_del_post',{p_tok:T,p_id:Number(b.dataset.dp)}); loadT(); });
+  }
+  if(tSub === 'nick'){
+    $('tReq').innerHTML = reqs.length ? reqs.map(s=>`<div class="row" style="margin:6px 0;font-size:18px"><b>${who(s)}</b> ${esc(s.nick)} → <b>${esc(s.nick_req)}</b>
+      <button class="mini g" data-ok="${esc(s.sid)}">승인</button><button class="mini r" data-no="${esc(s.sid)}">거절</button></div>`).join('') : '<span style="color:var(--sub)">신청이 없어요</span>';
+    $('tReq').querySelectorAll('[data-ok],[data-no]').forEach(b=>b.onclick=async()=>{
+      const ok = !!b.dataset.ok; const r = await rpc('bal_t_nick',{p_tok:T,p_sid:b.dataset.ok||b.dataset.no,p_ok:ok}); if(!r.ok) toast(errMsg(r.err)); loadT(); });
+  }
+}
+let rnSid = null;
+function openRename(sid){
+  const s = tData.st.students.find(x=>x.sid===sid); if(!s) return;
+  rnSid = sid; $('rnWho').textContent = `${sid} · 지금 닉네임: ${s.nick}`; $('rnNick').value = randNick(); $('rnErr').textContent=''; $('rnOv').classList.remove('hidden');
+}
+$('rnRand').onclick = () => { $('rnNick').value = randNick(); $('rnErr').textContent=''; };
+$('rnCancel').onclick = () => $('rnOv').classList.add('hidden');
+$('rnGo').onclick = async () => {
+  const n = cleanNick($('rnNick').value); const e = nickErr(n); if(e){ $('rnErr').textContent = ERR[e]; return; }
+  try{ const r = await rpc('bal_t_rename',{p_tok:T,p_sid:rnSid,p_nick:n}); if(!r.ok){ $('rnErr').textContent = errMsg(r.err); return; } $('rnOv').classList.add('hidden'); toast('닉네임을 바꿨어요.'); loadT(); }
+  catch(_){ $('rnErr').textContent = '연결에 실패했어요.'; }
+};
+
+/* ---------- 수업용 전체 화면 (학번 없이) ---------- */
+let shSit = 1, shCls = 0, shTimer = null, shPosts = [];
+$('tShow').onclick = () => { shSit = tSit || 1; shCls = tCls; $('showOv').classList.remove('hidden'); try{ const d=document.documentElement; (d.requestFullscreen||d.webkitRequestFullscreen||function(){}).call(d); }catch(_){} loadShow(); clearInterval(shTimer); shTimer = setInterval(loadShow, 10000); };
+function closeShow(){ $('showOv').classList.add('hidden'); clearInterval(shTimer); try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(_){} }
+$('shClose').onclick = closeShow;
+$('shPrev').onclick = () => { shSit = shSit===1 ? 4 : shSit-1; renderShow(); };
+$('shNext').onclick = () => { shSit = shSit===4 ? 1 : shSit+1; renderShow(); };
+document.addEventListener('keydown', e => {
+  if($('showOv').classList.contains('hidden')) return;
+  if(e.key==='ArrowLeft') $('shPrev').click(); else if(e.key==='ArrowRight') $('shNext').click(); else if(e.key==='Escape') closeShow();
+});
+document.addEventListener('fullscreenchange', () => { if(!document.fullscreenElement && !$('showOv').classList.contains('hidden')){} });
+async function loadShow(){
+  try{ const r = await rpc('bal_t_posts',{p_tok:T,p_class:0}); if(r.ok){ shPosts = r.posts; renderShow(); } }catch(_){}
+}
+function renderShow(){
+  const s = SCENES[shSit-1];
+  $('shImg').src = PHOTO[shSit-1];
+  $('shTitle').textContent = `${shSit}. ${s.name}`;
+  const ps = shPosts.filter(p => p.sit === shSit && (!shCls || p.class_no === shCls));
+  $('shSub').textContent = `${Object.keys(s.ans).join('과 ')}이 평형 · ${shCls?shCls+'반':'모든 반'} ${ps.length}개`;
+  $('shCls').innerHTML = `<button data-c="0" class="${shCls===0?'on':''}">모든 반</button>` + Array.from({length:NCLS},(_,k)=>`<button data-c="${k+1}" class="${shCls===k+1?'on':''}">${k+1}반</button>`).join('');
+  $('shCls').querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{ shCls=Number(b.dataset.c); renderShow(); });
+  $('shCards').innerHTML = ps.length ? ps.map(p=>`<div class="c"><div class="w">${p.class_no}반 · ${esc(p.nick)}</div>${esc(p.body)}</div>`).join('') : '<div class="empty">아직 올라온 예시가 없어요</div>';
 }
 
 /* ---------- 시작 ---------- */
@@ -984,8 +1119,8 @@ if(!CFG.SUPABASE_URL || /여기에/.test(CFG.SUPABASE_URL)){
   document.querySelector('main').insertAdjacentHTML('afterbegin','<div class="card fb bad">config.js에 Supabase 주소와 키를 먼저 넣어 주세요.</div>');
 }
 if(S) refreshMe(true); else showJoin();
-setInterval(() => { if(document.visibilityState === 'visible'){ if(S && !preview) refreshMe(); else if(!S) checkPub(); } }, 5000);
-setInterval(() => { if(document.visibilityState === 'visible' && S && !preview && curTab==='t1' && OPEN.arrow){ SCENES.forEach((_,i)=>{ if($('wall'+i)) loadWall(i); }); } }, 20000);
+setInterval(() => { if(document.visibilityState === 'visible' && !inTeacher){ if(S && !preview) refreshMe(); else if(!S && !preview) checkPub(); } }, 5000);
+setInterval(() => { if(document.visibilityState === 'visible' && S && !preview && !inTeacher && curTab==='t2' && OPEN.wall){ const a = document.activeElement; if(!(a && a.id==='eta')) loadWall(eIdx); } }, 15000);
 })();
 </script>
 </body>
