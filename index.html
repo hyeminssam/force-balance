@@ -351,7 +351,7 @@ footer{text-align:center;color:#8a94ab;font-size:12px;padding:16px 16px 26px;lin
     <img id="shImg" alt="">
     <div style="flex:1;min-width:0"><h2 id="shTitle"></h2><div class="s2" id="shSub"></div></div>
     <button class="navb" id="shNext" aria-label="다음 상황">▶</button>
-    <button class="xbtn" id="shClose" style="margin-left:4px">✕ 닫기</button>
+    <button class="xbtn" id="shReload" title="새로 올라온 예시 불러오기">🔄 새 글 불러오기</button><button class="xbtn" id="shClose" style="margin-left:4px">✕ 닫기</button>
   </div>
   <div class="flt" id="shCls"></div>
   <div class="cards" id="shCards"></div>
@@ -1105,9 +1105,10 @@ $('rnGo').onclick = async () => {
 
 /* ---------- 수업용 전체 화면 (학번 없이) ---------- */
 let shSit = 1, shCls = 0, shTimer = null, shPosts = [];
-$('tShow').onclick = () => { shSit = tSit || 1; shCls = tCls; $('showOv').classList.remove('hidden'); try{ const d=document.documentElement; (d.requestFullscreen||d.webkitRequestFullscreen||function(){}).call(d); }catch(_){} loadShow(); clearInterval(shTimer); shTimer = setInterval(loadShow, 10000); };
+$('tShow').onclick = () => { shSit = tSit || 1; shCls = tCls; $('showOv').classList.remove('hidden'); try{ const d=document.documentElement; (d.requestFullscreen||d.webkitRequestFullscreen||function(){}).call(d); }catch(_){} loadShow(); };
 function closeShow(){ $('showOv').classList.add('hidden'); clearInterval(shTimer); try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(_){} }
 $('shClose').onclick = closeShow;
+$('shReload').onclick = () => { loadShow(); toast('새로 올라온 예시를 불러왔어요.'); };
 $('shPrev').onclick = () => { shSit = shSit===1 ? 4 : shSit-1; renderShow(); };
 $('shNext').onclick = () => { shSit = shSit===4 ? 1 : shSit+1; renderShow(); };
 document.addEventListener('keydown', e => {
