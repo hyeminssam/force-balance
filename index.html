@@ -174,18 +174,30 @@ table.ros td.l{text-align:left}
 .tpost{border:1px solid var(--line);border-radius:12px;padding:9px 11px;font-size:17px;background:#fff}
 .tpost .w{font-size:13px;color:var(--sub);font-weight:700}
 /* 수업용 전체 화면 */
-.show{position:fixed;inset:0;z-index:80;background:linear-gradient(135deg,#1e1b4b,#3b2f8f);color:#fff;display:flex;flex-direction:column;padding:16px 22px}
-.show .top{display:flex;align-items:center;gap:14px}
-.show .top img{height:96px;width:104px;object-fit:cover;border-radius:16px;background:#fff}
-.show .top h2{margin:0;font-size:34px;letter-spacing:-.5px}
-.show .top .s2{font-size:20px;opacity:.85;font-weight:700}
-.show .navb{background:#ffffff26;box-shadow:none;width:64px;height:64px;font-size:30px}
-.show .flt button{background:#ffffff1a;color:#fff;border-color:#ffffff40;font-size:18px}
-.show .flt button.on{background:#fff;color:#1e1b4b;border-color:#fff}
-.show .cards{flex:1;overflow:auto;columns:3 320px;column-gap:16px;margin-top:10px;padding-bottom:20px}
-.show .c{break-inside:avoid;background:#fff;color:#1f2a44;border-radius:18px;padding:14px 18px;margin-bottom:16px;font-size:27px;font-weight:700;line-height:1.4}
-.show .c .w{font-size:17px;color:#6d28d9;font-weight:800;margin-bottom:2px}
-.show .empty{font-size:26px;opacity:.7;text-align:center;margin-top:60px}
+.show{position:fixed;inset:0;z-index:80;color:#1f2a44;display:flex;flex-direction:column;padding:18px 24px 0;
+  background-color:#fff9ef;background-image:radial-gradient(#e9dcc4 1.2px,transparent 1.2px);background-size:22px 22px}
+.show .top{display:flex;align-items:center;gap:16px;background:#fff;border-radius:24px;padding:12px 16px;box-shadow:0 6px 20px #8a6d3b1f;border:1px solid #f1e6d2}
+.show .top img{height:92px;width:100px;object-fit:cover;border-radius:16px;border:1px solid #eee}
+.show .top h2{margin:0;font-size:34px;letter-spacing:-.6px;font-weight:900}
+.show .top .s2{font-size:19px;font-weight:700;color:#7a6a55;margin-top:2px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.show .top .s2 .fp{border-radius:999px;padding:2px 12px;font-size:17px;font-weight:800}
+.show .top .cnt2{background:#1f2a44;color:#fff;border-radius:999px;padding:2px 12px;font-size:17px}
+.show .navb{background:#fff;color:#4f46e5;border:2px solid #e7dcc8;box-shadow:0 4px 12px #8a6d3b22;width:62px;height:62px;font-size:28px}
+.show .xbtn{border:0;background:#f3ece0;color:#5b4b36;border-radius:14px;padding:10px 16px;font-size:18px;font-weight:800}
+.show .flt{margin:12px 2px 4px}
+.show .flt button{background:#fff;color:#5b4b36;border-color:#eadfcb;font-size:18px}
+.show .flt button.on{background:#ff8a3d;color:#fff;border-color:#ff8a3d}
+.show .cards{flex:1;overflow:auto;columns:3 330px;column-gap:20px;padding:10px 4px 30px}
+.show .c{break-inside:avoid;border-radius:20px;padding:16px 20px 18px;margin-bottom:20px;font-size:27px;font-weight:700;line-height:1.45;
+  box-shadow:0 8px 18px #8a6d3b26;position:relative;animation:pop .3s ease both}
+.show .c::before{content:"";position:absolute;top:-9px;left:50%;width:62px;height:18px;margin-left:-31px;background:#ffffffb3;border-radius:4px;transform:rotate(-2deg);box-shadow:0 1px 3px #0001}
+.show .c .w{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:800;margin-bottom:6px;opacity:.85}
+.show .c .av{width:30px;height:30px;border-radius:50%;background:#ffffffcc;display:grid;place-items:center;font-size:17px}
+.show .c.c0{background:#fff3b0;transform:rotate(-1deg)} .show .c.c1{background:#ffd9e4;transform:rotate(.8deg)}
+.show .c.c2{background:#d3f5e4;transform:rotate(-.6deg)} .show .c.c3{background:#d8ecff;transform:rotate(1deg)}
+.show .c.c4{background:#e8ddff;transform:rotate(-.9deg)} .show .c.c5{background:#ffe2c6;transform:rotate(.5deg)}
+.show .empty{font-size:28px;color:#8a7a63;text-align:center;margin-top:70px;font-weight:800}
+.show .empty .big{font-size:64px}
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#1f2a44;color:#fff;border-radius:14px;padding:11px 18px;font-weight:700;z-index:90;font-size:17px;max-width:90vw;text-align:center}
 footer{text-align:center;color:#8a94ab;font-size:12px;padding:16px 16px 26px;line-height:1.6}
 @keyframes pop{0%{transform:scale(.95);opacity:0}100%{transform:scale(1);opacity:1}}
@@ -339,7 +351,7 @@ footer{text-align:center;color:#8a94ab;font-size:12px;padding:16px 16px 26px;lin
     <img id="shImg" alt="">
     <div style="flex:1;min-width:0"><h2 id="shTitle"></h2><div class="s2" id="shSub"></div></div>
     <button class="navb" id="shNext" aria-label="다음 상황">▶</button>
-    <button class="btn ghost" id="shClose" style="margin-left:8px">✕ 닫기</button>
+    <button class="xbtn" id="shClose" style="margin-left:4px">✕ 닫기</button>
   </div>
   <div class="flt" id="shCls"></div>
   <div class="cards" id="shCards"></div>
@@ -750,13 +762,16 @@ async function submitEx(){
   try{
     const r = await rpc('bal_post', { p_sid:S.sid, p_token:S.token, p_sit:sit, p_body:text });
     if(!r.ok) e.msg = { cls:'bad', html:esc(errMsg(r.err)) };
-    else { e.msg = { cls:'ok', html:'🎉 올라갔어요! 이제 친구들 예시도 볼 수 있어요.' }; e.text=''; e.wall=''; await refreshMe(); }
+    else { e.text=''; EX.forEach(x=>x.wall=''); await refreshMe();
+      const n = ((ME&&ME.mine)||[]).length;
+      e.msg = n >= 4 ? { cls:'ok', html:'🎉 네 가지 예시를 모두 올렸어요! 이제 친구들 예시를 볼 수 있어요.' }
+                     : { cls:'ok', html:`🎉 올라갔어요! (${n}/4) 네 가지를 모두 올리면 친구들 예시를 볼 수 있어요.` }; }
   }catch(err){ e.msg = { cls:'bad', html:'연결에 실패했어요. 잠시 뒤 다시 눌러 주세요.' }; }
   e.busy = false; renderE(); loadWall(i);
 }
 async function delMine(id){
   if(!confirm('내 예시를 지울까요? 지우고 다시 쓸 수 있어요.')) return;
-  try{ const r = await rpc('bal_post_del', { p_sid:S.sid, p_token:S.token, p_id:id }); if(!r.ok){ toast(errMsg(r.err)); return; } EX[eIdx].msg=null; EX[eIdx].wall=''; await refreshMe(); renderE(); loadWall(eIdx); }
+  try{ const r = await rpc('bal_post_del', { p_sid:S.sid, p_token:S.token, p_id:id }); if(!r.ok){ toast(errMsg(r.err)); return; } EX[eIdx].msg=null; EX.forEach(x=>x.wall=''); await refreshMe(); renderE(); loadWall(eIdx); }
   catch(e){ toast('연결에 실패했어요.'); }
 }
 function bindWall(){
@@ -772,7 +787,7 @@ async function loadWall(i){
     const r = await rpc('bal_wall', { p_sid:S.sid, p_token:S.token, p_sit:i+1, p_all: e.flt==='all' });
     if(!r.ok) return;
     let html;
-    if(r.locked) html = `<div class="lockmsg">🔒 내 예시를 올리면 친구들 예시가 보여요</div>`;
+    if(r.locked){ const n = r.done || 0; html = `<div class="lockmsg">🔒 네 가지 예시를 모두 올리면 친구들 예시가 보여요<div style="margin-top:8px;font-size:22px;letter-spacing:4px">${[0,1,2,3].map(k=>k<n?'🟢':'⚪').join('')}</div><div style="font-size:15px;margin-top:2px">${n} / 4</div></div>`; }
     else { const others = r.posts.filter(p=>!p.mine);
       html = `<div class="flt"><button data-fl="class" class="${e.flt==='class'?'on':''}">우리 반</button><button data-fl="all" class="${e.flt==='all'?'on':''}">모든 반</button><span style="margin-left:auto;font-size:15px;color:var(--sub);font-weight:700">${others.length}개</span></div>
         <div class="posts">${others.length ? others.map(p=>`<div class="post"><div class="w">${p.class_no}반 · ${esc(p.nick)}</div>${esc(p.body)}</div>`).join('') : '<div class="lockmsg">아직 친구들 예시가 없어요</div>'}</div>`; }
@@ -1108,10 +1123,13 @@ function renderShow(){
   $('shImg').src = PHOTO[shSit-1];
   $('shTitle').textContent = `${shSit}. ${s.name}`;
   const ps = shPosts.filter(p => p.sit === shSit && (!shCls || p.class_no === shCls));
-  $('shSub').textContent = `${Object.keys(s.ans).join('과 ')}이 평형 · ${shCls?shCls+'반':'모든 반'} ${ps.length}개`;
+  $('shSub').innerHTML = Object.entries(s.ans).map(([n,d],k)=>`<span class="fp" style="background:${k?'#e8f0ff':'#ffe9ec'};color:${k?C2:C1}">${esc(n)} ${DIRS[d]}</span>`).join('') + `<span>이 평형</span><span class="cnt2">${shCls?shCls+'반':'모든 반'} · ${ps.length}개</span>`;
   $('shCls').innerHTML = `<button data-c="0" class="${shCls===0?'on':''}">모든 반</button>` + Array.from({length:NCLS},(_,k)=>`<button data-c="${k+1}" class="${shCls===k+1?'on':''}">${k+1}반</button>`).join('');
   $('shCls').querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{ shCls=Number(b.dataset.c); renderShow(); });
-  $('shCards').innerHTML = ps.length ? ps.map(p=>`<div class="c"><div class="w">${p.class_no}반 · ${esc(p.nick)}</div>${esc(p.body)}</div>`).join('') : '<div class="empty">아직 올라온 예시가 없어요</div>';
+  const AV = ['🦒','🦦','🐧','🐿️','🐳','🐬','🐼','🦊','🦌','🐰','🐱','🐶','🐹','🦁','🐯','🦜','🐢','🦔','🦩','🐝','🦋','🐞','🐸','🦄'];
+  const hash = t => { let x=0; for(const ch of String(t)) x = (x*31 + ch.charCodeAt(0)) >>> 0; return x; };
+  $('shCards').innerHTML = ps.length ? ps.map((p,k)=>`<div class="c c${k%6}" style="animation-delay:${Math.min(k,20)*30}ms"><div class="w"><span class="av">${AV[hash(p.nick)%AV.length]}</span>${p.class_no}반 · ${esc(p.nick)}</div>${esc(p.body)}</div>`).join('')
+    : '<div class="empty"><div class="big">📭</div>아직 올라온 예시가 없어요</div>';
 }
 
 /* ---------- 시작 ---------- */
