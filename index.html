@@ -187,8 +187,8 @@ table.ros td.l{text-align:left}
 .show .flt{margin:12px 2px 4px}
 .show .flt button{background:#fff;color:#5b4b36;border-color:#eadfcb;font-size:18px}
 .show .flt button.on{background:#ff8a3d;color:#fff;border-color:#ff8a3d}
-.show .cards{flex:1;overflow:auto;columns:3 330px;column-gap:20px;padding:10px 4px 30px}
-.show .c{break-inside:avoid;border-radius:20px;padding:16px 20px 18px;margin-bottom:20px;font-size:27px;font-weight:700;line-height:1.45;
+.show .cards{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px 20px;align-items:start;align-content:start;padding:14px 6px 40px}
+.show .c{border-radius:20px;padding:16px 20px 18px;font-size:27px;font-weight:700;line-height:1.45;
   box-shadow:0 8px 18px #8a6d3b26;position:relative;animation:pop .3s ease both}
 .show .c::before{content:"";position:absolute;top:-9px;left:50%;width:62px;height:18px;margin-left:-31px;background:#ffffffb3;border-radius:4px;transform:rotate(-2deg);box-shadow:0 1px 3px #0001}
 .show .c .w{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:800;margin-bottom:6px;opacity:.85}
@@ -360,7 +360,7 @@ footer{text-align:center;color:#8a94ab;font-size:12px;padding:16px 16px 26px;lin
 <div id="toast" class="toast hidden"></div>
 
 <script>
-(()=>{
+function __balStart(){
 'use strict';
 const CFG = window.BAL_CONFIG || {};
 const NCLS = Number(CFG.CLASS_COUNT) || 7;
@@ -1134,12 +1134,27 @@ function renderShow(){
 }
 
 /* ---------- 시작 ---------- */
-if(!CFG.SUPABASE_URL || /여기에/.test(CFG.SUPABASE_URL)){
-  document.querySelector('main').insertAdjacentHTML('afterbegin','<div class="card fb bad">config.js에 Supabase 주소와 키를 먼저 넣어 주세요.</div>');
+if(window.__balCfgState){
+  const where = location.href.replace(/[#?].*$/,'').replace(/[^/]*$/,'') + 'config.js';
+  const msg = window.__balCfgState === 'missing'
+    ? `config.js 파일을 불러오지 못했어요. GitHub 저장소에서 index.html과 같은 곳에 config.js가 있는지 확인해 주세요.<br><small>확인할 주소: ${esc(where)}</small>`
+    : `config.js 안의 SUPABASE_URL 또는 SUPABASE_KEY에 아직 '여기에…' 글자가 남아 있어요. 두 줄을 모두 채워 주세요.<br><small>확인할 주소: ${esc(where)}</small>`;
+  document.querySelector('main').insertAdjacentHTML('afterbegin', `<div class="card fb bad">${msg}</div>`);
 }
 if(S) refreshMe(true); else showJoin();
 setInterval(() => { if(document.visibilityState === 'visible' && !inTeacher){ if(S && !preview) refreshMe(); else if(!S && !preview) checkPub(); } }, 5000);
 setInterval(() => { if(document.visibilityState === 'visible' && S && !preview && !inTeacher && curTab==='t2' && OPEN.wall){ const a = document.activeElement; if(!(a && a.id==='eta')) loadWall(eIdx); } }, 15000);
+}
+/* config.js 불러오기 — 못 불러왔거나 예전 것이 남아 있으면 한 번 더 새로 불러와요 */
+(function(){
+  const bad = c => !c || !c.SUPABASE_URL || /여기에/.test(c.SUPABASE_URL) || !c.SUPABASE_KEY || /여기에/.test(c.SUPABASE_KEY);
+  if(!bad(window.BAL_CONFIG)){ __balStart(); return; }
+  const first = window.BAL_CONFIG;
+  const sc = document.createElement('script');
+  sc.src = 'config.js?v=' + Date.now();
+  const go = () => { if(bad(window.BAL_CONFIG)) window.__balCfgState = window.BAL_CONFIG ? 'placeholder' : (first ? 'placeholder' : 'missing'); __balStart(); };
+  sc.onload = go; sc.onerror = go;
+  document.head.appendChild(sc);
 })();
 </script>
 </body>
